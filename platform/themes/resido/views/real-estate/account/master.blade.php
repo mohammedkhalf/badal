@@ -80,6 +80,15 @@
                                             </a>
                                         </li>
                                     @endif
+                                    @if (auth('account')->user()->canPost())
+                                        <li class="{{ request()->routeIs('public.account.properties.create') ? 'active' : '' }}">
+                                            <a
+                                                href="#"
+                                                title="My Biddings">
+                                                <i class="far fa-edit mr1"></i>My Biddings
+                                            </a>
+                                        </li>
+                                    @endif
 
                                     <li class="{{ request()->routeIs('public.account.security') ? 'active' : '' }}">
                                         <a href="{{ route('public.account.security') }}">

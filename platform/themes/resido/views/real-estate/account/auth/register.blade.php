@@ -107,7 +107,42 @@
                                     </div>
                                 </div>
 
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-with-icon">
+                                            <input id="national_id" type="text"
+                                                   class="form-control{{ $errors->has('national_id') ? ' is-invalid' : '' }}"
+                                                   name="national_id" value="{{ old('national_id') }}" required
+                                                   placeholder="{{ trans('plugins/real-estate::dashboard.national_id') }}">
+                                            <i class="ti-user"></i>
+                                        </div>
+                                        @if ($errors->has('national_id'))
+                                            <span class="d-block invalid-feedback">
+                                                <strong>{{ $errors->first('national_id') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-with-icon">
+                                            <input id="phone" type="text"
+                                                   class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
+                                                   name="national_id" value="{{ old('phone') }}" required
+                                                   placeholder="{{ trans('plugins/real-estate::dashboard.phone') }}">
+                                            <i class="ti-user"></i>
+                                        </div>
+                                        @if ($errors->has('phone'))
+                                            <span class="d-block invalid-feedback">
+                                                <strong>{{ $errors->first('phone') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
                             </div>
+
                             @if (setting('enable_captcha') && is_plugin_active('captcha'))
                                 <div class="form-group">
                                     {!! Captcha::display() !!}

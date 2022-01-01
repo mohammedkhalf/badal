@@ -69,6 +69,17 @@
                                        name="password_confirmation" required
                                        placeholder="{{ trans('plugins/real-estate::dashboard.password-confirmation') }}">
                             </div>
+                            <div class="form-group">
+                                <input id="national_id" type="text"
+                                       class="form-control{{ $errors->has('national_id') ? ' is-invalid' : '' }}"
+                                       name="national_id" value="{{ old('national_id') }}" required
+                                       placeholder="{{ trans('plugins/real-estate::dashboard.national_id') }}">
+                                @if ($errors->has('national_id'))
+                                    <span class="invalid-feedback">
+                                    <strong>{{ $errors->first('national_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                             <div class="form-group mb-0">
                                 <button type="submit" class="btn btn-blue btn-full fw6">
                                     {{ trans('plugins/real-estate::dashboard.register-cta') }}
