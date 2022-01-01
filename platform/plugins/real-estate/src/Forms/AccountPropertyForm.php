@@ -57,6 +57,14 @@ class AccountPropertyForm extends PropertyForm
             ->addAfter('content', 'images', 'multipleUpload', [
                 'label'      => trans('plugins/real-estate::property.form.images'),
                 'label_attr' => ['class' => 'control-label'],
+            ])
+            ->modify('name', 'text', [
+                'label'         => trans('core/base::forms.title'),
+                'label_attr'    => ['class' => 'control-label required'],
+            ])
+            ->modify('type_id', 'select', [
+                'label'         => trans('core/base::forms.property_type'),
+                'label_attr'    => ['class' => 'control-label required'],
             ]);
     }
 }

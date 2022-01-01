@@ -178,15 +178,15 @@ class RegisterController extends Controller
 
         event(new Registered($account = $this->create($request->input())));
 
-        EmailHandler::setModule(REAL_ESTATE_MODULE_SCREEN_NAME)
-            ->setVariableValues([
-                'account_name'  => $account->name,
-                'account_email' => $account->email,
-            ])
-            ->sendUsingTemplate('account-registered');
+//        EmailHandler::setModule(REAL_ESTATE_MODULE_SCREEN_NAME)
+//            ->setVariableValues([
+//                'account_name'  => $account->name,
+//                'account_email' => $account->email,
+//            ])
+//            ->sendUsingTemplate('account-registered');
 
         if (setting('verify_account_email', config('plugins.real-estate.real-estate.verify_email'))) {
-            $this->sendConfirmationToUser($account);
+//            $this->sendConfirmationToUser($account);
             return $this->registered($request, $account)
                 ?: $response->setNextUrl($this->redirectPath())
                     ->setMessage(__('Please confirm your email address.'));

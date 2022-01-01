@@ -150,7 +150,7 @@ class Account extends Authenticatable
      */
     public function canPost(): bool
     {
-        return $this->credits > 0;
+        return $this->credits > 1;
     }
 
     /**

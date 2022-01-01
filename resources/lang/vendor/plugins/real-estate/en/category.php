@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'name' => 'Categories',
+    'name'   => 'Categories',
     'create' => 'New category',
-    'edit' => 'Edit category',
-    'menu' => 'Property categories',
+    'edit'   => 'Edit category',
+    'menu'   => 'Property categories',
 ];
