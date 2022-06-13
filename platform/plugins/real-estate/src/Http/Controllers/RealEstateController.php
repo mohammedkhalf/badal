@@ -70,7 +70,7 @@ class RealEstateController extends BaseController
 
     public function sentNotification(NotificationRequest $request ,  BaseHttpResponse $response)
     {
-        // implementation Dashboard Notifications
+        // implement Dashboard Notifications
         $options = array(
             'cluster' => 'eu',
             'encrypted' => false

@@ -23,7 +23,7 @@ Route::group(['namespace' => 'Botble\RealEstate\Http\Controllers', 'middleware' 
             'uses' => 'RealEstateController@notification',
         ]);
 
-        // route Dashboard Notifications
+        // implement Dashboard Notifications
         Route::post('sentNotification', [
             'as'   => 'real-estate.sentNotification',
             'uses' => 'RealEstateController@sentNotification',

@@ -3,7 +3,7 @@
     {!! Form::open(['url' => url('/admin/real-estate/sentNotification'), 'class' => 'main-setting-form']) !!}
     <div class="max-width-1200">
 
-        <!-- Dashboard Notifications -->
+        <!-- implement Dashboard Notifications -->
         <div class="flexbox-annotated-section">
             <div class="flexbox-annotated-section-annotation">
                 <div class="annotated-section-title pd-all-20">
