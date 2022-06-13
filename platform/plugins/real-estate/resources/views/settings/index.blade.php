@@ -200,52 +200,52 @@
             </div>
         </div>
 
-        <div class="flexbox-annotated-section">
-            <div class="flexbox-annotated-section-annotation">
-                <div class="annotated-section-title pd-all-20">
-                    <h2>{{ trans('plugins/real-estate::settings.review_settings') }}</h2>
-                </div>
-                <div class="annotated-section-description pd-all-20 p-none-t">
-                    <p class="color-note">{{ trans('plugins/real-estate::review.setting_description') }}</p>
-                </div>
-            </div>
-            <div class="flexbox-annotated-section-content">
-                <div class="wrapper-content pd-all-20">
-                    <div class="form-group">
-                        <label class="text-title-field"
-                            for="real_estate_review_enabled">{{ trans('plugins/real-estate::review.enable_review') }}
-                        </label>
-                        <label class="me-2">
-                            <input type="radio" name="real_estate_review_enabled" value="1" @if (is_review_enabled()) checked @endif>{{ trans('core/setting::setting.general.yes') }}
-                        </label>
-                        <label>
-                            <input type="radio" name="real_estate_review_enabled" value="0" @if (!is_review_enabled()) checked @endif>{{ trans('core/setting::setting.general.no') }}
-                        </label>
-                    </div>
+{{--        <div class="flexbox-annotated-section">--}}
+{{--            <div class="flexbox-annotated-section-annotation">--}}
+{{--                <div class="annotated-section-title pd-all-20">--}}
+{{--                    <h2>{{ trans('plugins/real-estate::settings.review_settings') }}</h2>--}}
+{{--                </div>--}}
+{{--                <div class="annotated-section-description pd-all-20 p-none-t">--}}
+{{--                    <p class="color-note">{{ trans('plugins/real-estate::review.setting_description') }}</p>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="flexbox-annotated-section-content">--}}
+{{--                <div class="wrapper-content pd-all-20">--}}
+{{--                    <div class="form-group">--}}
+{{--                        <label class="text-title-field"--}}
+{{--                            for="real_estate_review_enabled">{{ trans('plugins/real-estate::review.enable_review') }}--}}
+{{--                        </label>--}}
+{{--                        <label class="me-2">--}}
+{{--                            <input type="radio" name="real_estate_review_enabled" value="1" @if (is_review_enabled()) checked @endif>{{ trans('core/setting::setting.general.yes') }}--}}
+{{--                        </label>--}}
+{{--                        <label>--}}
+{{--                            <input type="radio" name="real_estate_review_enabled" value="0" @if (!is_review_enabled()) checked @endif>{{ trans('core/setting::setting.general.no') }}--}}
+{{--                        </label>--}}
+{{--                    </div>--}}
 
-                    <div class="form-group">
-                        <label class="text-title-field"
-                                for="{{ config('plugins.real-estate.real-estate.prefix') . 'review_fields' }}">{{ trans('plugins/real-estate::review.review_fields') }}</label>
-                        {!! Form::repeater(config('plugins.real-estate.real-estate.prefix') . 'review_fields', get_real_estate_setting('review_fields'), [
-                            [
-                                'type' => 'text',
-                                'label' => __('Field'),
-                                'label_attr' => ['class' => 'control-label'],
-                                'attributes' => [
-                                    'name' => 'field',
-                                    'value' => null,
-                                    'options' => [
-                                        'class' => 'form-control',
-                                        'data-counter' => 255,
-                                        'placeholder' => __('service'),
-                                    ],
-                                ],
-                            ],
-                        ]) !!}
-                    </div>
-                </div>
-            </div>
-        </div>
+{{--                    <div class="form-group">--}}
+{{--                        <label class="text-title-field"--}}
+{{--                                for="{{ config('plugins.real-estate.real-estate.prefix') . 'review_fields' }}">{{ trans('plugins/real-estate::review.review_fields') }}</label>--}}
+{{--                        {!! Form::repeater(config('plugins.real-estate.real-estate.prefix') . 'review_fields', get_real_estate_setting('review_fields'), [--}}
+{{--                            [--}}
+{{--                                'type' => 'text',--}}
+{{--                                'label' => __('Field'),--}}
+{{--                                'label_attr' => ['class' => 'control-label'],--}}
+{{--                                'attributes' => [--}}
+{{--                                    'name' => 'field',--}}
+{{--                                    'value' => null,--}}
+{{--                                    'options' => [--}}
+{{--                                        'class' => 'form-control',--}}
+{{--                                        'data-counter' => 255,--}}
+{{--                                        'placeholder' => __('service'),--}}
+{{--                                    ],--}}
+{{--                                ],--}}
+{{--                            ],--}}
+{{--                        ]) !!}--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
         <div class="flexbox-annotated-section" style="border: none">
             <div class="flexbox-annotated-section-annotation">
                 &nbsp;

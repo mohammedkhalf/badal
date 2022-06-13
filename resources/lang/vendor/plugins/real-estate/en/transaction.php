@@ -2,7 +2,7 @@
 
 return [
     'types' => [
-        'add'    => 'Add',
+        'add' => 'Add',
         'remove' => 'Remove',
     ],
 ];

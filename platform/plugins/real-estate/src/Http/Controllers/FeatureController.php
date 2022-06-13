@@ -2,11 +2,7 @@
 
 namespace Botble\RealEstate\Http\Controllers;
 
-use Botble\Base\Events\BeforeEditContentEvent;
-use Botble\Base\Events\CreatedContentEvent;
-use Botble\Base\Events\DeletedContentEvent;
-use Botble\Base\Events\UpdatedContentEvent;
-use Botble\Base\Forms\FormBuilder;
+
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\RealEstate\Forms\FeatureForm;

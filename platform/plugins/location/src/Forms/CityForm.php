@@ -69,6 +69,10 @@ class CityForm extends FormAbstract
                 ],
                 'choices'    => [0 => trans('plugins/location::city.select_country')] + $countries,
             ])
+            ->add('map_image', 'mediaImage', [
+                'label'      => trans('core/base::forms.image'),
+                'label_attr' => ['class' => 'control-label'],
+            ])
             ->add('order', 'number', [
                 'label'         => trans('core/base::forms.order'),
                 'label_attr'    => ['class' => 'control-label'],

@@ -1,9 +1,9 @@
 {
-    "name": "Resido - Real Estate",
-    "namespace": "Theme\\Resido\\",
-    "description": "Real Estate theme",
-    "author": "TheSky9 Team",
-    "version": "1.11.0",
+    "name": "badal",
+    "namespace": "Theme\\badal\\",
+    "description": "",
+    "author": "",
+    "version": "1.0",
     "required_plugins": [
         "blog",
         "contact",

@@ -1,13 +1,11 @@
 @php
     $layout = theme_option('properties_page_layout');
-
     $requestLayout = request()->input('layout');
     if ($requestLayout && in_array($requestLayout, array_keys(get_properties_page_layout()))) {
         $layout = $requestLayout;
     }
 
     $layout = ($layout && in_array($layout, array_keys(get_properties_page_layout()))) ? $layout : 'sidebar';
-
     $viewType = request()->input('view', 'grid');
     $gridClass = 'col-lg-12 col-md-12';
     $gridItemClass = 'col-lg-6 col-md-12';
@@ -79,9 +77,24 @@
     </div>
     <div class="clearfix"></div>
 @else
-    <!-- ============================ All Property ================================== -->
+   
+   
+<div class="row">
+                <div class="col-lg-12 col-md-12">
+        <div class="map-search-go" >
+        {!! do_shortcode('[hero-banner-style-map][/hero-banner-style-map]') !!}
+                        </div> </div> </div>
+   
+   
+   
     <section class="gray">
+            <!-- ============================ All Property ================================== -->
+                           
         <div class="container">
+
+
+       
+
 
             <div class="row">
                 <div class="col-lg-12 col-md-12">
@@ -95,7 +108,7 @@
             <div class="row">
                 @if ($layout !== 'full' && $layout !== 'grid_full')
                     <div class="col-lg-4 col-md-4 col-sm-12">
-                        <div class="simple-sidebar sm-sidebar" id="filter_search" style="left:0;">
+                        <div class="simple-sidebar sm-sidebar" id="filter_search" style="left: -310px;">
                             @include(Theme::getThemeNamespace('views.real-estate.includes.search-sidebar'))
                         </div>
                     </div>
@@ -136,3 +149,22 @@
 <script id="traffic-popup-map-template" type="text/x-custom-template">
     {!! Theme::partial('real-estate.properties.map-popup', ['property' => get_object_property_map()]) !!}
 </script>
+
+<!--  end top slider search page 
+<script>
+$(document).ready(function(){
+    $(".search-accordion h2").click(function(){
+        $(".search-accordion h2").css("border-color","#00000020")
+        $(this).css("border-color","#1266e3")
+    })
+    $(".search-accordion .list-group-horizontal,.three-slider-buttons").slick({
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          prevArrow: false,
+          nextArrow: false
+    });
+
+})
+
+</script>
+ -->

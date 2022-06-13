@@ -1,6 +1,6 @@
 <?php
 
-namespace Theme\Resido\Http\Resources;
+namespace Theme\badal\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;

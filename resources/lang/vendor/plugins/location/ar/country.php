@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'name' => 'Countries',
-    'create' => 'New country',
-    'edit' => 'Edit country',
-    'nationality' => 'Nationality',
+    'name' => 'البلاد',
+    'create' => 'أضافة بلد',
+    'edit' => 'تعديل البلد',
+    'nationality' => 'الجنسية',
 ];

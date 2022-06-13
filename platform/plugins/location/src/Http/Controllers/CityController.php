@@ -8,6 +8,7 @@ use Botble\Location\Http\Requests\CityRequest;
 use Botble\Location\Http\Resources\CityResource;
 use Botble\Location\Repositories\Interfaces\CityInterface;
 use Botble\Base\Http\Controllers\BaseController;
+use Botble\Media\Models\MediaFile;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Exception;
@@ -18,6 +19,7 @@ use Botble\Base\Events\UpdatedContentEvent;
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\Location\Forms\CityForm;
 use Botble\Base\Forms\FormBuilder;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Throwable;
 
@@ -107,6 +109,10 @@ class CityController extends BaseController
 
         $this->cityRepository->createOrUpdate($city);
 
+        MediaFile::updateOrCreate(['name' => 'city' . $id],
+            ['user_id' => 0, 'mime_type' => 'image/jpeg', 'url' => 'city/' . $id . '.jpg', 'size' => 2232]
+        );
+        //Storage::put('/cities/', $id);
         event(new UpdatedContentEvent(CITY_MODULE_SCREEN_NAME, $request, $city));
 
         return $response

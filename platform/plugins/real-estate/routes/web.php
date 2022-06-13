@@ -4,7 +4,10 @@ use Botble\RealEstate\Models\Category;
 use Botble\RealEstate\Models\Property;
 
 Route::group(['namespace' => 'Botble\RealEstate\Http\Controllers', 'middleware' => ['web', 'core']], function () {
-
+    Route::post('storeProperety', [
+        'as'   => 'storeProperety',
+        'uses' => 'AccountPropertyController@store',
+    ]);
     Route::group([
         'prefix'     => BaseHelper::getAdminPrefix() . '/real-estate',
         'middleware' => 'auth',
@@ -15,11 +18,23 @@ Route::group(['namespace' => 'Botble\RealEstate\Http\Controllers', 'middleware' 
             'uses' => 'RealEstateController@getSettings',
         ]);
 
+        Route::get('notification', [
+            'as'   => 'real-estate.notification',
+            'uses' => 'RealEstateController@notification',
+        ]);
+
+        // route Dashboard Notifications
+        Route::post('sentNotification', [
+            'as'   => 'real-estate.sentNotification',
+            'uses' => 'RealEstateController@sentNotification',
+        ]);
+
         Route::post('settings', [
             'as'         => 'real-estate.settings.post',
             'uses'       => 'RealEstateController@postSettings',
             'permission' => 'real-estate.settings',
         ]);
+
 
         Route::group(['prefix' => 'properties', 'as' => 'property.'], function () {
             Route::resource('', 'PropertyController')
@@ -30,6 +45,8 @@ Route::group(['namespace' => 'Botble\RealEstate\Http\Controllers', 'middleware' 
                 'uses'       => 'PropertyController@deletes',
                 'permission' => 'property.destroy',
             ]);
+
+
         });
 
         Route::group(['prefix' => 'property-features', 'as' => 'property_feature.'], function () {
@@ -40,6 +57,130 @@ Route::group(['namespace' => 'Botble\RealEstate\Http\Controllers', 'middleware' 
                 'as'         => 'deletes',
                 'uses'       => 'FeatureController@deletes',
                 'permission' => 'property_feature.destroy',
+            ]);
+        });
+
+        Route::group(['prefix' => 'property-notifications', 'as' => 'property_notification.'], function () {
+            Route::resource('', 'NotificationController')
+                ->parameters(['' => 'property_notification']);
+
+            Route::delete('items/destroy', [
+                'as'         => 'deletes',
+                'uses'       => 'NotificationController@deletes',
+                'permission' => 'property_notification.destroy',
+            ]);
+        });
+
+        Route::group(['prefix' => 'property-features2', 'as' => 'property_feature2.'], function () {
+            Route::resource('', 'Feature2Controller')
+                ->parameters(['' => 'property_feature2']);
+
+            Route::delete('items/destroy', [
+                'as'         => 'deletes',
+                'uses'       => 'Feature2Controller@deletes',
+                'permission' => 'property_feature2.destroy',
+            ]);
+        });
+
+
+        Route::group(['prefix' => 'property-features3', 'as' => 'property_feature3.'], function () {
+            Route::resource('', 'Feature3Controller')
+                ->parameters(['' => 'property_feature3']);
+
+            Route::delete('items/destroy', [
+                'as'         => 'deletes',
+                'uses'       => 'Feature3Controller@deletes',
+                'permission' => 'property_feature3.destroy',
+            ]);
+        });
+
+        Route::group(['prefix' => 'property-features4', 'as' => 'property_feature4.'], function () {
+            Route::resource('', 'Feature4Controller')
+                ->parameters(['' => 'property_feature4']);
+
+            Route::delete('items/destroy', [
+                'as'         => 'deletes',
+                'uses'       => 'Feature4Controller@deletes',
+                'permission' => 'property_feature4.destroy',
+            ]);
+        });
+
+        Route::group(['prefix' => 'property-features5', 'as' => 'property_feature5.'], function () {
+            Route::resource('', 'Feature5Controller')
+                ->parameters(['' => 'property_feature5']);
+
+            Route::delete('items/destroy', [
+                'as'         => 'deletes',
+                'uses'       => 'Feature5Controller@deletes',
+                'permission' => 'property_feature5.destroy',
+            ]);
+        });
+
+        Route::group(['prefix' => 'property-features6', 'as' => 'property_feature6.'], function () {
+            Route::resource('', 'Feature6Controller')
+                ->parameters(['' => 'property_feature6']);
+
+            Route::delete('items/destroy', [
+                'as'         => 'deletes',
+                'uses'       => 'Feature6Controller@deletes',
+                'permission' => 'property_feature6.destroy',
+            ]);
+        });
+
+
+        Route::group(['prefix' => 'property-features7', 'as' => 'property_feature7.'], function () {
+            Route::resource('', 'Feature7Controller')
+                ->parameters(['' => 'property_feature7']);
+
+            Route::delete('items/destroy', [
+                'as'         => 'deletes',
+                'uses'       => 'Feature7Controller@deletes',
+                'permission' => 'property_feature7.destroy',
+            ]);
+        });
+
+
+        Route::group(['prefix' => 'property-features8', 'as' => 'property_feature8.'], function () {
+            Route::resource('', 'Feature8Controller')
+                ->parameters(['' => 'property_feature8']);
+
+            Route::delete('items/destroy', [
+                'as'         => 'deletes',
+                'uses'       => 'Feature8Controller@deletes',
+                'permission' => 'property_feature8.destroy',
+            ]);
+        });
+
+        Route::group(['prefix' => 'property-features9', 'as' => 'property_feature9.'], function () {
+            Route::resource('', 'Feature9Controller')
+                ->parameters(['' => 'property_feature9']);
+
+            Route::delete('items/destroy', [
+                'as'         => 'deletes',
+                'uses'       => 'Feature9Controller@deletes',
+                'permission' => 'property_feature9.destroy',
+            ]);
+        });
+
+        Route::group(['prefix' => 'property-features10', 'as' => 'property_feature10.'], function () {
+            Route::resource('', 'Feature10Controller')
+                ->parameters(['' => 'property_feature10']);
+
+            Route::delete('items/destroy', [
+                'as'         => 'deletes',
+                'uses'       => 'Feature10Controller@deletes',
+                'permission' => 'property_feature10.destroy',
+            ]);
+        });
+
+        Route::group(['prefix' => 'property-features11', 'as' => 'property_feature11.'], function () {
+            Route::resource('', 'Feature11Controller')
+                ->parameters(['' => 'property_feature11']);
+
+            Route::delete('items/destroy', [
+                'as'         => 'deletes',
+                'uses'       => 'Feature11Controller@deletes',
+                'permission' => 'property_feature11.destroy',
             ]);
         });
 
@@ -75,6 +216,16 @@ Route::group(['namespace' => 'Botble\RealEstate\Http\Controllers', 'middleware' 
             ]);
         });
 
+        Route::group(['prefix' => 'property-notifications', 'as' => 'property_notification.'], function () {
+            Route::resource('', 'NotificationController')
+                ->parameters(['' => 'property_notification']);
+
+            Route::delete('items/destroy', [
+                'as'         => 'deletes',
+                'uses'       => 'NotificationController@deletes',
+                'permission' => 'property_notification.destroy',
+            ]);
+        });
         Route::group(['prefix' => 'facilities', 'as' => 'facility.'], function () {
             Route::resource('', 'FacilityController')
                 ->parameters(['' => 'facility']);
@@ -126,6 +277,12 @@ Route::group(['namespace' => 'Botble\RealEstate\Http\Controllers', 'middleware' 
 
             Route::get(SlugHelper::getPrefix(Property::class, 'properties'), 'PublicController@getProperties')
                 ->name('public.properties');
+            Route::get('properties/{id}/bids', 'PublicController@getBids');
+            Route::post('reviews/create', [
+                'as'         => 'reviews.new.create',
+                'uses'       => 'ReviewController@create',
+                'permission' => 'reviews.create',
+            ]);
 
             Route::get(SlugHelper::getPrefix(Category::class, 'property-category') . '/{slug}',
                 'PublicController@getPropertyCategory')
@@ -143,6 +300,7 @@ Route::group(['namespace' => 'Botble\RealEstate\Http\Controllers', 'middleware' 
             ]);
 
             Route::group(['as' => 'public.account.'], function () {
+
 
                 Route::group(['middleware' => ['account.guest']], function () {
                     Route::get('login', 'LoginController@showLoginForm')
@@ -265,15 +423,35 @@ Route::group(['namespace' => 'Botble\RealEstate\Http\Controllers', 'middleware' 
                         ->name('ajax.package.subscribe');
                 });
 
-                Route::group(['prefix' => 'account/properties', 'as' => 'properties.'], function () {
+
+                Route::group(['prefix' => '/account/properties', 'as' => 'properties.'], function () {
                     Route::resource('', 'AccountPropertyController')
                         ->parameters(['' => 'property']);
+
 
                     Route::post('renew/{id}', [
                         'as'   => 'renew',
                         'uses' => 'AccountPropertyController@renew',
                     ]);
+                    Route::get('notifications','ReviewController@getNotiBidds')->name('notifications');
+
+                    Route::get('bid/show/{id}', [
+                        'as'   => 'showBidd',
+                        'uses' => 'AccountPropertyController@showBid',
+                    ]);
+
+                    Route::POST('properetyUpdatePrice/{id}', [
+                        'as'   => 'properetyUpdatePrice',
+                        'uses' => 'AccountPropertyController@properetyUpdatePrice',
+                    ]);
+                    Route::GET('approveBidd/{id}', [
+                        'as'   => 'approveBidd',
+                        'uses' => 'AccountPropertyController@approveBidd',
+                    ]);
+
+
                 });
+
 
                 Route::group(['prefix' => 'account'], function () {
                     Route::get('packages/{id}/subscribe', 'PublicAccountController@getSubscribePackage')

@@ -27,6 +27,6 @@
     {!! Form::text('video[url]', $videoUrl, [
         'id'            => 'video_url',
         'class'         =>'form-control',
-        'placeholder'   => 'https://www.youtube.com/watch?v=FN7ALfpGxiI',
+        'placeholder'   => 'https://www.youtube.com/watch?v=',
         'data-counter'  => 255]) !!}
 </div>

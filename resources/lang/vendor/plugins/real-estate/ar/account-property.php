@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'draft_properties' => 'Draft Properties',
-    'pending_properties' => 'Pending Properties',
-    'published_properties' => 'Published Properties',
-    'properties' => 'Properties',
-    'write_property' => 'Write a property',
+    'draft_properties' => 'مسودة العقارات',
+    'pending_properties' => 'العقارات المعلقة',
+    'published_properties' => 'العقارات المنشورة',
+    'properties' => 'العقارات',
+    'write_property' => 'أنشاء عقار',
 ];

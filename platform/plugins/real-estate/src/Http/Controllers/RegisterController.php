@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Botble\ACL\Traits\RegistersUsers;
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\RealEstate\Models\Account;
+use Botble\Media\Models\MediaFile;
 use Botble\RealEstate\Repositories\Interfaces\AccountInterface;
 use EmailHandler;
 use Illuminate\Auth\Events\Registered;
@@ -170,13 +171,14 @@ class RegisterController extends Controller
      */
     public function register(Request $request, BaseHttpResponse $response)
     {
+
         if (!RealEstateHelper::isRegisterEnabled()) {
             abort(404);
         }
 
         $this->validator($request->input())->validate();
 
-        event(new Registered($account = $this->create($request->input())));
+        event(new Registered($account = $this->create($request->all())));
 
 //        EmailHandler::setModule(REAL_ESTATE_MODULE_SCREEN_NAME)
 //            ->setVariableValues([
@@ -227,6 +229,7 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
+     * 
      * @param array $data
      * @return Account
      */
@@ -237,10 +240,40 @@ class RegisterController extends Controller
             'last_name'  => $data['last_name'],
             'username'   => $data['username'],
             'email'      => $data['email'],
+            'national_id'      => $data['national_id'],
+            'avatar_id'  =>$this->upload($data['avatar_id']),
+            'national_image_front'  =>$this->upload($data['national_image_front']),
+            'national_image_back'  =>$this->upload($data['national_image_back']),
             'password'   => bcrypt($data['password']),
         ]);
     }
 
+    public function upload($image)
+    {
+        // $name = $image->getClientOriginalName();
+        $mime = $image->getClientMimeType();
+
+        $imageName = time().'.'.$image->extension();
+        $imageName2 = time().'-150x150.'.$image->extension();
+
+        // $image->move(public_path('accounts'), $imageName);
+        // $image->move(public_path('accounts'), $imageName2);
+        $path = $image->storeAs('accounts',$imageName);
+        $image->storeAs('accounts',$imageName2);
+        // \Storage::copy(', 'copy/test_copy.png');
+
+        $save = new MediaFile;
+
+        $save->name = $imageName;
+        $save->url = $path;
+        $save->mime_type=$mime;
+        $save->folder_id=7;
+        $save->size=100;
+        $save->user_id=0;
+        $save->save();
+
+        return $save->id;
+    }
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

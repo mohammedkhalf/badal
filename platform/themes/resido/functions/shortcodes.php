@@ -94,6 +94,20 @@ app()->booted(function () {
             return Theme::partial('shortcodes.cover-banner-admin-config', compact('attributes', 'content'));
         });
 
+
+ // Section dynamic map
+        add_shortcode('dynamic-map', __('dynamic map'), __('dynamic map'), function ($shortcode) {
+            return Theme::partial('shortcodes.dynamic-map', [
+            
+            ]);
+        });
+
+        shortcode()->setAdminConfig('dynamic-map', function ($attributes, $content) {
+            return Theme::partial('shortcodes.dynamic-map-admin-config', compact('attributes', 'content'));
+        });
+
+
+
         // Featured properties
         add_shortcode(
             'featured-properties',

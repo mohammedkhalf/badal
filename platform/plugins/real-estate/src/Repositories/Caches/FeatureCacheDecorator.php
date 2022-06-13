@@ -2,6 +2,7 @@
 
 namespace Botble\RealEstate\Repositories\Caches;
 
+
 use Botble\RealEstate\Repositories\Interfaces\FeatureInterface;
 use Botble\Support\Repositories\Caches\CacheAbstractDecorator;
 

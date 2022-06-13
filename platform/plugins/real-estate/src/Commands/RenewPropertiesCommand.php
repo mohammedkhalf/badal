@@ -63,8 +63,8 @@ class RenewPropertiesCommand extends Command
             $property->expire_date = now()->addDays(RealEstateHelper::propertyExpiredDays());
             $property->save();
 
-            $property->author->credits--;
-            $property->author->save();
+          //  $property->author->credits--;
+          //  $property->author->save();
         }
 
         $this->info('Renew ' . $properties->count() . ' properties successfully!');

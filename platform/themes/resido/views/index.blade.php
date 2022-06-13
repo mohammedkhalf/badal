@@ -1,3 +1,5 @@
+<!--
+
 @php Theme::layout('homepage'); @endphp
 
 <div class="container">
@@ -25,3 +27,5 @@
         <p><strong>3. Then go to Admin -> Appearance -> Theme options -> Page to set your homepage.</strong></p>
     </div>
 </div>
+
+-->

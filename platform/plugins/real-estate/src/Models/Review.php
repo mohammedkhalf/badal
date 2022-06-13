@@ -29,6 +29,7 @@ class Review extends BaseModel
         'status',
     ];
 
+
     /**
      * @var array
      */

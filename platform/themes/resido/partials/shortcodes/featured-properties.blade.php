@@ -1,3 +1,6 @@
+
+
+
 <section class="bg-light">
     <div class="container">
 
@@ -5,6 +8,7 @@
             <div class="col-lg-7 col-md-10 text-center">
                 <div class="sec-heading center">
                     <h2>{!! clean($title) !!}</h2>
+                    <!--<a href="{{ route('public.properties') }}" class="float-right" style="float:right">{{ __('Browse More Properties') }}</a>-->
                     <p>{!! clean($description) !!}</p>
                 </div>
             </div>

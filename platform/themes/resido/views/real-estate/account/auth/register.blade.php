@@ -1,4 +1,5 @@
-<section>
+@extends('plugins/real-estate::account.layouts.skeleton')
+@section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-9">
@@ -8,7 +9,7 @@
                         <br>
                         @include(Theme::getThemeNamespace() . '::views.real-estate.account.auth.includes.messages')
 
-                        <form method="POST" class="simple-form" action="{{ route('public.account.register') }}">
+                        <form method="POST" class="simple-form" enctype="multipart/form-data" action="{{ route('public.account.register') }}">
                             @csrf
                             <div class="row">
                                 <div class="col-lg-6 col-md-6">
@@ -123,13 +124,65 @@
                                         @endif
                                     </div>
                                 </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-with-icon">
+                                        <label>{{ __('trans.national_image_front') }}</label>
+                                            <input id="national_image_front" type="file"
+                                                   class="form-control{{ $errors->has('national_image_front') ? ' is-invalid' : '' }}"
+                                                   name="national_image_front" value="{{ old('national_image_front') }}" required
+                                                   placeholder="{{ trans('plugins/real-estate::dashboard.national_image_front') }}">
+                                            <i class="ti-media"></i>
+                                        </div>
+                                        @if ($errors->has('national_image_front'))
+                                            <span class="d-block invalid-feedback">
+                                                <strong>{{ $errors->first('national_image_front') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-with-icon">
+                                        <label>{{ __('trans.national_image_back') }}</label>
+                                            <input id="national_image_back" type="file"
+                                                   class="form-control{{ $errors->has('national_image_back') ? ' is-invalid' : '' }}"
+                                                   name="national_image_back" value="{{ old('national_image_back') }}" required
+                                                   placeholder="{{ trans('plugins/real-estate::dashboard.national_image_back') }}">
+                                            <i class="ti-media"></i>
+                                        </div>
+                                        @if ($errors->has('national_image_back'))
+                                            <span class="d-block invalid-feedback">
+                                                <strong>{{ $errors->first('national_image_back') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-with-icon">
+                                        <label>{{ __('trans.profile_image') }}</label>
+                                            <input id="avatar_id" type="file"
+                                                   class="form-control{{ $errors->has('avatar_id') ? ' is-invalid' : '' }}"
+                                                   name="avatar_id" value="{{ old('avatar_id') }}" required
+                                                   placeholder="{{ trans('plugins/real-estate::dashboard.avatar_id') }}">
+                                            <i class="ti-media"></i>
+                                        </div>
+                                        @if ($errors->has('avatar_id'))
+                                            <span class="d-block invalid-feedback">
+                                                <strong>{{ $errors->first('avatar_id') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
 
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <div class="input-with-icon">
                                             <input id="phone" type="text"
                                                    class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
-                                                   name="national_id" value="{{ old('phone') }}" required
+                                                   name="phone" value="{{ old('phone') }}" required
                                                    placeholder="{{ trans('plugins/real-estate::dashboard.phone') }}">
                                             <i class="ti-user"></i>
                                         </div>
@@ -154,7 +207,7 @@
                                 </div>
                             @endif
                             <div class="form-group">
-                                <button type="submit" class="btn btn-md full-width btn-theme-light-2 rounded">
+                                <button type="submit" class="btn btn-md full-width btn-black rounded">
                                     {{ trans('plugins/real-estate::dashboard.register-cta') }}
                                 </button>
                             </div>
@@ -175,4 +228,9 @@
             </div>
         </div>
     </div>
-</section>
+@endsection
+@push('scripts')
+    <!-- Laravel Javascript Validation -->
+    <script type="text/javascript" src="{{ asset('vendor/core/core/js-validation/js/js-validation.js')}}"></script>
+    {!! JsValidator::formRequest(\Botble\RealEstate\Http\Requests\RegisterRequest::class); !!}
+@endpush

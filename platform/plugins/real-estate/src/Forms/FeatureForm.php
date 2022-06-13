@@ -12,7 +12,8 @@ class FeatureForm extends FormAbstract
 {
 
     /**
-     * @return mixed|void
+     *
+     * * @return mixed|void
      * @throws Throwable
      */
     public function buildForm()

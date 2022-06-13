@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-md full-width btn-theme-light-2 rounded">
+                                    <button type="submit" class="btn btn-md full-width  btn-black rounded" >
                                         {{ trans('plugins/real-estate::dashboard.login-cta') }}
                                     </button>
                                 </div>

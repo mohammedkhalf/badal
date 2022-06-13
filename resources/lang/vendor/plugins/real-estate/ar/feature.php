@@ -1,17 +1,17 @@
 <?php
 
 return [
-    'name' => 'Features',
-    'create' => 'New feature',
-    'edit' => 'Edit feature',
+    'name' => 'الموقع',
+    'create' => 'أضف جديد',
+    'edit' => 'تعديل',
     'messages' => [
         'request' => [
-            'name_required' => 'Name is required',
+            'name_required' => 'مطلوب اسم',
         ],
     ],
     'form' => [
-        'help_block' => 'Property feature information',
-        'name' => 'Title',
-        'icon' => 'Icon',
+        'help_block' => 'المعلومات',
+        'name' => 'العنوان',
+        'icon' => 'ايقون',
     ],
 ];

@@ -8,7 +8,7 @@ use Botble\RealEstate\Models\Property;
 use Botble\RealEstate\Repositories\Interfaces\FeatureInterface;
 use Botble\RealEstate\Repositories\Interfaces\PropertyInterface;
 use Botble\Theme\Events\RenderingSiteMapEvent;
-use Theme\Resido\Http\Requests\CityRequest;
+use Theme\badal\Http\Requests\CityRequest;
 use Botble\Theme\Supports\Youtube;
 
 register_page_template([
@@ -18,25 +18,25 @@ register_page_template([
 register_sidebar([
     'id'          => 'footer_sidebar_1',
     'name'        => __('Footer sidebar 1'),
-    'description' => __('Footer sidebar 1 for Resido theme'),
+    'description' => __('Footer sidebar 1 for badal theme'),
 ]);
 
 register_sidebar([
     'id'          => 'footer_sidebar_2',
     'name'        => __('Footer sidebar 2'),
-    'description' => __('Footer sidebar 2 for Resido theme'),
+    'description' => __('Footer sidebar 2 for badal theme'),
 ]);
 
 register_sidebar([
     'id'          => 'footer_sidebar_3',
     'name'        => __('Footer sidebar 3'),
-    'description' => __('Footer sidebar 3 for Resido theme'),
+    'description' => __('Footer sidebar 3 for badal theme'),
 ]);
 
 register_sidebar([
     'id'          => 'property_sidebar',
     'name'        => __('Property sidebar'),
-    'description' => __('Property sidebar for Resido theme'),
+    'description' => __('Property sidebar for badal theme'),
 ]);
 
 Event::listen(RenderingSiteMapEvent::class, function () {

@@ -68,7 +68,7 @@ class ThemeOptionSeeder extends BaseSeeder
                 ],
                 [
                     'key'   => 'copyright',
-                    'value' => '©' . now()->format('Y') . ' Resido. All rights reserved by TheSky9.',
+                    'value' => '©' . now()->format('Y') . ' Badal. All rights reserved.',
                 ],
                 [
                     'key'   => 'homepage_id',
@@ -96,11 +96,11 @@ class ThemeOptionSeeder extends BaseSeeder
                 ],
                 [
                     'key'   => 'site_title',
-                    'value' => 'Resido - Laravel Real Estate Multilingual Syste',
+                    'value' => 'Badal',
                 ],
                 [
                     'key'   => 'seo_description',
-                    'value' => 'Resido is a premium real estate related websites build on Laravel. With an advanced admin dashboard that will help you create a local or global real-estate directory site.',
+                    'value' => 'Badal.',
                 ],
                 [
                     'key'   => 'seo_og_image',
@@ -108,11 +108,11 @@ class ThemeOptionSeeder extends BaseSeeder
                 ],
                 [
                     'key'   => 'address',
-                    'value' => 'Collins Street West, Victoria 8007, Australia.',
+                    'value' => '',
                 ],
                 [
                     'key'   => 'hotline',
-                    'value' => '+1 246-345-0695',
+                    'value' => '',
                 ],
                 [
                     'key'   => 'email',
@@ -120,7 +120,7 @@ class ThemeOptionSeeder extends BaseSeeder
                 ],
                 [
                     'key'   => 'about-us',
-                    'value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                    'value' => '',
                 ],
             ],
 
@@ -139,11 +139,11 @@ class ThemeOptionSeeder extends BaseSeeder
                 ],
                 [
                     'key'   => 'copyright',
-                    'value' => '©' . now()->format('Y') . ' Resido. Tất cả quyền đã được bảo hộ bởi TheSky9.',
+                    'value' => '©' . now()->format('Y') . ' Badal',
                 ],
                 [
                     'key'   => 'cookie_consent_message',
-                    'value' => 'Trải nghiệm của bạn trên trang web này sẽ được cải thiện bằng cách cho phép cookie ',
+                    'value' => '',
                 ],
                 [
                     'key'   => 'cookie_consent_learn_more_url',
@@ -175,11 +175,11 @@ class ThemeOptionSeeder extends BaseSeeder
                 ],
                 [
                     'key'   => 'site_title',
-                    'value' => 'Resido - Laravel Real Estate Multilingual Syste',
+                    'value' => 'Badal',
                 ],
                 [
                     'key'   => 'seo_description',
-                    'value' => 'Resido is a premium real estate related websites build on Laravel. With an advanced admin dashboard that will help you create a local or global real-estate directory site.',
+                    'value' => 'Badal',
                 ],
                 [
                     'key'   => 'seo_og_image',
@@ -187,11 +187,11 @@ class ThemeOptionSeeder extends BaseSeeder
                 ],
                 [
                     'key'   => 'address',
-                    'value' => 'Collins Street West, Victoria 8007, Australia.',
+                    'value' => '',
                 ],
                 [
                     'key'   => 'hotline',
-                    'value' => '+1 246-345-0695',
+                    'value' => '',
                 ],
                 [
                     'key'   => 'email',
@@ -199,7 +199,7 @@ class ThemeOptionSeeder extends BaseSeeder
                 ],
                 [
                     'key'   => 'about-us',
-                    'value' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                    'value' => '',
                 ],
             ],
         ];

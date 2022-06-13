@@ -1,6 +1,6 @@
 <?php
 
-namespace Theme\Resido\Http\Requests;
+namespace Theme\badal\Http\Requests;
 
 use Botble\Base\Enums\BaseStatusEnum;
 use Botble\Support\Http\Requests\Request;

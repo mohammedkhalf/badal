@@ -6,6 +6,7 @@ $user = auth('account')->user();
     <div class="dashboard-wraper settings crop-avatar">
         <!-- Basic Information -->
         <div class="form-submit">
+            
             <!-- Setting Title -->
             <div class="row">
                 <div class="col-12">
@@ -23,6 +24,32 @@ $user = auth('account')->user();
                             </button>
                         </div>
                     @endif
+                    
+                <div class="col-lg-4 order-lg-12">
+                    <form id="avatar-upload-form" enctype="multipart/form-data" action="javascript:void(0)"
+                          onsubmit="return false">
+                        <div class="avatar-upload-container">
+                            <div class="form-group">
+                                <label
+                                    for="account-avatar">{{ trans('plugins/real-estate::dashboard.profile-picture') }}</label>
+                                <div id="account-avatar">
+                                    <div class="profile-image">
+                                        <div class="avatar-view mt-card-avatar">
+                                            <img class="br2" src="{{ $user->avatar_url }}" style="width: 200px;">
+                                            <div class="mt-overlay br2">
+                                                <span><i class="fa fa-edit"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Print messages -->
+                            <div id="print-msg" class="alert dn"></div>
+                        </div>
+                    </form>
+                </div>
+                    
+                    
                     <form action="{{ route('public.account.post.settings') }}" id="setting-form" method="POST">
                     @csrf
                     <!-- Name -->
@@ -112,29 +139,7 @@ $user = auth('account')->user();
                                 class="btn btn-primary fw6">{{ trans('plugins/real-estate::dashboard.save') }}</button>
                     </form>
                 </div>
-                <div class="col-lg-4 order-lg-12">
-                    <form id="avatar-upload-form" enctype="multipart/form-data" action="javascript:void(0)"
-                          onsubmit="return false">
-                        <div class="avatar-upload-container">
-                            <div class="form-group">
-                                <label
-                                    for="account-avatar">{{ trans('plugins/real-estate::dashboard.profile-picture') }}</label>
-                                <div id="account-avatar">
-                                    <div class="profile-image">
-                                        <div class="avatar-view mt-card-avatar">
-                                            <img class="br2" src="{{ $user->avatar_url }}" style="width: 200px;">
-                                            <div class="mt-overlay br2">
-                                                <span><i class="fa fa-edit"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Print messages -->
-                            <div id="print-msg" class="alert dn"></div>
-                        </div>
-                    </form>
-                </div>
+                
             </div>
         </div>
 

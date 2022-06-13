@@ -40,9 +40,19 @@ class Property extends BaseModel
         'number_bedroom',
         'number_bathroom',
         'number_floor',
+        'number_floor2',
+        'number_floor3',
+        'number_floor4',
+        'number_floor5',
+        'number_floor6',
         'square',
         'price',
         'is_featured',
+        'is_featured2',
+        'is_featured3',
+        'is_featured4',
+        'is_featured5',
+        'is_featured6',
         'currency_id',
         'city_id',
         'period',
@@ -53,7 +63,8 @@ class Property extends BaseModel
         'auto_renew',
         'latitude',
         'longitude',
-        'type_id'
+        'type_id',
+        'replacement_id',
     ];
 
     /**
@@ -81,6 +92,47 @@ class Property extends BaseModel
         return $this->belongsToMany(Feature::class, 're_property_features', 'property_id', 'feature_id');
     }
 
+    public function features2(): BelongsToMany
+    {
+        return $this->belongsToMany(Feature2::class, 're_property_features2', 'property_id', 'feature_id');
+    }
+
+    public function features3(): BelongsToMany
+    {
+        return $this->belongsToMany(Feature3::class, 're_property_features3', 'property_id', 'feature_id');
+    }
+    public function features4(): BelongsToMany
+    {
+        return $this->belongsToMany(Feature4::class, 're_property_features4', 'property_id', 'feature_id');
+    }
+    public function features5(): BelongsToMany
+    {
+        return $this->belongsToMany(Feature5::class, 're_property_features5', 'property_id', 'feature_id');
+    }
+    public function features6(): BelongsToMany
+    {
+        return $this->belongsToMany(Feature6::class, 're_property_features6', 'property_id', 'feature_id');
+    }
+    public function features7(): BelongsToMany
+    {
+        return $this->belongsToMany(Feature7::class, 're_property_features7', 'property_id', 'feature_id');
+    }
+    public function features8(): BelongsToMany
+    {
+        return $this->belongsToMany(Feature8::class, 're_property_features8', 'property_id', 'feature_id');
+    }
+    public function features9(): BelongsToMany
+    {
+        return $this->belongsToMany(Feature9::class, 're_property_features9', 'property_id', 'feature_id');
+    }
+    public function features10(): BelongsToMany
+    {
+        return $this->belongsToMany(Feature10::class, 're_property_features10', 'property_id', 'feature_id');
+    }
+    public function features11(): BelongsToMany
+    {
+        return $this->belongsToMany(Feature11::class, 're_property_features11', 'property_id', 'feature_id');
+    }
     /**
      * @return BelongsToMany
      */
@@ -192,6 +244,7 @@ class Property extends BaseModel
         });
     }
 
+    
     /**
      * @return string
      */
@@ -267,5 +320,10 @@ class Property extends BaseModel
     public function reviews()
     {
         return $this->morphMany(Review::class, 'reviewable');
+    }
+
+    public function propertyReplacement()
+    {
+        return $this->belongsTo(PropertyReplacement::class, 'replacement_id');
     }
 }

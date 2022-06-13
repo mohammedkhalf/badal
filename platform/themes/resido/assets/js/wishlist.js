@@ -174,3 +174,4 @@
         window.wishlishInElement = checkWishlistInElement;
     });
 })(jQuery);
+

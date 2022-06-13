@@ -6,7 +6,7 @@
                     @if($properties->total() == 0)
                         {{ __('0 results') }}
                     @else
-                        {{ __('Found :from - :to Of :total Results', [
+                        {{ __('يوجد :from - :to من :total نتائج', [
                             'from' => $properties->firstItem(),
                             'to' => $properties->lastItem(),
                             'total' => $properties->total(),
@@ -15,6 +15,8 @@
                 </h4>
             </div>
         </div>
+
+        <!--
         <div class="item-sorting-box-right">
             <div class="sorting-by">
                 <select id="sort_by" name="sort_by" class="form-control" data-placeholder="{{ __('Sort by') }}">
@@ -47,5 +49,7 @@
                 </li>
             </ul>
         </div>
+                        -->
+
     </div>
 </div>

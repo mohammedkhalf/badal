@@ -24,17 +24,19 @@
                     <h4 class="listing-name"><a href="{{ $property->url }}" title="{{ $property->name }}">{!! clean($property->name) !!}</a></h4>
                     
                 </div>
-                <div class="list-price">
-                    <div>
+                <div class="list-price d-flex align-items-center flex-row">
+                    <div class="w-50 d-inline-block">
                         @if (is_review_enabled() && $property->reviews_count > 0)
                         {!! Theme::partial('real-estate.elements.property-review', compact('property')) !!}
                         @endif
                         <span class="prt-types {{ $property->type->slug }}">{{ $property->type_name }}</span>
                     </div>
-                    <h6 class="listing-card-info-price"> {{ $property->price_html }} </h6>
+                    <h6 class="listing-card-info-price w-50 d-inline-block mb-0"> {{ $property->price_html }} </h6>
                 </div>
             </div>
         </div>
+
+<!-- price-features-wrapper
 
         <div class="price-features-wrapper">
             <div class="list-fx-features">
@@ -55,10 +57,11 @@
                 </div>
             </div>
         </div>
-
+-->
         <div class="listing-footer-wrapper">
             <div class="listing-locate" title="{!! clean($property->city_name) !!}">
                 <span class="listing-location"><i class="ti-location-pin"></i>{!! clean($property->city_name) !!}</span>
+                 <span class="reviews_text">( {{ $property->reviews_count }} {{ __('مزايدة') }})</span>
             </div>
             <div class="listing-detail-btn">
                 <a href="{{ $property->url }}" class="more-btn">{{ __('View') }}</a>

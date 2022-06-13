@@ -1,13 +1,13 @@
 <?php
 
 return [
-    'name' => 'Cities',
-    'create' => 'New city',
-    'edit' => 'Edit city',
-    'state' => 'State',
-    'select_state' => 'Select a state...',
-    'select_city' => 'Select a city...',
-    'country' => 'Country',
-    'select_country' => 'Select a country...',
-    'city' => 'City',
+    'name' => 'المدن',
+    'create' => 'مدينة جديدة',
+    'edit' => 'تعديل المدينة',
+    'state' => 'محافظة',
+    'select_state' => 'أختار محافظة...',
+    'select_city' => 'أختار مدينة...',
+    'country' => 'بلد',
+    'select_country' => 'أختار بلد...',
+    'city' => 'مدينة',
 ];

@@ -41,9 +41,13 @@ class Account extends Authenticatable
         'phone',
         'description',
         'gender',
+        'national_image_front',
+        'national_image_back',
+        'national_id'
     ];
 
     /**
+     * 
      * The attributes that should be hidden for arrays.
      *
      * @var array
@@ -176,5 +180,10 @@ class Account extends Authenticatable
     public function packages(): BelongsToMany
     {
         return $this->belongsToMany(Package::class, 're_accounts_packages', 'account_id', 'package_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasOne(Review::class)->withDefault();
     }
 }

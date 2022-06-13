@@ -1,4 +1,7 @@
 <div class="table-actions">
+     <a href="/account/properties/bid/show/{{$item->id}}" class="btn btn-icon btn-sm btn-warning button-renew"  role="button" >
+        <i class="fa fa-gavel"></i>
+    </a>
     @if (!empty($edit))
         <a href="{{ route($edit, $item->id) }}" class="btn btn-icon btn-sm btn-primary" data-bs-toggle="tooltip" data-bs-original-title="{{ trans('core/base::tables.edit') }}"><i class="fa fa-edit"></i></a>
     @endif
@@ -12,4 +15,5 @@
     <a href="#" class="btn btn-icon btn-sm btn-info button-renew" data-section="{{ route('public.account.properties.renew', $item->id) }}" role="button" data-bs-toggle="tooltip" data-bs-original-title="{{ __('Renew') }}" >
         <i class="fas fa-sync-alt"></i>
     </a>
+   
 </div>

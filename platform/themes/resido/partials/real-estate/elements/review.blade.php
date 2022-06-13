@@ -1,7 +1,7 @@
 @if ($property->reviews_count > 0)
-    <real-estate-reviews-component api-get-reviews="{{ route('public.ajax.real-estate-reviews', $property->id) }}" 
-        api-get-rating="{{ route('public.ajax.real-estate-rating', $property->id) }}" :review-fields="{{ json_encode(get_review_fields()) }}">
-    </real-estate-reviews-component>
+{{--    <real-estate-reviews-component api-get-reviews="{{ route('public.ajax.real-estate-reviews', $property->id) }}" --}}
+{{--        api-get-rating="{{ route('public.ajax.real-estate-rating', $property->id) }}" :review-fields="{{ json_encode(get_review_fields()) }}">--}}
+{{--    </real-estate-reviews-component>--}}
 @endif
 
 @if (!auth('account')->check() || !check_if_reviewed($property->id))
@@ -11,7 +11,7 @@
         <a data-bs-toggle="collapse" data-parent="#comment" data-bs-target="#clTen" aria-controls="clTen"
             href="javascript:void(0);" aria-expanded="true">
             <h4 class="property_block_title">{{ __('Write a Review') }}</h4>
-            
+
         </a>
         @if (!auth('account')->check())
             <p class="text-danger">{{ __('Please') }} <a class="text-danger" href="{{ route('public.account.login') }}">{{ __('login') }}</a> {{ __('to write review!') }}</p>

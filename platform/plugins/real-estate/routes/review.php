@@ -4,6 +4,13 @@ Route::group(['namespace' => 'Botble\RealEstate\Http\Controllers', 'middleware' 
     Route::group(['prefix' => BaseHelper::getAdminPrefix(), 'middleware' => 'auth'], function () {
         Route::group(['prefix' => 'reviews', 'as' => 'reviews.'], function () {
             Route::resource('', 'ReviewController')->parameters(['' => 'review'])->only(['index', 'destroy']);
+//            Route::post('/create', [ 'used'=> 'ReviewController@create', 'as' => 'review.create']);
+
+//            Route::post('create', [
+//                'as'         => 'create',
+//                'uses'       => 'ReviewController@create',
+//                'permission' => 'reviews.create',
+//            ]);
 
             Route::delete('items/destroy', [
                 'as'         => 'deletes',

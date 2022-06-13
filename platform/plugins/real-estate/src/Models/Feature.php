@@ -28,6 +28,7 @@ class Feature extends BaseModel
     ];
 
     /**
+     * 
      * @return BelongsToMany
      */
     public function properties(): BelongsToMany

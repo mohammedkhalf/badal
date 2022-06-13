@@ -9,6 +9,7 @@ return [
         'basic_info'       => 'Basic information',
         'name'             => 'Title',
         'type'             => 'Type',
+        'replacement'      => 'Replacement',
         'images'           => 'Images',
         'location'         => 'Property location',
         'number_bedroom'   => 'Number bedrooms',

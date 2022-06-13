@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'name' => 'Types',
-    'create' => 'New type',
-    'edit' => 'Edit type',
-    'menu' => 'Property types',
+    'name' => 'نوع البدل',
+    'create' => 'أضافة نوع',
+    'edit' => 'تعديل النوع',
+    'menu' => 'أنواع البدلات',
 ];

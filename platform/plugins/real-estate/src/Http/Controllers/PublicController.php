@@ -4,9 +4,11 @@ namespace Botble\RealEstate\Http\Controllers;
 
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\RealEstate\Http\Requests\SendConsultRequest;
+use Botble\RealEstate\Models\Account;
 use Botble\RealEstate\Models\Category;
 use Botble\RealEstate\Models\Consult;
 use Botble\RealEstate\Models\Property;
+use Botble\RealEstate\Models\Review;
 use Botble\RealEstate\Repositories\Interfaces\CategoryInterface;
 use Botble\RealEstate\Repositories\Interfaces\ConsultInterface;
 use Botble\RealEstate\Repositories\Interfaces\CurrencyInterface;
@@ -18,6 +20,7 @@ use Exception;
 use File;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Mimey\MimeTypes;
 use RssFeed;
@@ -57,12 +60,12 @@ class PublicController extends Controller
             $subject = null;
 
             $request->merge(['property_id' => $request->input('data_id')]);
-           
+
             $property = $propertyRepository->findById($request->input('data_id'), ['author']);
             if ($property) {
                 $link = $property->url;
                 $subject = $property->name;
-               
+
                 if ($property->author->email) {
                     $sendTo = $property->author->email;
                 }
@@ -150,7 +153,12 @@ class PublicController extends Controller
             $images[] = RvMedia::getImageUrl($image, null, false, RvMedia::getDefaultImage());
         }
 
-        return Theme::scope('real-estate.property', compact('property', 'images'))->render();
+         $propertyBidds = Review::where('reviewable_id', $property->id)->with(['account'])->orderBy('created_at', 'DESC')->take(4)->get();
+        $authorProperties =[];
+        if(auth('account')->user() != null){
+            $authorProperties = Property::where('author_id', auth('account')->user()->id)->get();
+        }
+        return Theme::scope('real-estate.property', compact('property', 'images', 'propertyBidds', 'authorProperties'))->render();
     }
 
     /**
@@ -208,8 +216,25 @@ class PublicController extends Controller
             ->add(__('Properties'), route('public.properties'));
 
         $categories = $categoryRepository->pluck('name', 'id');
+        $authorProperties = [];
+        if(Auth::user() != null) {
+            $authorProperties = Property::where('author_id', Auth::user()->id)->get();
+        }
 
-        return Theme::scope('real-estate.properties', compact('properties', 'categories'))->render();
+        return Theme::scope('real-estate.properties', compact('properties', 'categories', 'authorProperties'))->render();
+    }
+
+    public function getBids($propertyId)
+    {
+        $bids = Review::where('reviewable_id', $propertyId)->with(['account'])->orderBy('created_at', 'DESC')->get();
+
+        $authorProperties =[];
+        if(auth('account')->user() != null){
+            $authorProperties = Property::where('author_id', auth('account')->user()->id)->get();
+        }
+
+        return Theme::scope('real-estate.bids', compact('bids', 'authorProperties'))->render();
+
     }
 
     /**

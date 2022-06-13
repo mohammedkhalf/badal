@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'name' => 'States',
-    'create' => 'New state',
-    'edit' => 'Edit state',
-    'country' => 'Country',
-    'select_country' => 'Select a country...',
-    'state' => 'State',
+    'name' => 'المحافظات',
+    'create' => 'محافظة جديدة',
+    'edit' => 'تعديل المحافظة',
+    'country' => 'البلد',
+    'select_country' => 'أختار بلد...',
+    'state' => 'محافظة',
 ];

@@ -46,6 +46,31 @@ class PageForm extends FormAbstract
                 'label_attr'    => ['class' => 'control-label'],
                 'default_value' => false,
             ])
+            ->add('is_featured2', 'onOff', [
+                'label'         => trans('core/base::forms.is_featured2'),
+                'label_attr'    => ['class' => 'control-label'],
+                'default_value' => false,
+            ])
+            ->add('is_featured3', 'onOff', [
+                'label'         => trans('core/base::forms.is_featured3'),
+                'label_attr'    => ['class' => 'control-label'],
+                'default_value' => false,
+            ])
+            ->add('is_featured4', 'onOff', [
+                'label'         => trans('core/base::forms.is_featured4'),
+                'label_attr'    => ['class' => 'control-label'],
+                'default_value' => false,
+            ])
+            ->add('is_featured5', 'onOff', [
+                'label'         => trans('core/base::forms.is_featured5'),
+                'label_attr'    => ['class' => 'control-label'],
+                'default_value' => false,
+            ])
+            ->add('is_featured6', 'onOff', [
+                'label'         => trans('core/base::forms.is_featured6'),
+                'label_attr'    => ['class' => 'control-label'],
+                'default_value' => false,
+            ])
             ->add('content', 'editor', [
                 'label'      => trans('core/base::forms.content'),
                 'label_attr' => ['class' => 'control-label required'],

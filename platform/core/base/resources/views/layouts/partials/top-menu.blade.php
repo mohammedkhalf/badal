@@ -1,11 +1,11 @@
 <div class="top-menu">
     <ul class="nav navbar-nav float-end">
         @auth
-            @if (BaseHelper::getAdminPrefix() != '')
-                <li class="dropdown">
-                    <a class="dropdown-toggle dropdown-header-name" style="padding-right: 10px" href="{{ url('/') }}" target="_blank"><i class="fa fa-globe"></i> <span @if (isset($themes) && is_array($themes) && count($themes) > 1 && setting('enable_change_admin_theme') != false) class="d-none d-sm-inline" @endif>{{ trans('core/base::layouts.view_website') }}</span> </a>
-                </li>
-            @endif
+{{--            @if (BaseHelper::getAdminPrefix() != '')--}}
+{{--                <li class="dropdown">--}}
+{{--                    <a class="dropdown-toggle dropdown-header-name" style="padding-right: 10px" href="{{ url('/') }}" target="_blank"><i class="fa fa-globe"></i> <span @if (isset($themes) && is_array($themes) && count($themes) > 1 && setting('enable_change_admin_theme') != false) class="d-none d-sm-inline" @endif>{{ trans('core/base::layouts.view_website') }}</span> </a>--}}
+{{--                </li>--}}
+{{--            @endif--}}
             @if (Auth::check())
                 {!! apply_filters(BASE_FILTER_TOP_HEADER_LAYOUT, null) !!}
             @endif

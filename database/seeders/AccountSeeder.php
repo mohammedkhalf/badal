@@ -44,6 +44,11 @@ class AccountSeeder extends BaseSeeder
                 'confirmed_at' => now(),
                 'avatar_id'    => $files[$i]['data']->id,
                 'is_featured'  => $i % 2 == 0,
+                'is_featured2'  => $i % 2 == 0,
+                'is_featured3'  => $i % 2 == 0,
+                'is_featured4'  => $i % 2 == 0,
+                'is_featured5'  => $i % 2 == 0,
+                'is_featured6'  => $i % 2 == 0,
             ]);
         }
     }

@@ -4,6 +4,8 @@ namespace Botble\RealEstate\Tables;
 
 use BaseHelper;
 use Botble\Base\Enums\BaseStatusEnum;
+use Botble\RealEstate\Models\Property;
+use Botble\RealEstate\Models\PropertyReplacement;
 use Botble\RealEstate\Repositories\Interfaces\ReviewInterface;
 use Botble\Table\Abstracts\TableAbstract;
 use Html;
@@ -50,17 +52,30 @@ class ReviewTable extends TableAbstract
         $data = $this->table
             ->eloquent($this->query())
             ->editColumn('reviewable_id', function ($item) {
+                $propertyUrl = Property::where('id', $item->reviewable_id)->first()->url;
                 if (!empty($item->reviewable)) {
-                    return Html::link($item->reviewable->url,
-                        $item->reviewable->name,
-                        ['target' => '_blank']
-                    );
+                    return '<a href="'.$propertyUrl.'">'.$item->reviewable->name.'</a>';
+//                    return Html::link($item->reviewable->url,
+//                        $item->reviewable->name,
+//                        ['target' => '_blank']
+//                    );
                 }
                 return null;
             })
-            ->editColumn('star', function ($item) {
-                return view('plugins/real-estate::reviews.partials.rating', ['star' => $item->star])->render();
+            ->addColumn('star1', function ($item){
+                $propertyReplacement = Property::where('id', $item->reviewable_id)->value('replacement_id');
+                $propertyReplacement = PropertyReplacement::find($propertyReplacement);
+                return $propertyReplacement != null ? $propertyReplacement['name'] : 'Not found';
             })
+            ->editColumn('star', function ($item) {
+                return $item->star;
+            })
+//            ->editColumn('star', function ($item) {
+//                $propertyReplacement = Property::where('id', $item->reviewable_id)->value('replacement_id');
+//                $propertyReplacement = PropertyReplacement::find($propertyReplacement);
+//                return $propertyReplacement != null ? $propertyReplacement['name'] : 'Not found';
+////                return view('plugins/real-estate::reviews.partials.rating', ['star' => $item->star])->render();
+//            })
             ->editColumn('account_id', function ($item) {
                 return !empty($item->account->id) ? Html::link(route('account.edit', $item->account->id), $item->account->name)->toHtml() : '';
             })
@@ -123,16 +138,21 @@ class ReviewTable extends TableAbstract
                 'title' => trans('plugins/real-estate::review.user'),
                 'class' => 'text-start',
             ],
-            'star'          => [
-                'name'  => 're_reviews.star',
-                'title' => trans('plugins/real-estate::review.star'),
+            'star1'          => [
+                'name'  => 're_reviews.updated_at',
+                'title' => 'TYPE',//trans('plugins/real-estate::property.form.replacement'),
                 'class' => 'text-center',
             ],
-            'comment'       => [
-                'name'  => 're_reviews.comment',
-                'title' => trans('plugins/real-estate::review.comment'),
-                'class' => 'text-start',
+            'star'          => [
+                'name'  => 're_reviews.star',
+                'title' => 'Cash',//trans('plugins/real-estate::property.form.replacement'),
+                'class' => 'text-center',
             ],
+//            'comment'       => [
+//                'name'  => 're_reviews.comment',
+//                'title' => trans('plugins/real-estate::review.comment'),
+//                'class' => 'text-start',
+//            ],
             'status'        => [
                 'name'  => 're_reviews.status',
                 'title' => trans('plugins/real-estate::review.status'),

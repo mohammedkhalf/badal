@@ -1,24 +1,24 @@
 <?php
 
 return [
-    '401_title' => 'Permission Denied',
-    '401_msg' => '<li>You have not been granted access to the section by the administrator.</li>'."\n"
-        .'	                <li>You may have the wrong account type.</li>'."\n"
-        .'	                <li>You are not authorized to view the requested resource.</li>'."\n"
-        .'	                <li>Your subscription may have expired.</li>',
-    '404_title' => 'Page could not be found',
-    '404_msg' => '<li>The page you requested does not exist.</li>'."\n"
-        .'	                <li>The link you clicked is no longer.</li>'."\n"
-        .'	                <li>The page may have moved to a new location.</li>'."\n"
-        .'	                <li>An error may have occurred.</li>'."\n"
-        .'	                <li>You are not authorized to view the requested resource.</li>',
-    '500_title' => 'Page could not be loaded',
-    '500_msg' => '<li>The page you requested does not exist.</li>'."\n"
-        .'	                <li>The link you clicked is no longer.</li>'."\n"
-        .'	                <li>The page may have moved to a new location.</li>'."\n"
-        .'	                <li>An error may have occurred.</li>'."\n"
-        .'	                <li>You are not authorized to view the requested resource.</li>',
-    'reasons' => 'This may have occurred because of several reasons',
-    'try_again' => 'Please try again in a few minutes, or alternatively return to the homepage by <a href="http://resido.local/admin">clicking here</a>.',
-    'not_found' => 'Not Found',
+    '401_title' => 'تم رفض الإذن',
+    '401_msg' => '<li> لم يتم منحك حق الوصول إلى القسم من قبل المسؤول. </ li>'."\n"
+        .'<li> قد يكون لديك نوع حساب خاطئ. </ li>'."\n"
+        .'<li> ليس مصرحًا لك بمشاهدة المورد المطلوب. </ li>'."\n"
+        .'<li> ربما انتهى اشتراكك. </ li>',
+    '404_title' => 'لا يمكن العثور على الصفحة',
+    '404_msg' => '<li> الصفحة التي طلبتها غير موجودة. </ li>'."\n"
+        .'  <li> الارتباط الذي نقرت عليه لم يعد. </ li>'."\n"
+        .'<li> ربما تم نقل الصفحة إلى مكان جديد. </ li>'."\n"
+        .'<li> ربما حدث خطأ. </ li>'."\n"
+        .'<li> ليس مصرحًا لك بمشاهدة المورد المطلوب. </ li>',
+    '500_title' => 'لا يمكن تحميل الصفحة',
+    '500_msg' => '<li> الصفحة التي طلبتها غير موجودة. </ li>'."\n"
+        .'<li> الارتباط الذي نقرت عليه لم يعد. </ li>'."\n"
+        .'<li> ربما تم نقل الصفحة إلى مكان جديد. </ li>'."\n"
+        .'<li> ربما حدث خطأ. </ li>'."\n"
+        .'<li> ليس مصرحًا لك بمشاهدة المورد المطلوب. </ li>',
+    'reasons' => 'قد يكون هذا بسبب عدة أسباب',
+    'try_again' => 'يرجى المحاولة مرة أخرى في غضون بضع دقائق ، أو بدلاً من ذلك العودة إلى الصفحة الرئيسية عن طريق <a href="https://badal.sahla-ad.com/admin"> النقر هنا </a>.',
+    'not_found' => 'لم يتم العثور عليه',
 ];

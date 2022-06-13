@@ -1,0 +1,19 @@
+{
+    "name": "Badal",
+    "short_name": "Badal",
+    "theme_color": "#1266e3",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "start_url": "./",
+    "icons": [
+      {
+        "src": "https://badal.sahla-ad.com/storage/badel-logo-03.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "permissions": [
+          "identity",
+          "https://badal.sahla-ad.com/public/manifest.json"
+      ]
+  }

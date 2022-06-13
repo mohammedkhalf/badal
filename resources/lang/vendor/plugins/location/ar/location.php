@@ -1,10 +1,11 @@
 <?php
 
 return [
-    'name' => 'Locations',
-    'create' => 'New location',
-    'edit' => 'Edit location',
-    'all_states' => 'All states',
+    'name' => 'المواقع',
+    'create' => 'موقع جديد',
+    'edit' => 'تعديل الموقع',
+    'all_states' => 'جميع المحافظات',
     'abbreviation' => 'Abbreviation',
     'abbreviation_placeholder' => 'E.g: CA',
+    'is_featured' => 'جديد',
 ];

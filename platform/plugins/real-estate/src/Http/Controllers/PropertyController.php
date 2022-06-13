@@ -56,6 +56,7 @@ class PropertyController extends BaseController
      */
     public function index(PropertyTable $dataTable)
     {
+
         page_title()->setTitle(trans('plugins/real-estate::property.name'));
 
         return $dataTable->renderTable();
@@ -67,6 +68,7 @@ class PropertyController extends BaseController
      */
     public function create(FormBuilder $formBuilder)
     {
+
         page_title()->setTitle(trans('plugins/real-estate::property.create'));
 
         return $formBuilder->create(PropertyForm::class)->renderForm();
@@ -81,6 +83,7 @@ class PropertyController extends BaseController
      */
     public function store(PropertyRequest $request, BaseHttpResponse $response, SaveFacilitiesService $saveFacilitiesService)
     {
+        //dd("hello");
         $request->merge([
             'expire_date' => now()->addDays(RealEstateHelper::propertyExpiredDays()),
             'images'      => json_encode(array_filter($request->input('images', []))),
@@ -97,6 +100,16 @@ class PropertyController extends BaseController
 
         if ($property) {
             $property->features()->sync($request->input('features', []));
+            $property->features2()->sync($request->input('features2', []));
+            $property->features3()->sync($request->input('features3', []));
+            $property->features4()->sync($request->input('features4', []));
+            $property->features5()->sync($request->input('features5', []));
+            $property->features6()->sync($request->input('features6', []));
+            $property->features7()->sync($request->input('features7', []));
+            $property->features8()->sync($request->input('features8', []));
+            $property->features9()->sync($request->input('features9', []));
+            $property->features10()->sync($request->input('features10', []));
+            $property->features11()->sync($request->input('features11', []));
 
             $saveFacilitiesService->execute($property, $request->input('facilities', []));
         }
@@ -115,6 +128,7 @@ class PropertyController extends BaseController
      */
     public function edit($id, Request $request, FormBuilder $formBuilder)
     {
+        //dd("Hello");
         $property = $this->propertyRepository->findOrFail($id, ['features', 'author']);
         page_title()->setTitle(trans('plugins/real-estate::property.edit') . ' "' . $property->name . '"');
 
@@ -147,7 +161,21 @@ class PropertyController extends BaseController
 
         event(new UpdatedContentEvent(PROPERTY_MODULE_SCREEN_NAME, $request, $property));
 
+       
         $property->features()->sync($request->input('features', []));
+
+        
+        $property->features2()->sync($request->input('features2', []));
+        $property->features3()->sync($request->input('features3', []));
+        $property->features4()->sync($request->input('features4', []));
+        $property->features5()->sync($request->input('features5', []));
+        $property->features6()->sync($request->input('features6', []));
+        $property->features7()->sync($request->input('features7', []));
+        $property->features8()->sync($request->input('features8', []));
+        $property->features9()->sync($request->input('features9', []));
+        $property->features10()->sync($request->input('features10', []));
+        $property->features11()->sync($request->input('features11', []));
+         
 
         $saveFacilitiesService->execute($property, $request->input('facilities', []));
 

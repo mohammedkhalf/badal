@@ -333,3 +333,27 @@ body[dir='rtl'] {
         right: unset;
     }
 }
+.avl-features li {
+    display: block;
+    list-style: none;
+    position: relative;
+    margin: 10px 0 10px;
+    padding-right: 30px;
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+}
+
+.avl-features li .icon {
+    position: absolute;
+    color: #00ba74;
+    width: 20px;
+    height: 20px;
+    background: rgba(0, 186, 116, 0.1);
+    text-align: center;
+    line-height: 20px;
+    border-radius: 50%;
+    right: 0;
+    top: 5px;
+    font-size: 10px;
+}

@@ -10,3 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Route::get('properties/map', function (){
+//    dd("oopopo");
+//});
+Route::group(['middleware' => ['web', 'core']], function () {
+
+    Route::get('properties/map', 'App\Http\Controllers\CustomController@dynamicMap');
+});

@@ -7,4 +7,5 @@ use Botble\Support\Repositories\Eloquent\RepositoriesAbstract;
 
 class FeatureRepository extends RepositoriesAbstract implements FeatureInterface
 {
+    
 }

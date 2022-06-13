@@ -3,15 +3,24 @@
 namespace Botble\RealEstate\Http\Controllers;
 
 use Assets;
+use Exception;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Botble\RealEstate\Models\Notification;
+use App\Events\NotificationEvent;
+use Illuminate\Contracts\View\Factory;
+use Botble\Setting\Supports\SettingStore;
 use Botble\Base\Http\Controllers\BaseController;
+use Botble\RealEstate\Http\Controllers\NotificationController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
+use Botble\Base\Events\CreatedContentEvent;
+use Botble\RealEstate\Http\Requests\NotificationRequest;
+use Botble\RealEstate\Repositories\Interfaces\NotificationInterface;
+
+use Botble\RealEstate\Services\StoreCurrenciesService;
 use Botble\RealEstate\Http\Requests\UpdateSettingsRequest;
 use Botble\RealEstate\Repositories\Interfaces\CurrencyInterface;
-use Botble\RealEstate\Services\StoreCurrenciesService;
-use Botble\Setting\Supports\SettingStore;
-use Exception;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\View\View;
+use Pusher\Pusher;
 
 class RealEstateController extends BaseController
 {
@@ -50,6 +59,55 @@ class RealEstateController extends BaseController
             ->toArray();
 
         return view('plugins/real-estate::settings.index', compact('currencies'));
+    }
+
+    public function notification()
+    {
+        page_title()->setTitle('ارسال اشعارات للمستخدمين');
+
+        return view('plugins/real-estate::settings.notifications');
+    }
+
+    public function sentNotification(NotificationRequest $request ,  BaseHttpResponse $response)
+    {
+        // implementation Dashboard Notifications
+        $options = array(
+            'cluster' => 'eu',
+            'encrypted' => false
+        );
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $pusher->trigger('my-channel', 'my-event', $request->notification);
+        $users= \DB::table('re_accounts')->select('id')->get();
+        foreach ($users??[] as $key => $user) {
+            $request->merge([
+                'message' => $request->notification,
+                'account_id' => $user->id,    //instead of reciever_id 
+                'language'=>'en_US',
+                'ref_from'=>null,
+                'submit'=>'save'
+            ]);
+            // dd($request->all());
+            $notinterface =  \App::make('Botble\RealEstate\Repositories\Interfaces\NotificationInterface');
+            $not = new NotificationController($notinterface);
+            // NotificationController::save($request,$response);
+            $not->save($request,$response);
+            // $notification = new Notification();
+            // $notification->message=$request->notification;
+            // $notification->reciever_id=$user->id;
+            // $notification->save();
+            // event(new CreatedContentEvent(NOTIFICATION_MODULE_SCREEN_NAME, $request, $notification));
+
+        }
+        return $response
+        ->setNextUrl(url('admin/real-estate/notification'))
+        ->setMessage('تم ارسال الاشعار بنجاح');
+
     }
 
     /**

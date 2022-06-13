@@ -9,12 +9,63 @@
     $layout = ($layout && in_array($layout, array_keys(get_properties_page_layout()))) ? $layout : 'sidebar';
 @endphp
 
-
 @if($layout == 'full')
+
+   <!-- start work search bar 
     <div class="page-title">
+    -->
+         <div class="searchbar-addon-work">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-10 col-md-12">
+                    
+                    <!-- start work search bar -->
+                    
+                            <div class="full-search-2 eclip-search italian-search hero-search-radius shadow">
+            <div class="hero-search-content">
+
+                <form action="{{ route('public.properties') }}" method="GET" id="frmhomesearch">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 b-r">
+                            <div class="form-group borders">
+                                <div class="input-with-icon">
+                                    <input type="text" name="k" class="form-control" placeholder="{{ __('Neighborhood') }}">
+                                    <i class="ti-search"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group borders">
+                                <div class="input-with-icon">
+                                    {!! Theme::partial('real-estate.filters.categories') !!}
+                                    <i class="ti-briefcase"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group borders">
+                                <div class="input-with-icon b-l">
+                                    {!! Theme::partial('real-estate.filters.cities') !!}
+                                    <i class="ti-location-pin"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-md-2 col-sm-12">
+                            <div class="form-group">
+                                <button class="btn search-btn" type="submit">{{ __('Search') }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+                    
+<!-- end work search bar -->
+                    
+<!-- searh bar not working
 
                     <div class="full-search-2 eclip-search italian-search hero-search-radius shadow-hard">
                         <div class="hero-search-content">
@@ -45,7 +96,7 @@
                             </div>
                         </div>
                     </div>
-
+-->
                 </div>
             </div>
         </div>

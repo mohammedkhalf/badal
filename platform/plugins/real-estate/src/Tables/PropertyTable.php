@@ -5,6 +5,7 @@ namespace Botble\RealEstate\Tables;
 use BaseHelper;
 use Botble\RealEstate\Enums\ModerationStatusEnum;
 use Botble\RealEstate\Exports\PropertyExport;
+use Botble\RealEstate\Models\Property;
 use Botble\RealEstate\Repositories\Interfaces\PropertyInterface;
 use Botble\Table\Abstracts\TableAbstract;
 use Html;
@@ -91,6 +92,11 @@ class PropertyTable extends TableAbstract
             ->editColumn('type', function ($item) {
                 return $item->type->name;
             })
+            ->editColumn('author', function ($item) {
+                $author = Property::where('id', $item->id)->with(['author'])->first();//dd($author['author']->first_name);
+                return '<a href="accounts/edit/'.$author['author']->id.'">'.$author['author']->first_name.'</a>';
+//                return Html::link(route('accounts.edit', $author['author']->id), $author['author']->first_name);
+            })
             ->editColumn('created_at', function ($item) {
                 return BaseHelper::formatDate($item->created_at);
             })
@@ -152,6 +158,12 @@ class PropertyTable extends TableAbstract
             'type'              => [
                 'name'  => 're_properties.type_id',
                 'title' => trans('plugins/real-estate::property.property_type'),
+                'width' => '100px',
+                'class' => 'text-start',
+            ],
+            'author'              => [
+                'name'  => 're_properties.author.first_name',
+                'title' => 'Author',
                 'width' => '100px',
                 'class' => 'text-start',
             ],

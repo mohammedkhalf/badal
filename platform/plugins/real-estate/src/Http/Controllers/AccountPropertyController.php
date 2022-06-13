@@ -12,6 +12,9 @@ use Botble\RealEstate\Enums\ModerationStatusEnum;
 use Botble\RealEstate\Forms\AccountPropertyForm;
 use Botble\RealEstate\Http\Requests\AccountPropertyRequest;
 use Botble\RealEstate\Models\Account;
+use Botble\RealEstate\Models\Property;
+use Botble\RealEstate\Models\PropertyReplacement;
+use Botble\RealEstate\Models\Review;
 use Botble\RealEstate\Repositories\Interfaces\AccountActivityLogInterface;
 use Botble\RealEstate\Repositories\Interfaces\AccountInterface;
 use Botble\RealEstate\Repositories\Interfaces\PropertyInterface;
@@ -71,6 +74,7 @@ class AccountPropertyController extends Controller
      */
     public function index(Request $request, AccountPropertyTable $propertyTable)
     {
+ // dd($propertyTable);
         SeoHelper::setTitle(trans('plugins/real-estate::account-property.properties'));
 
         $user = auth('account')->user();
@@ -83,6 +87,61 @@ class AccountPropertyController extends Controller
         return $propertyTable->render('plugins/real-estate::account.table.base');
     }
 
+    public function showBid($id) {
+        /*$property = $this->propertyRepository->getFirstBy([
+            'id'          => $id,
+            'author_id'   => auth('account')->id(),
+            'author_type' => Account::class,
+        ]);*/
+
+      //  $bids = Review::where('reviewable_id', $propertyId)->with(['account'])->orderBy('created_at', 'DESC')->get();
+
+        $property = Property::with('reviews.account')
+        ->where('author_id',auth('account')->id())
+        ->where('author_type',Account::class)
+        ->findOrFail($id);
+
+        $PropertyReplacement = PropertyReplacement::all();
+        //dd($property);
+
+        return Theme::scope('real-estate.choosebids',
+        ['property' => $property , 'PropertyReplacement' => $PropertyReplacement])->render();
+    }
+
+    public function properetyUpdatePrice($id , Request $request ) {
+        $property = Property::findOrFail($id);
+        $property->price = $request->price;
+        $property->replacement_id = $request->replacement;
+        $property->save();
+
+        return redirect()->back()
+        ->with(trans('core/base::notices.update_success_message'));
+    }
+
+    public function approveBidd($id  ,  AccountInterface $accountRepository , BaseHttpResponse $response ) {
+                    if (!auth('account')->user()->canPost()) {
+            return back()->with(['error_msg' => trans('plugins/real-estate::package.add_credit_alert')]);
+        }
+
+        $account = $accountRepository->findOrFail(auth('account')->id());
+
+       // dd($account);
+        if ($account->credits < 128) {
+            return $response->setError(true)->setMessage(__('لا يوجد رصيد كافى فى المحفظة. برجاء الشحن أولا'));
+        }
+        $review = Review::findOrFail($id);
+        $review->status = "accepted";
+        $review->save();
+
+        $accountCredit = $account->credits;
+        $account->credits = $accountCredit - 128;
+        $account->save();
+
+       /* return redirect()->back()
+        ->with(trans('core/base::notices.update_success_message')); */
+        return $response->setMessage(__('تم أختيار شخص للمزاد سيتم ارسال اشعار بخصم 128 دينار منه لتاكيد المزاد'));
+    }
+
     /**
      * @param FormBuilder $formBuilder
      * @return string
@@ -90,16 +149,19 @@ class AccountPropertyController extends Controller
      */
     public function create(FormBuilder $formBuilder)
     {
-        if (!auth('account')->user()->canPost()) {
-            return back()->with(['error_msg' => trans('plugins/real-estate::package.add_credit_alert')]);
-        }
+        //        if (!auth('account')->user()->canPost()) {
+//            return back()->with(['error_msg' => trans('plugins/real-estate::package.add_credit_alert')]);
+//        }
+
+//dd("hello");
 
         SeoHelper::setTitle(trans('plugins/real-estate::account-property.write_property'));
 
         if (view()->exists(Theme::getThemeNamespace('views.real-estate.account.forms.index'))) {
             $user = auth('account')->user();
             $form = $formBuilder->create(AccountPropertyForm::class);
-            $form->setFormOption('template', Theme::getThemeNamespace() . '::views.real-estate.account.forms.base');
+            //dd(Theme::getThemeNamespace('views.real-estate.account.forms.index'));
+            $form->setFormOption('template', Theme::getThemeNamespace() . '::views.real-estate.account.forms.properetybase');
             return Theme::scope('real-estate.account.forms.index',
                 ['user' => $user, 'formBuilder' => $formBuilder, 'form' => $form])->render();
         }
@@ -120,8 +182,12 @@ class AccountPropertyController extends Controller
         AccountInterface $accountRepository,
         SaveFacilitiesService $saveFacilitiesService
     ) {
+
+
+
         if (!auth('account')->user()->canPost()) {
-            return back()->with(['error_msg' => trans('plugins/real-estate::package.add_credit_alert')]);
+           // save credit when add any propertiy 
+           // return back()->with(['error_msg' => trans('plugins/real-estate::package.add_credit_alert')]);
         }
 
         $request->merge(['expire_date' => now()->addDays(RealEstateHelper::propertyExpiredDays())]);
@@ -154,8 +220,8 @@ class AccountPropertyController extends Controller
         ]);
 
         $account = $accountRepository->findOrFail(auth('account')->id());
-        $account->credits--;
-        $account->save();
+        // $account->credits--;
+       // $account->save();
 
         EmailHandler::setModule(REAL_ESTATE_MODULE_SCREEN_NAME)
             ->setVariableValues([
@@ -181,6 +247,7 @@ class AccountPropertyController extends Controller
      */
     public function edit($id, FormBuilder $formBuilder, Request $request)
     {
+
         $property = $this->propertyRepository->getFirstBy([
             'id'          => $id,
             'author_id'   => auth('account')->id(),
@@ -300,8 +367,8 @@ class AccountPropertyController extends Controller
         $job->expire_date = $job->expire_date->addDays(RealEstateHelper::propertyExpiredDays());
         $job->save();
 
-        $account->credits--;
-        $account->save();
+        //$account->credits--;
+        //$account->save();
 
         return $response->setMessage(__('Renew property successfully'));
     }

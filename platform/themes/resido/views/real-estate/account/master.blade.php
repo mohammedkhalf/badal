@@ -39,6 +39,14 @@
                                 <ul>
                                     <li class="{{ request()->routeIs('public.account.dashboard') ? 'active' : '' }}">
                                         <a href="{{ route('public.account.dashboard') }}"
+                                           title="profile">
+                                           <i class="far fa-user"></i>
+                                           حسابى
+                                        </a>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('public.account.dashboard') ? 'active' : '' }}">
+                                        <a href="{{ route('public.account.dashboard') }}"
                                            title="{{ trans('plugins/real-estate::dashboard.header_profile_link') }}">
                                             <i class="ti-dashboard"></i>{{ __('Dashboard') }}</a>
                                         </a>
@@ -48,7 +56,8 @@
                                         <a
                                             href="{{ route('public.account.settings') }}"
                                             title="{{ trans('plugins/real-estate::dashboard.header_settings_link') }}">
-                                            <i class="fas fa-cogs mr1"></i>{{ trans('plugins/real-estate::dashboard.header_settings_link') }}
+                                            <i class="fas fa-cogs mr1"></i>
+                                            الاعدادات
                                         </a>
                                     </li>
 
@@ -56,7 +65,9 @@
                                         <a
                                             href="{{ route('public.account.packages') }}"
                                             title="{{ trans('plugins/real-estate::account.credits') }}">
-                                            <i class="far fa-credit-card mr1"></i>{{ trans('plugins/real-estate::account.buy_credits') }}
+                                            <i class="far fa-credit-card mr1"></i>
+                                            
+                                            المحفظة
                                             <span
                                                 class="badge badge-info">{{ auth('account')->user()->credits }} {{ trans('plugins/real-estate::account.credits') }}</span>
                                         </a>
@@ -67,9 +78,11 @@
                                         <a
                                             href="{{ route('public.account.properties.index') }}"
                                             title="{{ trans('plugins/real-estate::account-property.properties') }}">
-                                            <i class="far fa-newspaper mr1"></i>{{ trans('plugins/real-estate::account-property.properties') }}
+                                            <i class="far fa-newspaper mr1"></i>
+                                           عقاراتى
                                         </a>
                                     </li>
+
 
                                     @if (auth('account')->user()->canPost())
                                         <li class="{{ request()->routeIs('public.account.properties.create') ? 'active' : '' }}">
@@ -80,30 +93,56 @@
                                             </a>
                                         </li>
                                     @endif
-                                    @if (auth('account')->user()->canPost())
-                                        <li class="{{ request()->routeIs('public.account.properties.create') ? 'active' : '' }}">
-                                            <a
-                                                href="#"
-                                                title="My Biddings">
-                                                <i class="far fa-edit mr1"></i>My Biddings
-                                            </a>
-                                        </li>
-                                    @endif
+                                    
+                                   
 
                                     <li class="{{ request()->routeIs('public.account.security') ? 'active' : '' }}">
                                         <a href="{{ route('public.account.security') }}">
                                             <i class="ti-unlock"></i>
-                                            {{ trans('plugins/real-estate::dashboard.sidebar_security') }}
+                                          
+                                            الامان
                                         </a>
                                     </li>
-
+                                    <li class="{{ request()->routeIs('public.account.dashboard') ? 'active' : '' }}">
+                                        <a href="/toasl-maana"
+                                           title="تواصل معنا">
+                                           <i class="fas fa-phone-alt"></i>
+                                           تواصل معنا
+                                        </a>
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('public.account.dashboard') ? 'active' : '' }}">
+                                        <a href="/properties/map"
+                                           
+                                           title=" المناطق والتوزيعات اﻷسكانية">
+                                          <i class="fas fa-phone-alt"></i>
+                                           مخططات المناطق والتوزيعات اﻷسكانية
+                                        </a>
+                                    </li>
+                                    <li class="{{ request()->routeIs('public.account.dashboard') ? 'active' : '' }}">
+                                        <a href="/alshrot-o-aalhkam"
+                                           title="الشروط واﻷحكام">
+                                        <i class="fas fa-phone-alt"></i>
+                                         الشروط واﻷحكام
+                                        </a>
+                                        
+                                    </li>
+                                    <li class="{{ request()->routeIs('public.account.dashboard') ? 'active' : '' }}">
+                                        <a href="#"
+                                           title="قوانين البدل وألية البدل">
+                                        <i class="fas fa-phone-alt"></i>
+                                     قوانين البدل وألية البدل
+                                        </a>
+                                        
+                                    </li>
                                     <li>
-                                        <a class="no-underline mr2 black-50 hover-black-70 pv1 ph2 db"
+                                        <a class="no-underline mr2 black-50 hover-black-70 pv1 ph2 db" 
                                            href="#"
                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                            title="{{ trans('plugins/real-estate::dashboard.header_logout_link') }}">
                                             <i class="fas fa-sign-out-alt mr1"></i>
-                                            <span>{{ trans('plugins/real-estate::dashboard.header_logout_link') }}</span>
+                                            <span> تسجيل الخروج</span>
+                                         
                                         </a>
                                         <form id="logout-form" action="{{ route('public.account.logout') }}"
                                               method="POST" style="display: none;">

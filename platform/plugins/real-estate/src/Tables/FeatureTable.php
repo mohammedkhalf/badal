@@ -15,6 +15,7 @@ class FeatureTable extends TableAbstract
 {
 
     /**
+     *
      * @var bool
      */
     protected $hasActions = true;
@@ -59,7 +60,7 @@ class FeatureTable extends TableAbstract
             ->addColumn('operations', function ($item) {
                 return $this->getOperations('property_feature.edit', 'property_feature.destroy', $item);
             });
-
+            
         return $this->toJson($data);
     }
 

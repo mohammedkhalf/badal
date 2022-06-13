@@ -32,6 +32,13 @@ class CreateRealEstateTable extends Migration
             $table->integer('number_bedroom')->nullable();
             $table->integer('number_bathroom')->nullable();
             $table->integer('number_floor')->nullable();
+            $table->integer('number_floor2')->nullable();
+            $table->integer('number_floor3')->nullable();
+            $table->integer('number_floor4')->nullable();
+            $table->integer('number_floor5')->nullable();
+            $table->integer('number_floor6')->nullable();
+
+
             $table->integer('square')->nullable();
             $table->decimal('price', 15)->nullable();
             $table->integer('currency_id')->unsigned()->nullable();
@@ -41,6 +48,11 @@ class CreateRealEstateTable extends Migration
             $table->string('author_type', 255)->default(addslashes(User::class));
             $table->integer('category_id')->unsigned()->nullable();
             $table->boolean('is_featured')->default(0);
+            $table->boolean('is_featured2')->default(0);
+            $table->boolean('is_featured3')->default(0);
+            $table->boolean('is_featured4')->default(0);
+            $table->boolean('is_featured5')->default(0);
+            $table->boolean('is_featured6')->default(0);
             $table->string('moderation_status', 60)->default('pending');
             $table->date('expire_date')->nullable();
             $table->boolean('auto_renew')->default(false);
@@ -102,6 +114,7 @@ class CreateRealEstateTable extends Migration
             $table->dateTime('confirmed_at')->nullable();
             $table->string('email_verify_token', 120)->nullable();
             $table->boolean('is_featured')->default(0);
+            $table->boolean('is_featured2')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
