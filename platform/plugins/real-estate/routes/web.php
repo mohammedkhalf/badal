@@ -278,6 +278,8 @@ Route::group(['namespace' => 'Botble\RealEstate\Http\Controllers', 'middleware' 
             Route::get(SlugHelper::getPrefix(Property::class, 'properties'), 'PublicController@getProperties')
                 ->name('public.properties');
             Route::get('properties/{id}/bids', 'PublicController@getBids');
+
+            // implement account Notification 
             Route::post('reviews/create', [
                 'as'         => 'reviews.new.create',
                 'uses'       => 'ReviewController@create',

@@ -12,7 +12,7 @@
                             
     <div class="modal-dialog">
         <div class="modal-content">
-        
+                            <!-- implement account Notification -->
                             <form action="{{url('/reviews/create')}}" method="POST" id="frmhomesearch">
                              {{csrf_field()}}
                                 <div class="hero-search-content side-form">
