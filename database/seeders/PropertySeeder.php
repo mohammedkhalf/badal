@@ -164,6 +164,7 @@ class PropertySeeder extends BaseSeeder
                 $item['moderation_status'] = ModerationStatusEnum::APPROVED;
                 $item['latitude'] = isset($item['coordinates']) ? $item['coordinates']['lat'] : $faker->latitude;
                 $item['longitude'] = isset($item['coordinates']) ? $item['coordinates']['lng'] : $faker->longitude;
+                $item['coords_map'] = $faker->text();
                 $item['author_id'] = Account::inRandomOrder()->value('id');
                 $item['author_type'] = Account::class;
 

@@ -520,6 +520,17 @@ class PropertyForm extends FormAbstract
                     ],
                 ],
             ])
+            ->add('coords_map', 'text', [
+                'label'      => trans('plugins/real-estate::property.form.coords_map'),
+                'label_attr' => ['class' => 'control-label'],
+                'wrapper'    => [
+                    'class' => 'form-group mb-3 col-md-6',
+                ],
+                'attr'       => [
+                    'placeholder'  => 'Ex: 103.812530',
+                    'data-counter' => 25,
+                ],
+            ])
             ->add('rowClose', 'html', [
                 'html' => '</div>',
             ])

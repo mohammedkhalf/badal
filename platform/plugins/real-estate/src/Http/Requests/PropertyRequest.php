@@ -31,6 +31,7 @@ class PropertyRequest extends Request
             'price'             => 'numeric|min:0|nullable',
             'latitude'          => 'max:20|nullable',
             'longitude'         => 'max:20|nullable',
+            'coords_map'         => 'max:20|nullable',
             'moderation_status' => Rule::in(ModerationStatusEnum::values()),
         ];
     }

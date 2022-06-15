@@ -63,6 +63,7 @@ class Property extends BaseModel
         'auto_renew',
         'latitude',
         'longitude',
+        'coords_map',
         'type_id',
         'replacement_id',
     ];
