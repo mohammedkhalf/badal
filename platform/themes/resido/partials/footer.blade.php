@@ -8,7 +8,7 @@ if (auth('account')->user()) {
         ->first();
 
     if($bidd) {
-        $reviews = Notification::where('account_id', '=', auth('account')->user()->id)   //<>
+        $reviews = Notification::where('account_id', '=', auth('account')->user()->id)
             ->where('notification_type','=','bidd')
             ->where('created_at' ,'>' , Carbon\Carbon::parse($bidd->created_at)->format('H:i:s'))
             ->get();
