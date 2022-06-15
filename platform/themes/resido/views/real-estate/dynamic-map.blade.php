@@ -229,10 +229,12 @@
             document.getElementById("main_select").onchange = function () {
               let selector = document.getElementById("main_select");
               let value = selector[selector.selectedIndex].value;
-            
+              
+
               let nodeList = document
                 .getElementById("sub_select")
                 .querySelectorAll("option");
+
             
               nodeList.forEach(function (option) {
                 if (option.classList.contains(value)) {

@@ -159,15 +159,9 @@ class ReviewController extends BaseController
             return redirect('/login');
         }
         if (!auth('account')->user()->canPost()) {
-            //dd("Hello");
             return back()->with(['error_msg' => trans('plugins/real-estate::package.add_credit_alert')]);
         }
       
-//     if (auth('account')->user()->credits < 128) {
-//     return back()->with(['error_msg' => __('لا يوجد رصيد كافى فى المحفظة. برجاء الشحن أولا')]);
-//
-//   }
-//    dd("No Hello");
         $replacement = $request->input('replacement');
         $propertyName = $request->input('propertyName');
         $property = Property::find($request->property_id);
