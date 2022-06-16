@@ -138,7 +138,8 @@ class ReviewController extends BaseController
         $reviews = Notification::where('account_id', '=', auth('account')->user()->id) //<>
             ->where('notification_type','=','bidd')
         ->where('created_at' ,'>' , Carbon\Carbon::parse($bidd->created_at)->format('H:i:s'))
-    ->get();
+        ->latest()
+        ->get();
 
     } else {
         $reviews = [];

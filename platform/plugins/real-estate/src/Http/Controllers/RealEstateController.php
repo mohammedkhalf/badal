@@ -89,6 +89,7 @@ class RealEstateController extends BaseController
                 'message' => $request->notification,
                 'account_id' => $user->id,    //instead of reciever_id 
                 'language'=>'en_US',
+                'notification_type'=>'admin',
                 'ref_from'=>null,
                 'submit'=>'save'
             ]);
