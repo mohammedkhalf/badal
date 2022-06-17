@@ -3,224 +3,149 @@
 namespace Botble\RealEstate\Http\Controllers;
 
 use Assets;
-use Botble\Base\Events\DeletedContentEvent;
-use Botble\Base\Http\Controllers\BaseController;
-use Botble\Base\Http\Responses\BaseHttpResponse;
-use Botble\RealEstate\Models\Notification;
-use Botble\RealEstate\Models\Property;
-use Botble\RealEstate\Models\Review;
-use Botble\RealEstate\Repositories\Interfaces\ReviewInterface;
-use Botble\RealEstate\Repositories\Interfaces\AccountInterface;
-use Botble\RealEstate\Repositories\Interfaces\AccountActivityLogInterface;
-use Botble\RealEstate\Tables\ReviewTable;
-use Botble\RealEstate\Services\PushNotificationService;
 use Exception;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use Throwable;
-use Theme;
+use Illuminate\Http\Request;
+use Botble\RealEstate\Models\Notification;
+use App\Events\NotificationEvent;
+use Illuminate\Contracts\View\Factory;
+use Botble\Setting\Supports\SettingStore;
+use Botble\Base\Http\Controllers\BaseController;
+use Botble\RealEstate\Http\Controllers\NotificationController;
+use Botble\Base\Http\Responses\BaseHttpResponse;
+use Botble\Base\Events\CreatedContentEvent;
+use Botble\RealEstate\Http\Requests\NotificationRequest;
+use Botble\RealEstate\Repositories\Interfaces\NotificationInterface;
+
+use Botble\RealEstate\Services\StoreCurrenciesService;
+use Botble\RealEstate\Http\Requests\UpdateSettingsRequest;
+use Botble\RealEstate\Repositories\Interfaces\CurrencyInterface;
 use Pusher\Pusher;
-use Carbon;
 
-class ReviewController extends BaseController
+class RealEstateController extends BaseController
 {
-    /**
-     * @var ReviewInterface
-     */
-
-      /**
-     * @var AccountInterface
-     */
-    protected $accountRepository;
-    protected $reviewRepository;
-
-       /**
-     * @var AccountActivityLogInterface
-     */
-    protected $activityLogRepository;
 
     /**
-     * ReviewController constructor.
-     * @param ReviewInterface $reviewRepository
-     * @param AccountInterface $accountRepository
-     * @param AccountActivityLogInterface $accountActivityLogRepositorys
+     * @var CurrencyInterface
      */
-    public function __construct(ReviewInterface $reviewRepository  ,AccountInterface $accountRepository , AccountActivityLogInterface $accountActivityLogRepository)
+    protected $currencyRepository;
+
+    /**
+     * RealEstateController constructor.
+     * @param CurrencyInterface $currencyRepository
+     */
+    public function __construct(CurrencyInterface $currencyRepository)
     {
-        $this->reviewRepository = $reviewRepository;
-        $this->accountRepository = $accountRepository;
-        $this->activityLogRepository = $accountActivityLogRepository;
-
+        $this->currencyRepository = $currencyRepository;
     }
 
     /**
-     * @param ReviewTable $dataTable
      * @return Factory|View
-     * @throws Throwable
      */
-    public function index(ReviewTable $dataTable)
+    public function getSettings()
     {
+        page_title()->setTitle(trans('plugins/real-estate::real-estate.settings'));
 
-        page_title()->setTitle(trans('plugins/real-estate::review.name'));
-
-        Assets::addStylesDirectly('vendor/core/plugins/real-estate/css/review.css');
-
-        return $dataTable->renderTable();
-    }
-
-    /**
-     * @param Request $request
-     * @param int $id
-     * @param BaseHttpResponse $response
-     * @return BaseHttpResponse
-     */
-    public function destroy(Request $request, $id, BaseHttpResponse $response)
-    {
-        try {
-            $review = $this->reviewRepository->findOrFail($id);
-            $this->reviewRepository->delete($review);
-
-            event(new DeletedContentEvent(REVIEW_MODULE_SCREEN_NAME, $request, $review));
-
-            $this->activityLogRepository->createOrUpdate([
-                'action'         => 'delete_bidd',
-                'reference_name' => $review->id,
+        Assets::addScripts(['jquery-ui'])
+            ->addScriptsDirectly([
+                'vendor/core/plugins/real-estate/js/currencies.js',
+            ])
+            ->addStylesDirectly([
+                'vendor/core/plugins/real-estate/css/currencies.css',
             ]);
 
-            return $response->setMessage(trans('core/base::notices.delete_success_message'));
-        } catch (Exception $exception) {
-            return $response
-                ->setError()
-                ->setMessage($exception->getMessage());
+        $currencies = $this->currencyRepository
+            ->getAllCurrencies()
+            ->toArray();
+
+        return view('plugins/real-estate::settings.index', compact('currencies'));
+    }
+
+    public function notification()
+    {
+        page_title()->setTitle('ارسال اشعارات للمستخدمين');
+
+        return view('plugins/real-estate::settings.notifications');
+    }
+
+    public function sentNotification(NotificationRequest $request ,  BaseHttpResponse $response)
+    {
+        $options = array(
+            'cluster' => 'eu',
+            'encrypted' => false
+        );
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $pusher->trigger('my-channel', 'my-event', $request->notification);
+        $users= \DB::table('re_accounts')->select('id')->get();
+        foreach ($users??[] as $key => $user) {
+            $request->merge([
+                'message' => $request->notification,
+                'reciever_id' => $user->id,
+                'language'=>'en_US',
+                'notification_type'=>'admin',
+                'ref_from'=>null,
+                'submit'=>'save'
+            ]);
+            // dd($request->all());
+            $notinterface =  \App::make('Botble\RealEstate\Repositories\Interfaces\NotificationInterface');
+            $not = new NotificationController($notinterface);
+            // NotificationController::save($request,$response);
+            $not->save($request,$response);
+            // $notification = new Notification();
+            // $notification->message=$request->notification;
+            // $notification->reciever_id=$user->id;
+            // $notification->save();
+            // event(new CreatedContentEvent(NOTIFICATION_MODULE_SCREEN_NAME, $request, $notification));
+
         }
+        return $response
+        ->setNextUrl(url('admin/real-estate/notification'))
+        ->setMessage('تم ارسال الاشعار بنجاح');
+
     }
 
     /**
-     * @param Request $request
+     * @param UpdateSettingsRequest $request
      * @param BaseHttpResponse $response
+     * @param StoreCurrenciesService $service
+     * @param SettingStore $settingStore
      * @return BaseHttpResponse
      * @throws Exception
      */
-    public function deletes(Request $request, BaseHttpResponse $response)
-    {
-        $ids = $request->input('ids');
-        if (empty($ids)) {
+    public function postSettings(
+        UpdateSettingsRequest $request,
+        BaseHttpResponse $response,
+        StoreCurrenciesService $service,
+        SettingStore $settingStore
+    ) {
+        $settingStore->set(config('plugins.real-estate.real-estate.prefix') . 'review_fields', json_encode($request->input(config('plugins.real-estate.real-estate.prefix') . 'review_fields')));
+        foreach ($request->except(['_token', 'currencies', 'deleted_currencies', config('plugins.real-estate.real-estate.prefix') . 'review_fields']) as $settingKey => $settingValue) {
+            $settingStore->set($settingKey, $settingValue);
+        }
+
+        $settingStore->save();
+
+        $currencies = json_decode($request->input('currencies'), true) ?: [];
+
+        if (!$currencies) {
             return $response
+                ->setNextUrl(route('real-estate.settings'))
                 ->setError()
-                ->setMessage(trans('core/base::notices.no_select'));
+                ->setMessage(trans('plugins/real-estate::currency.require_at_least_one_currency'));
         }
 
-        foreach ($ids as $id) {
-            $review = $this->reviewRepository->findOrFail($id);
-            $this->reviewRepository->delete($review);
+        $deletedCurrencies = json_decode($request->input('deleted_currencies', []), true) ?: [];
 
-            event(new DeletedContentEvent(REVIEW_MODULE_SCREEN_NAME, $request, $review));
+        $service->execute($currencies, $deletedCurrencies);
 
-            $this->activityLogRepository->createOrUpdate([
-                'action'         => 'delete_bidd',
-                'reference_name' => $review->id,
-            ]);
-        }
-
-
-
-        return $response->setMessage(trans('core/base::notices.delete_success_message'));
-    }
-
-    public function getNotiBidds() {
-        $bidd = Notification::where('account_id','=',auth('account')->user()->id)
-            ->where('notification_type','=','bidd')
-        ->first();
-
-    if($bidd) {
-        $reviews = Notification::where('account_id', '<>', auth('account')->user()->id)
-            ->where('notification_type','=','bidd')
-        ->where('created_at' ,'>' , Carbon\Carbon::parse($bidd->created_at)->format('H:i:s'))
-    ->get();
-
-    } else {
-        $reviews = [];
-    }
-
-
-
-        //return Theme::getThemeNamespace('partials.notification', ['review' => $review])->render();
-        return Theme::scope('partials.notification', ['reviews' => $reviews])
-        ->render();
-    }
-
-    public function create(Request $request , AccountInterface $accountRepository)
-    {
-
-        if (auth('account')->user() == null){
-            return redirect('/login');
-        }
-        if (!auth('account')->user()->canPost()) {
-            //dd("Hello");
-            return back()->with(['error_msg' => trans('plugins/real-estate::package.add_credit_alert')]);
-        }
-       // dd("No Hello");
-        $replacement = $request->input('replacement');
-        $propertyName = $request->input('propertyName');
-        $property = Property::find($request->property_id);
-
-        $comment = $propertyName != null ? $replacement."/".$propertyName : $replacement;
-       $review =  Review::create([
-            'account_id'        => auth('account')->user()->id,
-            'reviewable_id'     => $request->property_id,
-            'star'              => $request->cash,
-            'reviewable_type'   => 'Botble\RealEstate\Models\Property',
-            'comment'           => $comment
-        ]);
-
-        $notification =  Notification::create([
-            'account_id'        => auth('account')->user()->id,
-            'reviewable_id'     => $request->property_id,
-            'star'              => $request->cash,
-            'reviewable_type'   => 'Botble\RealEstate\Models\Property',
-            'message'           => $comment
-        ]);
-
-        /*$oldReviews=Review::where(['reviewable_id'=>$request->property_id,'reviewable_type'=>'Botble\RealEstate\Models\Property'])->get();
-        //    dd($oldReviews);
-            $notificationData=[
-                'owner'=>$property->author->first_name.' '.$property->author->last_name,
-                'badel_name'=>$property->name,
-                'creator_id'=>auth('account')->user()?auth('account')->user()->id:1,
-                'creator'=>auth('account')->user()?auth('account')->user()->first_name.''.auth('account')->user()->last_name:"creator",
-                'owner_id'=>$property->author->id,
-                'badel_id'=>$request->property_id
-            ];
-
-            $pushObj=new PushNotificationService($notificationData);
-            // if($notificationData['owner_id']==auth('account')->user()->id||count()){
-            $pushObj->push();*/
-
-            $options = array(
-                'cluster' => 'eu',
-                'encrypted' => false
-            );
-            $pusher = new Pusher(
-                env('PUSHER_APP_KEY'),
-                env('PUSHER_APP_SECRET'),
-                env('PUSHER_APP_ID'),
-                $options
-            );
-
-            $pusher->trigger('my-channel', 'my-event', $review);
-
-
-        $this->activityLogRepository->createOrUpdate([
-            'action'         => 'create_bidd',
-            'reference_name' => $property->name,
-            'reference_url'  => route('reviews.public.reviews.create'),
-        ]);
-        $account = $accountRepository->findOrFail(auth('account')->id());
-        $account->credits--;
-        $account->save();
-        //dd($property->url);
-        return redirect()->to($property->url);
+        return $response
+            ->setNextUrl(route('real-estate.settings'))
+            ->setMessage(trans('core/base::notices.update_success_message'));
     }
 }

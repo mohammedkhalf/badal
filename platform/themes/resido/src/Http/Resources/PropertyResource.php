@@ -40,6 +40,7 @@ class PropertyResource extends JsonResource
             'type_name'       => $this->type_name,
             'latitude'        => $this->latitude,
             'longitude'       => $this->longitude,
+            'coords_map'       => $this->coords_map,
             'period'          => $this->period,
             'category_name'   => $this->category_name,
             'map_icon'        => $this->map_icon,

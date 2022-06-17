@@ -27,6 +27,8 @@ return [
         'latitude_helper'  => 'Go here to get Latitude from address.',
         'longitude'        => 'Longitude',
         'longitude_helper' => 'Go here to get Longitude from address.',
+        'coords_map' => 'coords map',
+        
     ],
     'statuses'            => [
         'not_available' => 'Not available',

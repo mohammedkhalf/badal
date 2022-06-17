@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col text-center">
                         <div class="sec-heading center mb-0">
-                           
+
                         </div>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                             <!-- start bottom sections -->
                             @foreach($property->reviews as $K=>$P)
                             <div class="col-sm-12">
-							
+
                                 <div class="property-listing property-1 my-3 border shadow-none border-radius-none">
                                     <div class="listing-img-wrapper">
                                         <div class="listing-content">
@@ -65,20 +65,20 @@
                                                     </div>
 
 
-                                                  
+
                                                     <div class="list-price d-flex flex-row">
                                      <h6 class="fs-14px gray-color font-weight-bold listing-card-info-price d-inline-block w-50"><i class="far fa-user"></i> {{$P->account->username}}</h6>
 
                                     <div class="d-inline-block w-50">
 
                                         <div class="time_bid">
-                                            
+
                                         {{-- <pre>      </pre><span class="gray-color">{{$P->star}}</span>--}}
                                             <span class="gray-color fs-14px"><i class="far fa-clock"></i> {{$P->created_at}}</span></div>
-                                         </div> 
+                                         </div>
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
 
 
 
@@ -87,10 +87,10 @@
 
 
 
-                                                    <form action="/badal-new/public/account/properties/approveBidd/{{$P->id}}" method="GET" id="frmhomesearch">
+                                                    <form action="{{route('public.account.properties.approveBiddapproveBidd',$P->id)}}" method="GET" id="frmhomesearch">
                                                         @csrf
                                                     <div class="mt-3  mb-2 px-7 ">
-                                                    @if($P->status == "accepted" || $P->status == "pending")
+                                                        @if($P->status == "accepted" || $P->status == "pending")
                                                      @php $key = $K ; @endphp
                                                     <a  href="/agents/{{$P->account->username}}" target="_blank" class="green-color rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
                                                         بروفايل صاحب المزايدة الفائزة
@@ -104,11 +104,11 @@
                                                     <button type="button" data-bs-toggle="modal" data-bs-target="#creditModal"  class="mb-4 rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
         أختار المزايدة الفائزة
     </button>
-													
-													
-													
-													
-																			
+
+
+
+
+
 			<!-- start credit modal -->
 <div class="modal fade" id="creditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -125,21 +125,21 @@
                             <a href="/account/packages"> <span class="blue-color fs-14px">أشحن المحفظة الان </span></a>
                         </div>
                     </div>
-                    
+
                     <div class="modal-footer border-0">
                         <button type="submit" href="" class="rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
                                                         أختار المزايدة الفائزة
                                                     </button>
                     </div>
-                
+
             </div>
 
         </div>
     </div>
 </div>
-<!-- end credit modal -->							
-													
-													
+<!-- end credit modal -->
+
+
                                                     @endif
                                                     @endif
                                                 </div>

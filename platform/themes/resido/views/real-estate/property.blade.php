@@ -257,19 +257,21 @@
                                                   
                                                                     
                                                     @if($bid->status == "accepted")
-                                                     @php $bid ; @endphp
+                                                     @php $bid ;
+                                                     @endphp
                                                     <a  href="" target="_blank" class="green-color rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
                                                   بروفايل صاحب البدل
                                                     </a>
+                                                    @elseif($bid->status == "pending")
+                                                    <button type="submit" href="" class="rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
+                                                   تأكيد المزاد
+                                                    </button>
                                                     @else
                                                     @if(isset($bid))
                                                     <button disabled href="/agents/{{$bid->account->username}}" class="rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
                                                         تأكيد المزاد
                                                     </button>
-                                                    @else
-                                                    <button type="submit" href="" class="rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
-                                                   تأكيد المزاد
-                                                    </button>
+
     </button>
 														
 

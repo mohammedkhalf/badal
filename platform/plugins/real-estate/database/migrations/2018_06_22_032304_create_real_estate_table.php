@@ -59,6 +59,7 @@ class CreateRealEstateTable extends Migration
             $table->boolean('never_expired')->default(false);
             $table->string('latitude', 25)->nullable();
             $table->string('longitude', 25)->nullable();
+            $table->string('coords_map', 25)->nullable();
             $table->integer('type_id')->unsigned()->references('id')->on('re_types')->index();
             $table->timestamps();
         });

@@ -119,7 +119,7 @@ class AccountPropertyController extends Controller
     }
 
     public function approveBidd($id  ,  AccountInterface $accountRepository , BaseHttpResponse $response ) {
-                    if (!auth('account')->user()->canPost()) {
+        if (!auth('account')->user()->canPost()) {
             return back()->with(['error_msg' => trans('plugins/real-estate::package.add_credit_alert')]);
         }
 
@@ -130,7 +130,8 @@ class AccountPropertyController extends Controller
             return $response->setError(true)->setMessage(__('لا يوجد رصيد كافى فى المحفظة. برجاء الشحن أولا'));
         }
         $review = Review::findOrFail($id);
-        $review->status = "accepted";
+        $review->status = $review->status=='published'?'pending': "accepted";
+
         $review->save();
 
         $accountCredit = $account->credits;
@@ -139,8 +140,12 @@ class AccountPropertyController extends Controller
 
        /* return redirect()->back()
         ->with(trans('core/base::notices.update_success_message')); */
-        return $response->setMessage(__('تم أختيار شخص للمزاد سيتم ارسال اشعار بخصم 128 دينار منه لتاكيد المزاد'));
-    }
+        if($review->status=='pending'){
+            return $response->setMessage(__('تم أختيار شخص للمزاد سيتم ارسال اشعار بخصم 128 دينار منه لتاكيد المزاد'));
+            }else
+            {
+            return $response->setMessage(__('تم تأكيد المزاد بنجاح وخصم 128 دينار من حسابك'));
+            }    }
 
     /**
      * @param FormBuilder $formBuilder
