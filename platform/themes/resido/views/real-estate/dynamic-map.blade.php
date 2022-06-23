@@ -18,14 +18,14 @@
 <body>
 <div class="container">
  <div class="row">
-      <div class="col-12 mb-3">
+      {{-- <div class="col-12 mb-3">
             <select id="main_select" class="form-control">
                 <option selected>Choose</option>
                 <option value="map1">map 1</option>
                 <option value="map2">map 2</option>
                 <option value="map3">map 3</option>
              </select>
-      </div>
+      </div> --}}
       <!--<div id="details-data">-->
       <!--      <div class="data-section map1" id="map1">-->
       <!--          details data 1-->
@@ -39,7 +39,7 @@
       <!--  </div>-->
                             
                             
-       <div class="col-12">
+       {{-- <div class="col-12">
             <h4>أختار مخطط التوزيع</h4>
             <div class="form-group">
                 <select class="form-control bg-white" id="sub_select" name="replacement">
@@ -48,9 +48,9 @@
                   <option class="map2" value="sub2"> sub 2 </option>
                 </select>
             </div>
-        </div>
+        </div> --}}
         
-        <div class="col-12">
+        {{-- <div class="col-12">
             <h4>أختار التوزيعة</h4>
             <div class="form-group">
                 <select class="form-control bg-white" id="sub_select1" name="replacement">
@@ -59,13 +59,13 @@
                      <option class="sub2" value="subsub1"> sub sub2 </option>
                 </select>
             </div>
-        </div>
+        </div> --}}
     	
-    	<div class="col-12">
-    	<p> 137 قسيمة - قطعة 1
-    	  مساحة القسيمة 400م2
-    	</p>
-        </div>
+          {{-- <div class="col-12">
+            <p> 137 قسيمة - قطعة 1
+              مساحة القسيمة 400م2
+            </p>
+          </div> --}}
     </div>
     </div>
   <div class="container">
@@ -219,50 +219,35 @@
 </div>
   </div>
     <script>
+    
         $(document).ready(function(){
-            $('#main_select').change(function(){
-                $('.data-section').hide();
-                $('#' + $(this).val()).show();
-            });
-        })
-        $(document).ready(function(){
-            document.getElementById("main_select").onchange = function () {
-              let selector = document.getElementById("main_select");
-              let value = selector[selector.selectedIndex].value;
+
+              $('area').click(function() { 
               
+                event.preventDefault();
 
-              let nodeList = document
-                .getElementById("sub_select")
-                .querySelectorAll("option");
+                var url = $(this).attr('href'); 
+                var coords = $(this).attr('coords').split(','); 
 
-            
-              nodeList.forEach(function (option) {
-                if (option.classList.contains(value)) {
-                  option.style.display = "block";
-                } else {
-                  option.style.display = "none";
+                console.log(coords);
+                // window.localStorage.setItem('coords',coords);
+
+                setCookie('coords',coords,7);
+
+                function setCookie(cname, cvalue, exdays) {
+                    var d = new Date();
+                    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                    var expires = "expires="+ d.toUTCString();
+                    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
                 }
+
+                // To prevent default action 
+                return false; 
               });
-            };
+
+          
         });
-         $(document).ready(function(){
-            document.getElementById("sub_select").onchange = function () {
-              let selector2 = document.getElementById("sub_select");
-              let value2 = selector2[selector2.selectedIndex].value;
-            
-              let nodeList1 = document
-                .getElementById("sub_select1")
-                .querySelectorAll("option");
-            
-              nodeList1.forEach(function (option) {
-                if (option.classList.contains(value2)) {
-                  option.style.display = "block";
-                } else {
-                  option.style.display = "none";
-                }
-              });
-            };
-         });
+         
  
 
     </script>

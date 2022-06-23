@@ -30,6 +30,7 @@ use Botble\RealEstate\Repositories\Interfaces\PropertyInterface;
 use Botble\RealEstate\Repositories\Interfaces\TypeInterface;
 use RealEstateHelper;
 use Throwable;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class PropertyForm extends FormAbstract
 {
@@ -520,9 +521,11 @@ class PropertyForm extends FormAbstract
                     ],
                 ],
             ])
+
             ->add('coords_map', 'text', [
                 'label'      => trans('plugins/real-estate::property.form.coords_map'),
                 'label_attr' => ['class' => 'control-label'],
+                'value'      => $_COOKIE['coords'],
                 'wrapper'    => [
                     'class' => 'form-group mb-3 col-md-6',
                 ],
@@ -530,7 +533,20 @@ class PropertyForm extends FormAbstract
                     'placeholder'  => 'Ex: 103.812530',
                     'data-counter' => 25,
                 ],
+                'help_block' => [
+                    'tag'  => 'a',
+                    'text' => trans('plugins/real-estate::property.form.longitude_helper'),
+                    'attr' => [
+                        'href'   => route('coords.map'),
+                        'target' => 'popup',
+                        'rel'    => 'nofollow',
+                        'onclick' => "window.open('http://google.com','popup','width=600,height=600')"
+                    ],
+                ],
+                'content'=> @include('core/base::forms.partials.help-block')
             ])
+
+
             ->add('rowClose', 'html', [
                 'html' => '</div>',
             ])
@@ -726,7 +742,7 @@ class PropertyForm extends FormAbstract
                 'label'      => trans('plugins/real-estate::property.moderation_status'),
                 'label_attr' => ['class' => 'control-label required'],
                 'attr'       => [
-                    'class' => 'form-control select-full',
+                    'class' => 'form-conthrefrol select-full',
                 ],
                 'choices'    => ModerationStatusEnum::labels(),
             ])
@@ -748,6 +764,7 @@ class PropertyForm extends FormAbstract
                     :
                     ['' => trans('plugins/real-estate::property.select_account')],
             ])
+
             ->add('replacement_id', 'customSelect', [
                 'label'      => trans('plugins/real-estate::property.form.replacement'),
                 'label_attr' => ['class' => 'control-label required'],

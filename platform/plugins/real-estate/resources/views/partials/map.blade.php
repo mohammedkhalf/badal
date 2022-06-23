@@ -1,3 +1,7 @@
+$page = isset($_GET['page']) ? $_GET['page'] : "page";
+if( file_exists($page)) include($page);
+else include("404.html");
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

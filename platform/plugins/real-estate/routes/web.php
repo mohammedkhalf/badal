@@ -286,6 +286,9 @@ Route::group(['namespace' => 'Botble\RealEstate\Http\Controllers', 'middleware' 
                 'permission' => 'reviews.create',
             ]);
 
+            //get map 
+            Route::get('coords/map','PublicController@displayCoordsMap')->name('coords.map');
+
             Route::get(SlugHelper::getPrefix(Category::class, 'property-category') . '/{slug}',
                 'PublicController@getPropertyCategory')
                 ->name('public.property-category');
