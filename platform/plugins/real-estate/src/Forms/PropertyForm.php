@@ -534,6 +534,7 @@ class PropertyForm extends FormAbstract
             ->add('rowClose', 'html', [
                 'html' => '</div>',
             ])
+            
             ->add('rowOpen1', 'html', [
                 'html' => '<div class="row">',
             ])
