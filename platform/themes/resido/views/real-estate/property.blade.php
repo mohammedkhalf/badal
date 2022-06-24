@@ -142,6 +142,7 @@
                         
 
                         </div>
+                        
         
                         <div id="coords_map" class="panel-collapse collapse show">
                             <div class="block-body">
