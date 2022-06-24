@@ -55,18 +55,20 @@
                                     <div class="listing-img-wrapper">
                                         <div class="listing-content">
                                             <div class="listing-detail-wrapper-box">
-                                                <div class="listing-detail-wrapper">
-                                                    <div class="listing-short-detail">
-                                                        <h4 class="blue-color listing-name mb-2">
-                                                            <a class="blue-color"
-                                                                href=""
-                                                                title="{{$P->comment}}">{{$P->comment}}</a>
-                                                        </h4>
-                                                    </div>
 
-
-                                                  
-                                                    <div class="list-price d-flex flex-row">
+                                            <div class="listing-detail-wrapper">
+                                <div class="listing-short-detail">
+                                    <h4 class="d-flex align-items-center listing-name blue-color mb-2 d-flex flex-row">
+                                        <p>
+                                            <i class="fas fa-plus"></i>
+                                        </p>
+                                        <p>
+                                            <span class="d-block">{{$P->star}}</span>
+                                            <a class="blue-color" href="#" title="{{$P->comment}}">{{$P->comment}}</a>
+                                        </p>
+                                    </h4>
+                                </div> 
+                                <div class="list-price d-flex flex-row">
                                      <h6 class="fs-14px gray-color font-weight-bold listing-card-info-price d-inline-block w-50"><i class="far fa-user"></i> {{$P->account->username}}</h6>
 
                                     <div class="d-inline-block w-50">
@@ -79,11 +81,7 @@
                                         </div>
                                     </div>
                                 </div> 
-
-
-
-
-
+            </div></div></div>
 
 
 
@@ -120,8 +118,8 @@
                     {{csrf_field()}}
                     <div class="hero-search-content side-form">
                         <div class="row">
-                            <h3 class="blue-color my-3">سيتم خصم 128 دينار كويتى</h3>
-                            <p>سيتم خصم 128 دينار كويتى رسوم أختيار المزايدة الفائزة . وإذا لم يكن لديك رصيد أشحن المحفظة.</p>
+                            <h3 class="blue-color my-3">سيتم خصم 125 دينار كويتى</h3>
+                            <p>سيتم خصم 125 دينار كويتى رسوم أختيار المزايدة الفائزة . وإذا لم يكن لديك رصيد أشحن المحفظة.</p>
                             <a href="/account/packages"> <span class="blue-color fs-14px">أشحن المحفظة الان </span></a>
                         </div>
                     </div>

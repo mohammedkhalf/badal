@@ -282,20 +282,47 @@
                                                     @if($bid->status == "accepted")
                                                      @php $bid ;
                                                      @endphp
-                                                    <a  href="" target="_blank" class="green-color rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
+                                                    <a  href="/agents/{{$bid->account->username}}" target="_blank" class="green-color rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
                                                   بروفايل صاحب البدل
                                                     </a>
                                                     @elseif($bid->status == "pending")
-                                                    <button type="submit" href="" class="rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#confirmbid" class="rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
                                                    تأكيد المزاد
                                                     </button>
+                                                                    	<!-- start confirmbid -->
+                     <div class="modal fade" id="confirmbid" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-0">
+                    {{csrf_field()}}
+                    <div class="hero-search-content side-form">
+                        <div class="row">
+                            <h3 class="blue-color my-3">سيتم خصم 125 دينار كويتى</h3>
+                            <p>سيتم خصم 125 دينار كويتى رسوم تأكيد المزاد . وإذا لم يكن لديك رصيد أشحن المحفظة.</p>
+                            <a href="/account/packages"> <span class="blue-color fs-14px">أشحن المحفظة الان </span></a>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer border-0">
+                    <button type="submit" href="" class="rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
+                                                   تأكيد المزاد
+                                                    </button>
+                    </div>
+                
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end confirmbid -->	
                                                     @else
                                                     @if(isset($bid))
-                                                    <button disabled href="/agents/{{$bid->account->username}}" class="rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
+                                                    <button style="display:none !important;" href="/agents/{{$bid->account->username}}" class="rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
                                                         تأكيد المزاد
                                                     </button>
-
-    </button>
 														
 
 													@endif
