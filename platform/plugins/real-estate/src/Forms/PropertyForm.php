@@ -525,7 +525,8 @@ class PropertyForm extends FormAbstract
             ->add('coords_map', 'text', [
                 'label'      => trans('plugins/real-estate::property.form.coords_map'),
                 'label_attr' => ['class' => 'control-label'],
-                'value'      => $_COOKIE['coords'],
+                'value'      => '',
+                // 'value'      => isset($_COOKIE['cookieName']) ? $_COOKIE['cookieName'] : '',
                 'wrapper'    => [
                     'class' => 'form-group mb-3 col-md-6',
                 ],

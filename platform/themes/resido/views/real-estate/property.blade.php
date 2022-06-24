@@ -109,25 +109,47 @@
                 {!! Theme::partial('real-estate.elements.gallery', compact('property')) !!}
 
                   <!-- Single Block Wrap -->
-                  <div class="property_block_wrap style-2">
+            <div class="property_block_wrap style-2">
 
-<div class="property_block_wrap_header">
-    <a data-bs-toggle="collapse" data-parent="#loca" data-bs-target="#clSix" aria-controls="clSix"
-       href="javascript:void(0);" aria-expanded="true" class="collapsed"><h4
-            class="property_block_title">{{ __('Location') }}</h4></a>
-</div>
+                <div class="property_block_wrap_header">
+                    <a data-bs-toggle="collapse" data-parent="#loca" data-bs-target="#clSix" aria-controls="clSix"
+                    href="javascript:void(0);" aria-expanded="true" class="collapsed"><h4
+                            class="property_block_title">{{ __('Location') }}</h4></a>
+                </div>
 
-<div id="clSix" class="panel-collapse collapse show">
-    <div class="block-body">
-        @if ($property->latitude && $property->longitude)
-            {!! Theme::partial('real-estate.elements.traffic-map-modal', ['location' => $property->location . ', ' . $property->city_name]) !!}
-        @else
-            {!! Theme::partial('real-estate.elements.gmap-canvas', ['location' => $property->location]) !!}
-        @endif
-    </div>
-</div>
+                <div id="clSix" class="panel-collapse collapse show">
+                    <div class="block-body">
+                        @if ($property->latitude && $property->longitude)
+                            {!! Theme::partial('real-estate.elements.traffic-map-modal', ['location' => $property->location . ', ' . $property->city_name]) !!}
+                        @else
+                            {!! Theme::partial('real-estate.elements.gmap-canvas', ['location' => $property->location]) !!}
+                        @endif
+                    </div>
+                </div>
 
-</div>
+            </div>
+
+                    <!-- add coords distributed-->
+                    <div class="property_block_wrap style-2">
+
+                        <div class="property_block_wrap_header">
+
+                            <div class="property_block_wrap_header">
+                                <a data-bs-toggle="collapse" data-parent="#dsrp" data-bs-target="#coords_map" aria-controls="clTwo" href="javascript:void(0);" aria-expanded="true"><h4 class="property_block_title">
+                                    {{ trans('plugins/real-estate::property.form.coords_map') }}</h4>            
+                                </h4></a>
+                            </div>
+                        
+
+                        </div>
+        
+                        <div id="coords_map" class="panel-collapse collapse show">
+                            <div class="block-body">
+                                {!! $property->coords_map !!}
+                            </div>
+                        </div>
+        
+                    </div>
          
 
 <!-- Badal request data -->
