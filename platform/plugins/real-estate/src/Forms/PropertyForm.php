@@ -536,7 +536,7 @@ class PropertyForm extends FormAbstract
                 ],
                 'help_block' => [
                     'tag'  => 'a',
-                    'text' => trans('plugins/real-estate::property.form.longitude_helper'),
+                    'text' => trans('plugins/real-estate::property.form.coords_map'),
                     'attr' => [
                         'href'   => route('coords.map'),
                         'target' => 'popup',
