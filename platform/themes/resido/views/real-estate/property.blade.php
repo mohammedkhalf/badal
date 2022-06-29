@@ -109,25 +109,48 @@
                 {!! Theme::partial('real-estate.elements.gallery', compact('property')) !!}
 
                   <!-- Single Block Wrap -->
-                  <div class="property_block_wrap style-2">
+            <div class="property_block_wrap style-2">
 
-<div class="property_block_wrap_header">
-    <a data-bs-toggle="collapse" data-parent="#loca" data-bs-target="#clSix" aria-controls="clSix"
-       href="javascript:void(0);" aria-expanded="true" class="collapsed"><h4
-            class="property_block_title">{{ __('Location') }}</h4></a>
-</div>
+                <div class="property_block_wrap_header">
+                    <a data-bs-toggle="collapse" data-parent="#loca" data-bs-target="#clSix" aria-controls="clSix"
+                    href="javascript:void(0);" aria-expanded="true" class="collapsed"><h4
+                            class="property_block_title">{{ __('Location') }}</h4></a>
+                </div>
 
-<div id="clSix" class="panel-collapse collapse show">
-    <div class="block-body">
-        @if ($property->latitude && $property->longitude)
-            {!! Theme::partial('real-estate.elements.traffic-map-modal', ['location' => $property->location . ', ' . $property->city_name]) !!}
-        @else
-            {!! Theme::partial('real-estate.elements.gmap-canvas', ['location' => $property->location]) !!}
-        @endif
-    </div>
-</div>
+                <div id="clSix" class="panel-collapse collapse show">
+                    <div class="block-body">
+                        @if ($property->latitude && $property->longitude)
+                            {!! Theme::partial('real-estate.elements.traffic-map-modal', ['location' => $property->location . ', ' . $property->city_name]) !!}
+                        @else
+                            {!! Theme::partial('real-estate.elements.gmap-canvas', ['location' => $property->location]) !!}
+                        @endif
+                    </div>
+                </div>
 
-</div>
+            </div>
+
+                    <!-- add coords distributed-->
+                    <div class="property_block_wrap style-2">
+
+                        <div class="property_block_wrap_header">
+
+                            <div class="property_block_wrap_header">
+                                <a data-bs-toggle="collapse" data-parent="#dsrp" data-bs-target="#coords_map" aria-controls="clTwo" href="javascript:void(0);" aria-expanded="true"><h4 class="property_block_title">
+                                    {{ trans('plugins/real-estate::property.form.coords_map') }}</h4>            
+                                </h4></a>
+                            </div>
+                        
+
+                        </div>
+                        
+        
+                        <div id="coords_map" class="panel-collapse collapse show">
+                            <div class="block-body">
+                                {!! $property->coords_map !!}
+                            </div>
+                        </div>
+        
+                    </div>
          
 
 <!-- Badal request data -->
@@ -259,20 +282,47 @@
                                                     @if($bid->status == "accepted")
                                                      @php $bid ;
                                                      @endphp
-                                                    <a  href="" target="_blank" class="green-color rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
+                                                    <a  href="/agents/{{$bid->account->username}}" target="_blank" class="green-color rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
                                                   بروفايل صاحب البدل
                                                     </a>
                                                     @elseif($bid->status == "pending")
-                                                    <button type="submit" href="" class="rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
+                                                    <button type="button" data-bs-toggle="modal" data-bs-target="#confirmbid" class="rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
                                                    تأكيد المزاد
                                                     </button>
+                                                                    	<!-- start confirmbid -->
+                     <div class="modal fade" id="confirmbid" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body py-0">
+                    {{csrf_field()}}
+                    <div class="hero-search-content side-form">
+                        <div class="row">
+                            <h3 class="blue-color my-3">سيتم خصم 125 دينار كويتى</h3>
+                            <p>سيتم خصم 125 دينار كويتى رسوم تأكيد المزاد . وإذا لم يكن لديك رصيد أشحن المحفظة.</p>
+                            <a href="/account/packages"> <span class="blue-color fs-14px">أشحن المحفظة الان </span></a>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer border-0">
+                    <button type="submit" href="" class="rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
+                                                   تأكيد المزاد
+                                                    </button>
+                    </div>
+                
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- end confirmbid -->	
                                                     @else
                                                     @if(isset($bid))
-                                                    <button disabled href="/agents/{{$bid->account->username}}" class="rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
+                                                    <button style="display:none !important;" href="/agents/{{$bid->account->username}}" class="rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
                                                         تأكيد المزاد
                                                     </button>
-
-    </button>
 														
 
 													@endif

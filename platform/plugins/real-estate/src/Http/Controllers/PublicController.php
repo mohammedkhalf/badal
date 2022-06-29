@@ -237,6 +237,11 @@ class PublicController extends Controller
 
     }
 
+    public function displayCoordsMap()
+    {
+        return Theme::scope('real-estate.dynamic-map')->render();
+    }
+
     /**
      * @param Request $request
      * @param PropertyInterface $propertyRepository
