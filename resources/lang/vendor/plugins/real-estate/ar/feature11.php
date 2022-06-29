@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'name' => 'مميزات أضافية',
+    'name' => 'الموقع',
     'create' => 'أضف جديد',
     'edit' => 'تعديل',
     'messages' => [
