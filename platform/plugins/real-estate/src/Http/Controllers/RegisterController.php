@@ -244,6 +244,7 @@ class RegisterController extends Controller
             'avatar_id'  =>$this->upload($data['avatar_id']),
             'national_image_front'  =>$this->upload($data['national_image_front']),
             'national_image_back'  =>$this->upload($data['national_image_back']),
+            'personal_img'  =>$this->upload($data['personal_img']),
             'password'   => bcrypt($data['password']),
         ]);
     }

@@ -317,7 +317,7 @@ class RealEstateServiceProvider extends ServiceProvider
                 ])
                 ->registerItem([
                     'id'          => 'cms-plugins-re-feature',
-                    'priority'    => 11,
+                    'priority'    => 21,
                     'parent_id'   => 'cms-plugins-real-estate',
                     'name'        => 'plugins/real-estate::feature.name',
                     'icon'        => null,
@@ -331,7 +331,7 @@ class RealEstateServiceProvider extends ServiceProvider
                     'name'        => 'plugins/real-estate::feature2.name',
                     'icon'        => null,
                     'url'         => route('property_feature2.index'),
-                    'permissions' => ['property_feature2.index'],
+                    'permissions' => ['property_feature.index'],
 
                 ])->registerItem([
                     'id'          => 'cms-plugins-re-feature3',
@@ -400,7 +400,7 @@ class RealEstateServiceProvider extends ServiceProvider
                                         'permissions' => ['property_feature.index'], 
                  ])->registerItem([
                                             'id'          => 'cms-plugins-re-feature11',
-                                            'priority'    => 21,
+                                            'priority'    => 11,
                                             'parent_id'   => 'cms-plugins-real-estate',
                                             'name'        => 'plugins/real-estate::feature11.name',
                                             'icon'        => null,

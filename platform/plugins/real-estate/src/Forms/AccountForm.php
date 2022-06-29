@@ -53,6 +53,14 @@ class AccountForm extends FormAbstract
                     'data-counter' => 120,
                 ],
             ])
+            ->add('national_id', 'text', [
+                'label'      => trans('plugins/real-estate::dashboard.national_id'),
+                'label_attr' => ['class' => 'control-label'],
+                'attr'       => [
+                    'placeholder'  => trans('plugins/real-estate::dashboard.national_id'),
+                    'data-counter' => 20,
+                ],
+            ])
             ->add('phone', 'text', [
                 'label'      => trans('plugins/real-estate::account.phone'),
                 'label_attr' => ['class' => 'control-label'],
@@ -74,31 +82,7 @@ class AccountForm extends FormAbstract
                 'label_attr'    => ['class' => 'control-label'],
                 'default_value' => false,
             ])
-            ->add('is_featured2', 'onOff', [
-                'label'         => trans('core/base::forms.is_featured2'),
-                'label_attr'    => ['class' => 'control-label'],
-                'default_value' => false,
-            ])
-            ->add('is_featured3', 'onOff', [
-                'label'         => trans('core/base::forms.is_featured3'),
-                'label_attr'    => ['class' => 'control-label'],
-                'default_value' => false,
-            ])
-            ->add('is_featured4', 'onOff', [
-                'label'         => trans('core/base::forms.is_featured4'),
-                'label_attr'    => ['class' => 'control-label'],
-                'default_value' => false,
-            ])
-            ->add('is_featured5', 'onOff', [
-                'label'         => trans('core/base::forms.is_featured5'),
-                'label_attr'    => ['class' => 'control-label'],
-                'default_value' => false,
-            ])
-            ->add('is_featured6', 'onOff', [
-                'label'         => trans('core/base::forms.is_featured6'),
-                'label_attr'    => ['class' => 'control-label'],
-                'default_value' => false,
-            ])
+           
             ->add('is_change_password', 'checkbox', [
                 'label'      => trans('plugins/real-estate::account.form.change_password'),
                 'label_attr' => ['class' => 'control-label'],
@@ -132,8 +116,23 @@ class AccountForm extends FormAbstract
                 'label_attr' => ['class' => 'control-label'],
                 'value'      => $this->getModel()->avatar->url,
             ])
-            ->setBreakFieldPoint('avatar_image');
+            ->setBreakFieldPoint('avatar_image')
 
+            ->add('national_image_front', 'mediaImage', [
+                'label'      => trans('trans.national_image_front'),
+                'label_attr' => ['class' => 'control-label'],
+            ])
+          
+
+            ->add('national_image_back', 'mediaImage', [
+                'label'      => trans('trans.national_image_back'),
+                'label_attr' => ['class' => 'control-label'],
+            ])
+            
+            ->add('personal_img', 'mediaImage', [
+                'label'      => trans('trans.personal_img'),
+                'label_attr' => ['class' => 'control-label'],
+            ]);
 
         if ($this->getModel()->id) {
             $this->addMetaBoxes([

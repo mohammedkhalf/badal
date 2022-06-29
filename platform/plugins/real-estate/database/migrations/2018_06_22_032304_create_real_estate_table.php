@@ -115,9 +115,13 @@ class CreateRealEstateTable extends Migration
             $table->dateTime('confirmed_at')->nullable();
             $table->string('email_verify_token', 120)->nullable();
             $table->boolean('is_featured')->default(0);
-            $table->boolean('is_featured2')->default(0);
             $table->rememberToken();
             $table->timestamps();
+             $table->string('national_id')->nullable()->after('id');
+            $table->integer('national_image_front')->after('id')->unsigned()->references('id')->on('media_files')->index()->nullable();
+            $table->integer('national_image_back')->after('id')->unsigned()->references('id')->on('media_files')->index()->nullable();
+           
+            $table->integer('personal_img')->after('id')->unsigned()->references('id')->on('media_files')->index()->nullable();
         });
 
         Schema::create('re_account_password_resets', function (Blueprint $table) {

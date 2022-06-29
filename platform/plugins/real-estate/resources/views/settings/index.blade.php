@@ -196,6 +196,14 @@
                         </label>
                         <input type="number" class="form-control" name="property_expired_after_days" value="{{ RealEstateHelper::propertyExpiredDays() }}">
                     </div>
+
+                    <div class="form-group mb-3">
+                        <label class="text-title-field"
+                               for="rewiew_create_coast">تكلفة تأكيد المزاد والمزايدة
+                        </label>
+                        <input type="number" class="form-control" name="rewiew_create_coast" value="{{ RealEstateHelper::rewiewCreateCoast() }}">
+                    </div>
+
                 </div>
             </div>
         </div>

@@ -12,10 +12,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://sahla-ad.com/dynamic-map/style.css">
+    <style>
+        #header  {
+          display: none !important;
+        }
+        </style>
 </head>
 
 <body>
+
 <div class="container">
  <div class="row">
       {{-- <div class="col-12 mb-3">
@@ -39,7 +44,7 @@
       <!--  </div>-->
                             
                             
-       {{-- <div class="col-12">
+       <div class="col-12">
             <h4>أختار مخطط التوزيع</h4>
             <div class="form-group">
                 <select class="form-control bg-white" id="sub_select" name="replacement">
@@ -48,9 +53,9 @@
                   <option class="map2" value="sub2"> sub 2 </option>
                 </select>
             </div>
-        </div> --}}
+        </div> 
         
-        {{-- <div class="col-12">
+         <div class="col-12">
             <h4>أختار التوزيعة</h4>
             <div class="form-group">
                 <select class="form-control bg-white" id="sub_select1" name="replacement">
@@ -59,13 +64,13 @@
                      <option class="sub2" value="subsub1"> sub sub2 </option>
                 </select>
             </div>
-        </div> --}}
+        </div> 
     	
-          {{-- <div class="col-12">
+           <div class="col-12">
             <p> 137 قسيمة - قطعة 1
               مساحة القسيمة 400م2
             </p>
-          </div> --}}
+          </div> 
     </div>
     </div>
     <div class="container">
@@ -148,7 +153,6 @@
             <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="1622,499,1674,573" shape="rect"  class="area-element">
             <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="1674,501,1728,575" shape="rect"  class="area-element">
             <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="1731,499,1783,575" shape="rect"  class="area-element">
-            <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="1869,151,1930,208" shape="rect"  class="area-element">
             <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="1869,212,1930,269" shape="rect"  class="area-element">
             <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="1869,271,1930,332" shape="rect"  class="area-element">
             <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="1869,336,1930,391" shape="rect"  class="area-element">
@@ -165,7 +169,7 @@
             <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="1869,605,1930,663" shape="rect"  class="area-element">
             <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="1933,606,1991,664" shape="rect"  class="area-element">
             <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="2074,214,2132,275" shape="rect"  class="area-element">
-            <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="2136,214,2193,275" shape="rect"  class="area-element">
+<area id="coords_map222" target="" coords="2136,214,2193,275" shape="rect" class="area-element" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' selected="selected">
             <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="2075,278,2132,336" shape="rect"  class="area-element">
             <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="2193,337,2136,279" shape="rect"  class="area-element">
             <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="2071,340,2132,394" shape="rect"  class="area-element">
@@ -216,17 +220,21 @@
       </div>
     </div>
 
+<!--  
     <div class="container m-5">
       <div class="row m-5">
           <h3> الموقع على خريطة التوزيع </h3>
           <input type="text"  id="selected_value"  style="margin-top: 30px" value=""/>
       </div>
-    </div>
+    </div>-->
 
 
     <script>
     
         $(document).ready(function(){
+          $(".header").hide();
+$(".fixed-nav").hide();
+
 
               $('area').click(function() { 
                 
@@ -237,7 +245,8 @@
 
                 console.log( $(this).attr('area-element') );
 
-                 document.getElementById("selected_value").value  = coords               
+                 document.getElementById("selected_value").value  = coords;
+                 $(this).attr("selected","selected")            
 
                 // To prevent default action 
                 return false; 
@@ -250,6 +259,29 @@
 
     </script>
 
+<script>
+    
+       $(document).ready(function(){
+       
+	   
+          $('area').ready(function() {
+			  
+			 if ($('#coords_map222').attr('selected')){
+		console.log(  "invoked" );           
+    //  var colorx = $(this).attr('title');
+        var data = {};
+        data.alwaysOn = !data.alwaysOn;
+        data.stroke = 'none';
+        data.strokeWidth = 0.0000001;
+        data.strokeColor = '0fca98';
+        data.fillColor = 'dd0000'; // Sample color
+        data.fillOpacity = 0.7;
+        $('#coords_map222').data('maphilight', data).trigger('alwaysOn.maphilight');
+} 		
+    });
+	    
+        });
 
+    </script>
 </body>
 </html>

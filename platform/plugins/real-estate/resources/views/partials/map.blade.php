@@ -9,9 +9,14 @@ else include("404.html");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://sahla-ad.com/dynamic-map/style.css">
+    <style>
+        #header  {
+            display: none !important;
+        }
+        </style>
 </head>
 <body>
+
     <div class="location-map">
         <img src="map.png" usemap="#image-map" class="map">   
 
@@ -156,7 +161,6 @@ else include("404.html");
         <area target="" alt="" title="" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' href="" coords="1901,1213,1959,1270" shape="rect"  class="area-element">
         </map>
     </div>  
-    <script src="https://sahla-ad.com/dynamic-map/jquery.js"></script>
-    <script src="https://sahla-ad.com/dynamic-map/maphelight.min.js"></script>
+   
 </body>
 </html>

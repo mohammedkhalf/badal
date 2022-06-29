@@ -43,6 +43,7 @@ class Account extends Authenticatable
         'gender',
         'national_image_front',
         'national_image_back',
+        'personal_img',
         'national_id'
     ];
 

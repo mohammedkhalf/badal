@@ -25,4 +25,17 @@ class RealEstateHelper
 
         return config('plugins.real-estate.real-estate.property_expired_after_x_days');
     }
+
+    public function rewiewCreateCoast()
+    {
+        $coast = (int)setting('rewiew_create_coast');
+
+        if ($coast > 0) {
+            return $coast;
+        }
+
+        return config('plugins.real-estate.real-estate.rewiew_create_coast');
+    }
+
+    
 }

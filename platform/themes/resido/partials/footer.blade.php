@@ -4,7 +4,7 @@
 use Botble\RealEstate\Models\Notification;
 if (auth('account')->user()) {
       $bidd = Notification::where('account_id','=',auth('account')->user()->id)
-          ->orwhere('reciever_id','=',auth('account')->user()->id)
+          ->where('reciever_id','<>',auth('account')->user()->id)
         ->first();
 
     if($bidd) {

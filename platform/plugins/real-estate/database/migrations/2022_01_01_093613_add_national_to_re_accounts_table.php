@@ -17,6 +17,8 @@ class AddNationalToReaccountsTable extends Migration
             $table->string('national_id')->nullable()->after('id');
             $table->integer('national_image_front')->after('id')->unsigned()->references('id')->on('media_files')->index()->nullable();
             $table->integer('national_image_back')->after('id')->unsigned()->references('id')->on('media_files')->index()->nullable();
+           
+            $table->integer('personal_img')->after('id')->unsigned()->references('id')->on('media_files')->index()->nullable();
         });
     }
 

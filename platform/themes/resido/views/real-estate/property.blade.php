@@ -69,9 +69,10 @@
 </div>
 
     {!! Theme::partial('real-estate.elements.list-fx-features', compact('property')) !!}
+	
     {!! Theme::partial('real-estate.elements.features', ['property' => $property]) !!}
 
-    
+    <!-- Single Block Wrap - is_featured 
     <div class="property_block_wrap style-2">
 
 <div class="property_block_wrap_header">
@@ -79,15 +80,18 @@
        href="javascript:void(0);" aria-expanded="true"><h4
             class="property_block_title">{{ __('التفاصيل') }}</h4></a>
 </div>
+
 <div id="cl_featured" class="panel-collapse collapse show">
     <div class="block-body">
     {!! Theme::partial('real-estate.elements.is_featured', ['property' => $property]) !!}
     </div>
 </div>
+
 </div>
+-->
 
                 <!-- Single Block Wrap - Amenities -->
-                {!! Theme::partial('real-estate.elements.amenities', ['property' => $property]) !!}
+                {!! Theme::partial('real-estate.elements.amenities11', ['property' => $property]) !!}
                 {!! Theme::partial('real-estate.elements.amenities2', ['property' => $property]) !!}
                 {!! Theme::partial('real-estate.elements.amenities3', ['property' => $property]) !!}
                 {!! Theme::partial('real-estate.elements.amenities4', ['property' => $property]) !!}
@@ -97,7 +101,8 @@
                 {!! Theme::partial('real-estate.elements.amenities8', ['property' => $property]) !!}
                 {!! Theme::partial('real-estate.elements.amenities9', ['property' => $property]) !!}
                 {!! Theme::partial('real-estate.elements.amenities10', ['property' => $property]) !!}
-                {!! Theme::partial('real-estate.elements.amenities11', ['property' => $property]) !!}
+                {!! Theme::partial('real-estate.elements.amenities', ['property' => $property]) !!}
+                
                 
                 <!-- Single Block Wrap - Nearby -->
                 {!! Theme::partial('real-estate.elements.nearby', ['property' => $property]) !!}
@@ -129,7 +134,7 @@
 
             </div>
 
-                    <!-- add coords distributed-->
+                    <!-- add coords distributed
                     <div class="property_block_wrap style-2">
 
                         <div class="property_block_wrap_header">
@@ -143,16 +148,20 @@
 
                         </div>
                         
-        
+       
                         <div id="coords_map" class="panel-collapse collapse show">
                             <div class="block-body">
-                                {!! $property->coords_map !!}
+                            <div class="data-section map1" id="map1">
+        <img src="{{url('/storage/properties/map-1.png')}}" usemap="#image-map" class="map" >
+       <!--  <map name="image-map">  
+        <area id="coords_map222" target="" coords="{!! $property->coords_map !!}" shape="rect" class="area-element" data-maphilight='{"strokeColor":"44da06","strokeWidth":5,"fillColor":"44da06","fillOpacity":0.8}' selected="selected">
+        
                             </div>
                         </div>
-        
+      
                     </div>
-         
-
+        
+-->
 <!-- Badal request data -->
 <div class="property_block_wrap style-2">
 
@@ -249,7 +258,7 @@
                                         </p>
                                         <p>
                                             <span class="d-block">{{$bid->star}}</span>
-                                            <a class="blue-color" href="#" title="{{$bid->comment}}">{{$bid->comment}}</a>
+                                            <a class="blue-color" href="{{$bid->reviewable_id}}" title="{{$bid->comment}}">{{$bid->comment}}</a>
                                         </p>
                                     </h4>
                                 </div> 
@@ -273,7 +282,7 @@
 <!-- start add confirm bid -->  @if(auth('account')->user() && $property->reviewable_id !== auth('account')->user()->id)
 
 
-                                               <form action="/badal-new/public/account/properties/approveBidd/{{$bid->id}}" method="GET" id="frmhomesearch">
+                                               <form action="/public/account/properties/approveBidd/{{$bid->id}}" method="GET" id="frmhomesearch">
                                                         @csrf
                                                     <div class="mt-3  mb-2 px-7 ">
                                                    
@@ -282,7 +291,7 @@
                                                     @if($bid->status == "accepted")
                                                      @php $bid ;
                                                      @endphp
-                                                    <a  href="/agents/{{$bid->account->username}}" target="_blank" class="green-color rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
+                                                    <a  href="/agents/{{$author->username}}" target="_blank" class="green-color rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
                                                   بروفايل صاحب البدل
                                                     </a>
                                                     @elseif($bid->status == "pending")
@@ -469,6 +478,32 @@
     })
 
 </script>
+
+
+<script>
+    
+       $(document).ready(function(){
+       
+	   
+          $('area').ready(function(e) {
+			  
+			 if ($('#coords_map222').attr('selected')){
+		console.log(  "invoked" );           
+    //  var colorx = $(this).attr('title');
+        var data = {};
+        data.alwaysOn = !data.alwaysOn;
+        data.stroke = 'none';
+        data.strokeWidth = 0.0000001;
+        data.strokeColor = '0fca98';
+        data.fillColor = 'dd0000'; // Sample color
+        data.fillOpacity = 0.7;
+        $('#coords_map222').data('maphilight', data).trigger('alwaysOn.maphilight');
+} 		
+    });
+	    
+        });
+
+    </script>
 
 
 @if ($property->latitude && $property->longitude)

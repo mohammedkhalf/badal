@@ -3,6 +3,8 @@
 namespace Botble\RealEstate\Http\Controllers;
 
 use Assets;
+use Botble\RealEstate\Models\Notification;
+use Pusher\Pusher;
 use Botble\Base\Events\BeforeEditContentEvent;
 use Botble\Base\Events\CreatedContentEvent;
 use Botble\Base\Events\UpdatedContentEvent;
@@ -118,7 +120,7 @@ class AccountPropertyController extends Controller
         ->with(trans('core/base::notices.update_success_message'));
     }
 
-    public function approveBidd($id  ,  AccountInterface $accountRepository , BaseHttpResponse $response ) {
+    public function approveBidd( $id  ,  AccountInterface $accountRepository , BaseHttpResponse $response ) {
         if (!auth('account')->user()->canPost()) {
             return back()->with(['error_msg' => trans('plugins/real-estate::package.add_credit_alert')]);
         }
@@ -126,7 +128,7 @@ class AccountPropertyController extends Controller
         $account = $accountRepository->findOrFail(auth('account')->id());
 
        // dd($account);
-        if ($account->credits < 128) {
+        if ($account->credits < 125) {
             return $response->setError(true)->setMessage(__('لا يوجد رصيد كافى فى المحفظة. برجاء الشحن أولا'));
         }
         $review = Review::findOrFail($id);
@@ -135,16 +137,48 @@ class AccountPropertyController extends Controller
         $review->save();
 
         $accountCredit = $account->credits;
-        $account->credits = $accountCredit - 128;
+        $account->credits = $accountCredit - (RealEstateHelper::rewiewCreateCoast());
         $account->save();
+
+        
+        $options = array(
+            'cluster' => 'eu',
+            'encrypted' => false
+        );
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+
+        $pusher->trigger('my-channel', 'my-event', $review);
 
        /* return redirect()->back()
         ->with(trans('core/base::notices.update_success_message')); */
         if($review->status=='pending'){
-            return $response->setMessage(__('تم أختيار شخص للمزاد سيتم ارسال اشعار بخصم 128 دينار منه لتاكيد المزاد'));
+            $comment = $review->status ;
+            $notification =  Notification::create([
+                'account_id'        => $review->account_id,     //property owner
+                'reciever_id'       => auth('account')->user()->id,   // who want make Bid
+               // 'property_id'       => $property->id,
+                'reviewable_type'   => 'Botble\RealEstate\Models\Property',
+                'message'           => "تهانينا - تم أختيار المزايدة الخاصة بك من قبل صاحب البدل وبأنتظار تأكيدك للمزايدة"
+            ]);
+    
+            return $response->setMessage(__('تم أختيار شخص للمزاد سيتم ارسال اشعار بخصم 125 دينار منه لتاكيد المزاد'));
             }else
             {
-            return $response->setMessage(__('تم تأكيد المزاد بنجاح وخصم 128 دينار من حسابك'));
+                $comment = $review->status ;
+                $notification =  Notification::create([
+                    'account_id'        => $review->account_id,     //property owner
+                    'reciever_id'       => auth('account')->user()->id,   // who want make Bid
+                   // 'property_id'       => $property->id,
+                    'reviewable_type'   => 'Botble\RealEstate\Models\Property',
+                    'message'           => "تم تأكيد المزاد بنجاح وخصم 125 دينار من حسابك"
+                ]);
+              
+            return $response->setMessage(__('تم تأكيد المزاد بنجاح وخصم 125 دينار من حسابك'));
             }    }
 
     /**

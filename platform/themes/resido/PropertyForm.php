@@ -479,45 +479,17 @@ class PropertyForm extends FormAbstract
             ])
 
             ->add('rowOpen50', 'html', [
-                'html' => '<div class="ifram_cords_map_db"><iframe src="/badal-new/public/coords/map" width="100%" height="1100px" >',
+                'html' => '<iframe src="/badal-new/public/coords/map" width="100%" height="500px" >',
             ])
 
             ->add('rowClose50', 'html', [
-                'html' => '</iframe></div>',
+                'html' => '</iframe>',
             ])
 
 
             ->add('rowOpen', 'html', [
                 'html' => '<div class="row">',
             ])
-			
-			
-			
-			
-			 ->add('coords_map', 'text', [
-                'label'      => trans('plugins/real-estate::property.form.coords_map'),
-                'label_attr' => ['class' => 'control-label'],
-                // 'value'      => isset($_COOKIE['cookieName']) ? $_COOKIE['cookieName'] : '',
-                'wrapper'    => [
-                    'class' => 'form-group mb-3 col-md-6',
-                ],
-                'attr'       => [
-                    'placeholder'  => 'Ex: 103.812530',
-                    'data-counter' => 25,
-                ],
-                'help_block' => [
-                    'tag'  => 'a',
-                    'text' => trans('plugins/real-estate::property.form.coords_map'),
-                    'attr' => [
-                        'href'   => route('coords.map'),
-                        'target' => 'popup',
-                        'rel'    => 'nofollow',
-                        'onclick' => "window.open('http://google.com','popup','width=600,height=600')"
-                    ],
-                ],
-                'content'=> @include('core/base::forms.partials.help-block')
-            ])
-			
             ->add('latitude', 'text', [
                 'label'      => trans('plugins/real-estate::property.form.latitude'),
                 'label_attr' => ['class' => 'control-label'],
@@ -559,7 +531,29 @@ class PropertyForm extends FormAbstract
                 ],
             ])
 
-           
+            ->add('coords_map', 'text', [
+                'label'      => trans('plugins/real-estate::property.form.coords_map'),
+                'label_attr' => ['class' => 'control-label'],
+                // 'value'      => isset($_COOKIE['cookieName']) ? $_COOKIE['cookieName'] : '',
+                'wrapper'    => [
+                    'class' => 'form-group mb-3 col-md-6',
+                ],
+                'attr'       => [
+                    'placeholder'  => 'Ex: 103.812530',
+                    'data-counter' => 25,
+                ],
+                'help_block' => [
+                    'tag'  => 'a',
+                    'text' => trans('plugins/real-estate::property.form.coords_map'),
+                    'attr' => [
+                        'href'   => route('coords.map'),
+                        'target' => 'popup',
+                        'rel'    => 'nofollow',
+                        'onclick' => "window.open('http://google.com','popup','width=600,height=600')"
+                    ],
+                ],
+                'content'=> @include('core/base::forms.partials.help-block')
+            ])
 
 
             
