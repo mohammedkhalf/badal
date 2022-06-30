@@ -1,3 +1,8 @@
+<?php
+use Botble\RealEstate\Models\Property;
+use Botble\RealEstate\Models\Review;
+?>
+
 @php
     $is_lazyload = isset($lazyload) ? $lazyload : true;
 @endphp
@@ -26,6 +31,14 @@
                 </div>
                 <div class="list-price d-flex align-items-center flex-row">
                     <div class="w-50 d-inline-block">
+
+                    @if($property->review_statu == 'pending')
+                    accepted
+                    @else
+                    done eone
+                    @endif
+
+
                         @if (is_review_enabled() && $property->reviews_count > 0)
                         {!! Theme::partial('real-estate.elements.property-review', compact('property')) !!}
                         @endif

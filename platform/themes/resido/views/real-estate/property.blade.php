@@ -278,8 +278,8 @@
             </div></div></div>
           
 
-
-<!-- start add confirm bid -->  @if(auth('account')->user() && $property->reviewable_id !== auth('account')->user()->id)
+@if(auth('account')->user() && $property->approveBidd !== auth('account')->user()->id)
+<!-- start add confirm bid -->  @if(auth('account')->user() && $property->author_id !== auth('account')->user()->id)
 
 
                                                <form action="/public/account/properties/approveBidd/{{$bid->id}}" method="GET" id="frmhomesearch">
@@ -335,6 +335,7 @@
 														
 
 													@endif
+                                                    @endif
                                                     @endif
                                                     @endif
                                                 </div>

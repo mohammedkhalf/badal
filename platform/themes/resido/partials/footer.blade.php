@@ -91,7 +91,7 @@ if (auth('account')->user()) {
 </footer>
 <!-- ============================ Footer End ================================== -->
 <!-- bottom navbar -->
-    <div class="row fixed-nav" style="position:fixed;bottom:0px;background-color:white;width: -webkit-fill-available;z-index:99999999">
+    <div class="row fixed-nav" style="">
         
         <ul class="nav d-flex justify-content-around" style="position:relative;flex-direction:initial!important;padding-left:0; padding-right:0">
             <div style="position: absolute; top: -30px;right: 42%;">
