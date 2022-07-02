@@ -120,163 +120,36 @@
                     @endif
                     <div class="nav-toggle"></div>
                 </div>
-
                 <div class="nav-menus-wrapper" style="transition-property: none;">
+                <div class="nav-bar-desktop">
+                <a class="nav-brand" href="{{ route('public.index') }}"><img class="logo" src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" alt="{{ setting('site_title') }}"></a>
                     {!! Menu::renderMenuLocation('main-menu', [
                         'view'    => 'menu',
                         'options' => ['class' => 'nav-menu'],
-
                     ]) !!}
 
                     @if (is_plugin_active('real-estate'))
+                    <ul class="nav-menu nav-menu-social align-to-right">
+                            <li>
+                                <a href="{{ route('public.account.properties.create') }}" class="text-success"><img src="{{ Theme::asset()->url('') }}/img/submit.svg" width="20" alt="" class="mr-2" /> {{ __('Add Property') }}</a>
+                            </li>
+                            @if (auth('account')->check())
+                                <li class="login-item"><a href="{{ route('public.account.dashboard') }}" rel="nofollow"><i class="fas fa-user"></i> <span>{{ auth('account')->user()->name }}</span></a></li>
+                                <li class="login-item"><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" rel="nofollow"><i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}</a></li>
+                            @else
+                                <li class="add-listing">
+                                    <a href="{{ route('public.account.login') }}"><img src="{{ Theme::asset()->url('') }}/img/user-light.svg" width="12" alt="" class="mr-2" />{{ __('Sign In') }}</a>
+                                </li>
+                            @endif
+                        </ul>
+                </div>
+
                         <ul class="nav-menu nav-menu-social align-to-right">
-                            <!-- ============================================================== -->
-
-
-
-
-
-
                             <div class="d-sm-none mobile-menu">
                                 <?php $user = auth('account')->user();
                                 if($user != null){
                                 $avatar = $user->avatar;
-                                ?>
-                                {{--                            <div class="sidebar-widgets">--}}
-                                {{--                                <div class="dashboard-navbar">--}}
-                                {{--                                    <div class="d-user-avater">--}}
-                                {{--                                        <img--}}
-                                {{--                                            src="@if($avatar->url){{ $avatar->url ? RvMedia::getImageUrl($user->avatar->url, 'thumb') : $user->avatar_url }} @else # @endif?>"--}}
-                                {{--                                            src="{{ $avatar->url ? RvMedia::getImageUrl($user->avatar->url, 'thumb') : $user->avatar_url }} ?>"--}}
-                                {{--                                            alt="{{ $user->name }}" class="img-fluid avater" style="width: 150px;">--}}
-                                {{--                                        <h4>{{ $user->name }}</h4>--}}
-                                {{--                                        <span>{{ $user->phone }}</span>--}}
-                                {{--                                    </div>--}}
-
-                                {{--                                    <div class="d-navigation">--}}
-                                {{--                                        <ul>--}}
-                                {{--                                            <li class="{{ request()->routeIs('public.account.dashboard') ? 'active' : '' }}">--}}
-                                {{--                                                <a href="#"--}}
-                                {{--                                                   title="profile">--}}
-                                {{--                                                    <i class="far fa-user"></i>--}}
-                                {{--                                                    profile--}}
-                                {{--                                                </a>--}}
-                                {{--                                                </a>--}}
-                                {{--                                            </li>--}}
-                                {{--                                            <li class="{{ request()->routeIs('public.account.dashboard') ? 'active' : '' }}">--}}
-                                {{--                                                <a href="{{ route('public.account.dashboard') }}"--}}
-                                {{--                                                   title="{{ trans('plugins/real-estate::dashboard.header_profile_link') }}">--}}
-                                {{--                                                    <i class="ti-dashboard"></i>{{ __('Dashboard') }}</a>--}}
-                                {{--                                                </a>--}}
-                                {{--                                            </li>--}}
-
-                                {{--                                            <li class="{{ request()->routeIs('public.account.settings') ? 'active' : '' }}">--}}
-                                {{--                                                <a--}}
-                                {{--                                                    href="{{ route('public.account.settings') }}"--}}
-                                {{--                                                    title="{{ trans('plugins/real-estate::dashboard.header_settings_link') }}">--}}
-                                {{--                                                    <i class="fas fa-cogs mr1"></i>{{ trans('plugins/real-estate::dashboard.header_settings_link') }}--}}
-                                {{--                                                </a>--}}
-                                {{--                                            </li>--}}
-
-                                {{--                                            <li class="{{ request()->routeIs('public.account.packages') ? 'active' : '' }}">--}}
-                                {{--                                                <a--}}
-                                {{--                                                    href="{{ route('public.account.packages') }}"--}}
-                                {{--                                                    title="{{ trans('plugins/real-estate::account.credits') }}">--}}
-                                {{--                                                    <i class="far fa-credit-card mr1"></i>{{ trans('plugins/real-estate::account.buy_credits') }}--}}
-                                {{--                                                    <span--}}
-                                {{--                                                        class="badge badge-info">{{ auth('account')->user()->credits }} {{ trans('plugins/real-estate::account.credits') }}</span>--}}
-                                {{--                                                </a>--}}
-                                {{--                                            </li>--}}
-
-                                {{--                                            {!! apply_filters(ACCOUNT_TOP_MENU_FILTER, null) !!}--}}
-                                {{--                                            <li class="{{ request()->routeIs('public.account.properties.index') ? 'active' : '' }}">--}}
-                                {{--                                                <a--}}
-                                {{--                                                    href="{{ route('public.account.properties.index') }}"--}}
-                                {{--                                                    title="{{ trans('plugins/real-estate::account-property.properties') }}">--}}
-                                {{--                                                    <i class="far fa-newspaper mr1"></i>{{ trans('plugins/real-estate::account-property.properties') }}--}}
-                                {{--                                                </a>--}}
-                                {{--                                            </li>--}}
-
-                                {{--                                            @if (auth('account')->user()->canPost())--}}
-                                {{--                                                <li class="{{ request()->routeIs('public.account.properties.create') ? 'active' : '' }}">--}}
-                                {{--                                                    <a--}}
-                                {{--                                                        href="{{ route('public.account.properties.create') }}"--}}
-                                {{--                                                        title="{{ trans('plugins/real-estate::account-property.write_property') }}">--}}
-                                {{--                                                        <i class="far fa-edit mr1"></i>{{ trans('plugins/real-estate::account-property.write_property') }}--}}
-                                {{--                                                    </a>--}}
-                                {{--                                                </li>--}}
-                                {{--                                            @endif--}}
-                                {{--                                            @if (auth('account')->user()->canPost())--}}
-                                {{--                                                <li class="{{ request()->routeIs('public.account.properties.create') ? 'active' : '' }}">--}}
-                                {{--                                                    <a--}}
-                                {{--                                                        href="#"--}}
-                                {{--                                                        title="My Biddings">--}}
-                                {{--                                                        <i class="far fa-edit mr1"></i>My Biddings--}}
-                                {{--                                                    </a>--}}
-                                {{--                                                </li>--}}
-                                {{--                                            @endif--}}
-
-                                {{--                                            <li class="{{ request()->routeIs('public.account.security') ? 'active' : '' }}">--}}
-                                {{--                                                <a href="{{ route('public.account.security') }}">--}}
-                                {{--                                                    <i class="ti-unlock"></i>--}}
-                                {{--                                                    {{ trans('plugins/real-estate::dashboard.sidebar_security') }}--}}
-                                {{--                                                </a>--}}
-                                {{--                                            </li>--}}
-                                
-                                {{--                                            <li class="{{ request()->routeIs('public.account.dashboard') ? 'active' : '' }}">--}}
-                                {{--                                                <a href="/toasl-maana"--}}
-                                {{--                                                   title="أتصل بنا">--}}
-                                {{--                                                    <i class="fas fa-phone-alt"></i>--}}
-                                {{--                                                    أتصل بنا--}}
-                                {{--                                                </a>--}}
-                                {{--                                            </li>--}}
-                                
-                                {{--                                            <li class="{{ request()->routeIs('public.account.dashboard') ? 'active' : '' }}">--}}
-                                {{--                                                <a href="/properties/map"--}}
-                                {{--                                                   title="مخططات المناطق والتوزيعات ">--}}
-                                {{--                                                    مخططات المناطق والتوزيعات اﻷسكانية--}}
-                                {{--                                                    <i class="fas fa-phone-alt"></i>--}}
-                                {{--                                                </a>--}}
-                                {{--                                            </li>--}}
-                                
-                                {{--                                            <li class="{{ request()->routeIs('public.account.dashboard') ? 'active' : '' }}">--}}
-                                {{--                                                <a href="/alshrot-o-aalhkam"--}}
-                                {{--                                                   title="الشروط واﻷحكام">--}}
-                                {{--                                                    <i class="fas fa-phone-alt"></i>--}}
-                                {{--                                                    الشروط واﻷحكام--}}
-                                {{--                                                </a>--}}
-                                {{--                                            </li>--}}
-                                
-                                {{--                                            <li class="{{ request()->routeIs('public.account.dashboard') ? 'active' : '' }}">--}}
-                                {{--                                                <a href="#"--}}
-                                {{--                                                   title="قوانين البدل وألية البدل">--}}
-                                {{--                                                    <i class="fas fa-phone-alt"></i>--}}
-                                {{--                                                    قوانين البدل وألية البدل--}}
-                                {{--                                                </a>--}}
-                                {{--                                            </li>--}}
-                                {{--                                            <li>--}}
-                                
-                                {{--                                                <a class="no-underline mr2 black-50 hover-black-70 pv1 ph2 db"--}}
-                                {{--                                                   href="#"--}}
-                                {{--                                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();"--}}
-                                {{--                                                   title="{{ trans('plugins/real-estate::dashboard.header_logout_link') }}">--}}
-                                {{--                                                    <i class="fas fa-sign-out-alt mr1"></i>--}}
-                                {{--                                                    <span>{{ trans('plugins/real-estate::dashboard.header_logout_link') }}</span>--}}
-                                {{--                                                </a>--}}
-                                {{--                                                <form id="logout-form" action="{{ route('public.account.logout') }}"--}}
-                                {{--                                                      method="POST" style="display: none;">--}}
-                                {{--                                                    @csrf--}}
-                                {{--                                                </form>--}}
-                                {{--                                            </li>--}}
-                                
-                                {{--                                        </ul>--}}
-                                {{--                                    </div>--}}
-
-                                {{--                                </div>--}}
-                                {{--                            </div>--}}
-                                
-                                
-                                
+                                ?>                           
                                                                         
 <!-- ==========================menu login==================================== -->
 
@@ -430,9 +303,6 @@
 
 
 
-
-
-
                             <!-- ================================menu logout============================== -->
 <?php if (auth('account')->user() == null){?>
                             <div class="sidebar-widgets">
@@ -440,9 +310,6 @@
                                     <div class="d-navigation">
 
                                         <ul>
-
-
-
                                             <li class="first-li">
                                                 <a href="{{ route('public.account.properties.create') }}" class="text-success"><img src="{{ Theme::asset()->url('') }}/img/submit.svg" width="20" alt="" class="mr-2" /> {{ __('Add Property') }}</a>
                                             </li>
