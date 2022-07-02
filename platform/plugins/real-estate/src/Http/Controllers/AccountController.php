@@ -80,6 +80,29 @@ class AccountController extends BaseController
             }
         }
 
+        if ($request->input('personal_img')) {
+            $image = app(MediaFileInterface::class)->getFirstBy(['url' => $request->input('personal_img')]);
+            if ($image) {
+                $request->merge(['personal_img' => $image->id]);
+            }
+        }
+
+        if ($request->input('national_image_front')) {
+            $image = app(MediaFileInterface::class)->getFirstBy(['url' => $request->input('national_image_front')]);
+            if ($image) {
+                $request->merge(['national_image_front' => $image->id]);
+            }
+        }
+
+        if ($request->input('national_image_back')) {
+            $image = app(MediaFileInterface::class)->getFirstBy(['url' => $request->input('national_image_back')]);
+            if ($image) {
+                $request->merge(['national_image_back' => $image->id]);
+            }
+        }
+
+     
+        
         $account = $this->accountRepository->getModel();
         $account->fill($request->input());
         $account->is_featured = $request->input('is_featured');
@@ -124,6 +147,27 @@ class AccountController extends BaseController
             $image = app(MediaFileInterface::class)->getFirstBy(['url' => $request->input('avatar_image')]);
             if ($image) {
                 $request->merge(['avatar_id' => $image->id]);
+            }
+        }
+
+        if ($request->input('personal_img')) {
+            $image = app(MediaFileInterface::class)->getFirstBy(['url' => $request->input('personal_img')]);
+            if ($image) {
+                $request->merge(['personal_img' => $image->id]);
+            }
+        }
+
+        if ($request->input('national_image_front')) {
+            $image = app(MediaFileInterface::class)->getFirstBy(['url' => $request->input('national_image_front')]);
+            if ($image) {
+                $request->merge(['national_image_front' => $image->id]);
+            }
+        }
+
+        if ($request->input('national_image_back')) {
+            $image = app(MediaFileInterface::class)->getFirstBy(['url' => $request->input('national_image_back')]);
+            if ($image) {
+                $request->merge(['national_image_back' => $image->id]);
             }
         }
 

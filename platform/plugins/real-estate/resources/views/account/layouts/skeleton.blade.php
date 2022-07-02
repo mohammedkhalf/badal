@@ -63,7 +63,6 @@
 <body @if ($isRTL) dir="rtl" @endif>
   @include('core/base::layouts.partials.svg-icon')
   <div id="app">
-    @include('plugins/real-estate::account.components.header')
     <main class="pv3 pv4-ns">
         @if (auth('account')->check() && !auth('account')->user()->canPost())
             <div class="container">
@@ -74,6 +73,7 @@
         @endif
       @yield('content')
     </main>
+<!-- show translation 
       @if (is_plugin_active('language'))
           @php
               $supportedLocales = Language::getSupportedLocales();
@@ -94,6 +94,7 @@
               @endif
           @endif
       @endif
+-->
   </div>
 
   @if (session()->has('status') || session()->has('success_msg') || session()->has('error_msg') || (isset($errors) && $errors->count() > 0) || isset($error_msg))

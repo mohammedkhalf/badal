@@ -78,7 +78,7 @@
 
     <!-- ============================================================== -->
     <!-- Top header  -->
-
+    <!-- 
     <div class="topbar bg-brand p-2 d-none d-sm-block">
         <div class="container">
             <div class="d-flex align-items-center justify-content-between">
@@ -107,6 +107,7 @@
             </div>
         </div>
     </div>
+    -->
     <!-- ============================================================== -->
     <!-- Start Navigation -->
     <div class="header header-light head-shadow">

@@ -29,6 +29,9 @@ class AccountSeeder extends BaseSeeder
             'credits'      => 10,
             'confirmed_at' => now(),
             'avatar_id'    => $files[0]['data']->id,
+            'personal_img' => $files[0]['data']->id,
+            'national_image_front'    => $files[0]['data']->id,
+            'national_image_back' => $files[0]['data']->id,
         ]);
         for ($i = 1; $i < 10; $i++) {
             Account::create([
@@ -43,12 +46,10 @@ class AccountSeeder extends BaseSeeder
                 'credits'      => $faker->numberBetween(1, 10),
                 'confirmed_at' => now(),
                 'avatar_id'    => $files[$i]['data']->id,
-                'is_featured'  => $i % 2 == 0,
-                'is_featured2'  => $i % 2 == 0,
-                'is_featured3'  => $i % 2 == 0,
-                'is_featured4'  => $i % 2 == 0,
-                'is_featured5'  => $i % 2 == 0,
-                'is_featured6'  => $i % 2 == 0,
+                'personal_img' => $files[$i]['data']->id,
+                'national_image_front' => $files[$i]['data']->id,
+                'national_image_back' => $files[$i]['data']->id,
+            
             ]);
         }
     }

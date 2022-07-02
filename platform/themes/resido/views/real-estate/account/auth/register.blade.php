@@ -83,6 +83,41 @@
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <div class="input-with-icon">
+                                            <input id="phone" type="text"
+                                                   class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
+                                                   name="phone" value="{{ old('phone') }}" required
+                                                   placeholder="{{ trans('plugins/real-estate::dashboard.phone') }}">
+                                            <i class="ti-mobile"></i>
+                                        </div>
+                                        @if ($errors->has('phone'))
+                                            <span class="d-block invalid-feedback">
+                                                <strong>{{ $errors->first('phone') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-with-icon">
+                                            <input id="national_id" type="text"
+                                                   class="form-control{{ $errors->has('national_id') ? ' is-invalid' : '' }}"
+                                                   name="national_id" value="{{ old('national_id') }}" required
+                                                   placeholder="{{ trans('plugins/real-estate::dashboard.national_id') }}">
+                                            <i class="ti-id-badge"></i>
+                                        </div>
+                                        @if ($errors->has('national_id'))
+                                            <span class="d-block invalid-feedback">
+                                                <strong>{{ $errors->first('national_id') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-with-icon">
                                             <input id="password" type="password"
                                                    class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                                    name="password" required
@@ -108,22 +143,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="form-group">
-                                        <div class="input-with-icon">
-                                            <input id="national_id" type="text"
-                                                   class="form-control{{ $errors->has('national_id') ? ' is-invalid' : '' }}"
-                                                   name="national_id" value="{{ old('national_id') }}" required
-                                                   placeholder="{{ trans('plugins/real-estate::dashboard.national_id') }}">
-                                            <i class="ti-user"></i>
-                                        </div>
-                                        @if ($errors->has('national_id'))
-                                            <span class="d-block invalid-feedback">
-                                                <strong>{{ $errors->first('national_id') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
+                                
                                 <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <div class="input-with-icon">
@@ -132,7 +152,7 @@
                                                    class="form-control{{ $errors->has('national_image_front') ? ' is-invalid' : '' }}"
                                                    name="national_image_front" value="{{ old('national_image_front') }}" required
                                                    placeholder="{{ trans('plugins/real-estate::dashboard.national_image_front') }}">
-                                            <i class="ti-media"></i>
+                                                   <i class="ti-upload"></i>
                                         </div>
                                         @if ($errors->has('national_image_front'))
                                             <span class="d-block invalid-feedback">
@@ -149,7 +169,7 @@
                                                    class="form-control{{ $errors->has('national_image_back') ? ' is-invalid' : '' }}"
                                                    name="national_image_back" value="{{ old('national_image_back') }}" required
                                                    placeholder="{{ trans('plugins/real-estate::dashboard.national_image_back') }}">
-                                            <i class="ti-media"></i>
+                                                   <i class="ti-upload"></i>
                                         </div>
                                         @if ($errors->has('national_image_back'))
                                             <span class="d-block invalid-feedback">
@@ -163,36 +183,21 @@
                                     <div class="form-group">
                                         <div class="input-with-icon">
                                         <label>{{ __('trans.profile_image') }}</label>
-                                            <input id="avatar_id" type="file"
-                                                   class="form-control{{ $errors->has('avatar_id') ? ' is-invalid' : '' }}"
-                                                   name="avatar_id" value="{{ old('avatar_id') }}" required
-                                                   placeholder="{{ trans('plugins/real-estate::dashboard.avatar_id') }}">
-                                            <i class="ti-media"></i>
+                                            <input id="personal_img" type="file"
+                                                   class="form-control{{ $errors->has('personal_img') ? ' is-invalid' : '' }}"
+                                                   name="personal_img" value="{{ old('personal_img') }}" required
+                                                   placeholder="{{ trans('plugins/real-estate::dashboard.personal_img') }}">
+                                                   <i class="ti-upload"></i>
                                         </div>
-                                        @if ($errors->has('avatar_id'))
+                                        @if ($errors->has('personal_img'))
                                             <span class="d-block invalid-feedback">
-                                                <strong>{{ $errors->first('avatar_id') }}</strong>
+                                                <strong>{{ $errors->first('personal_img') }}</strong>
                                             </span>
                                         @endif
                                     </div>
                                 </div>
 
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="form-group">
-                                        <div class="input-with-icon">
-                                            <input id="phone" type="text"
-                                                   class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}"
-                                                   name="phone" value="{{ old('phone') }}" required
-                                                   placeholder="{{ trans('plugins/real-estate::dashboard.phone') }}">
-                                            <i class="ti-user"></i>
-                                        </div>
-                                        @if ($errors->has('phone'))
-                                            <span class="d-block invalid-feedback">
-                                                <strong>{{ $errors->first('phone') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
+                                
 
                             </div>
 

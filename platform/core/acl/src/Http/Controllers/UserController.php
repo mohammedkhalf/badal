@@ -332,8 +332,15 @@ class UserController extends BaseController
                 ->save('crop');
 
             $this->fileRepository->forceDelete(['id' => $user->avatar_id]);
+            $this->fileRepository->forceDelete(['id' => $user->personal_img]);
+            $this->fileRepository->forceDelete(['id' => $user->national_image_front]);
+            $this->fileRepository->forceDelete(['id' => $user->national_image_back]);
+
 
             $user->avatar_id = $file->id;
+            $user->personal_img = $file->id;
+            $user->national_image_front = $file->id;
+            $user->national_image_back = $file->id;
 
             $this->userRepository->createOrUpdate($user);
 

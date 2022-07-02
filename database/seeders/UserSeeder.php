@@ -31,6 +31,9 @@ class UserSeeder extends BaseSeeder
         $user->super_user = 1;
         $user->manage_supers = 1;
         $user->avatar_id = $files[0]['data']->id;
+        $user->personal_img = $files[0]['data']->id;
+        $user->national_image_front = $files[0]['data']->id;
+        $user->national_image_back = $files[0]['data']->id;
         $user->save();
 
         event('acl.activating', $user);

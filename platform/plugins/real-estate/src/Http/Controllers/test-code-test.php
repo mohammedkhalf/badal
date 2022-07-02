@@ -2,150 +2,254 @@
 
 namespace Botble\RealEstate\Http\Controllers;
 
-use Assets;
-use Exception;
-use Illuminate\View\View;
-use Illuminate\Http\Request;
-use Botble\RealEstate\Models\Notification;
-use App\Events\NotificationEvent;
-use Illuminate\Contracts\View\Factory;
-use Botble\Setting\Supports\SettingStore;
-use Botble\Base\Http\Controllers\BaseController;
-use Botble\RealEstate\Http\Controllers\NotificationController;
+use App\Http\Controllers\Controller;
+use Botble\ACL\Traits\RegistersUsers;
 use Botble\Base\Http\Responses\BaseHttpResponse;
-use Botble\Base\Events\CreatedContentEvent;
-use Botble\RealEstate\Http\Requests\NotificationRequest;
-use Botble\RealEstate\Repositories\Interfaces\NotificationInterface;
+use Botble\RealEstate\Models\Account;
+use Botble\RealEstate\Repositories\Interfaces\AccountInterface;
+use EmailHandler;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use RealEstateHelper;
+use SeoHelper;
+use Theme;
+use URL;
 
-use Botble\RealEstate\Services\StoreCurrenciesService;
-use Botble\RealEstate\Http\Requests\UpdateSettingsRequest;
-use Botble\RealEstate\Repositories\Interfaces\CurrencyInterface;
-use Pusher\Pusher;
-
-class RealEstateController extends BaseController
+class RegisterController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Register Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the registration of new users as well as their
+    | validation and creation. By default this controller uses a trait to
+    | provide this functionality without requiring any additional code.
+    |
+    */
+
+    use RegistersUsers;
 
     /**
-     * @var CurrencyInterface
+     * Where to redirect users after login / registration.
+     *
+     * @var string
      */
-    protected $currencyRepository;
+    protected $redirectTo = null;
 
     /**
-     * RealEstateController constructor.
-     * @param CurrencyInterface $currencyRepository
+     * @var AccountInterface
      */
-    public function __construct(CurrencyInterface $currencyRepository)
+    protected $accountRepository;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param AccountInterface $accountRepository
+     */
+    public function __construct(AccountInterface $accountRepository)
     {
-        $this->currencyRepository = $currencyRepository;
+        $this->accountRepository = $accountRepository;
+        $this->redirectTo = route('public.account.register');
     }
 
     /**
-     * @return Factory|View
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|\Response
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
      */
-    public function getSettings()
+    public function showRegistrationForm()
     {
-        page_title()->setTitle(trans('plugins/real-estate::real-estate.settings'));
-
-        Assets::addScripts(['jquery-ui'])
-            ->addScriptsDirectly([
-                'vendor/core/plugins/real-estate/js/currencies.js',
-            ])
-            ->addStylesDirectly([
-                'vendor/core/plugins/real-estate/css/currencies.css',
-            ]);
-
-        $currencies = $this->currencyRepository
-            ->getAllCurrencies()
-            ->toArray();
-
-        return view('plugins/real-estate::settings.index', compact('currencies'));
-    }
-
-    public function notification()
-    {
-        page_title()->setTitle('ارسال اشعارات للمستخدمين');
-
-        return view('plugins/real-estate::settings.notifications');
-    }
-
-    public function sentNotification(NotificationRequest $request ,  BaseHttpResponse $response)
-    {
-        $options = array(
-            'cluster' => 'eu',
-            'encrypted' => false
-        );
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
-
-        $pusher->trigger('my-channel', 'my-event', $request->notification);
-        $users= \DB::table('re_accounts')->select('id')->get();
-        foreach ($users??[] as $key => $user) {
-            $request->merge([
-                'message' => $request->notification,
-                'reciever_id' => $user->id,
-                'language'=>'en_US',
-                'notification_type'=>'admin',
-                'ref_from'=>null,
-                'submit'=>'save'
-            ]);
-            // dd($request->all());
-            $notinterface =  \App::make('Botble\RealEstate\Repositories\Interfaces\NotificationInterface');
-            $not = new NotificationController($notinterface);
-            // NotificationController::save($request,$response);
-            $not->save($request,$response);
-            // $notification = new Notification();
-            // $notification->message=$request->notification;
-            // $notification->reciever_id=$user->id;
-            // $notification->save();
-            // event(new CreatedContentEvent(NOTIFICATION_MODULE_SCREEN_NAME, $request, $notification));
-
+        if (!RealEstateHelper::isRegisterEnabled()) {
+            abort(404);
         }
-        return $response
-        ->setNextUrl(url('admin/real-estate/notification'))
-        ->setMessage('تم ارسال الاشعار بنجاح');
 
+        SeoHelper::setTitle(__('Register'));
+
+        if (view()->exists(Theme::getThemeNamespace() . '::views.real-estate.account.auth.register')) {
+            return Theme::scope('real-estate.account.auth.register')->render();
+        }
+
+        return view('plugins/real-estate::account.auth.register');
     }
 
     /**
-     * @param UpdateSettingsRequest $request
+     * Confirm a user with a given confirmation code.
+     *
+     * @param int $id
+     * @param Request $request
      * @param BaseHttpResponse $response
-     * @param StoreCurrenciesService $service
-     * @param SettingStore $settingStore
+     * @param AccountInterface $accountRepository
      * @return BaseHttpResponse
-     * @throws Exception
      */
-    public function postSettings(
-        UpdateSettingsRequest $request,
-        BaseHttpResponse $response,
-        StoreCurrenciesService $service,
-        SettingStore $settingStore
-    ) {
-        $settingStore->set(config('plugins.real-estate.real-estate.prefix') . 'review_fields', json_encode($request->input(config('plugins.real-estate.real-estate.prefix') . 'review_fields')));
-        foreach ($request->except(['_token', 'currencies', 'deleted_currencies', config('plugins.real-estate.real-estate.prefix') . 'review_fields']) as $settingKey => $settingValue) {
-            $settingStore->set($settingKey, $settingValue);
+    public function confirm($id, Request $request, BaseHttpResponse $response, AccountInterface $accountRepository)
+    {
+        if (!RealEstateHelper::isRegisterEnabled()) {
+            abort(404);
         }
 
-        $settingStore->save();
-
-        $currencies = json_decode($request->input('currencies'), true) ?: [];
-
-        if (!$currencies) {
-            return $response
-                ->setNextUrl(route('real-estate.settings'))
-                ->setError()
-                ->setMessage(trans('plugins/real-estate::currency.require_at_least_one_currency'));
+        if (!URL::hasValidSignature($request)) {
+            abort(404);
         }
 
-        $deletedCurrencies = json_decode($request->input('deleted_currencies', []), true) ?: [];
+        $account = $accountRepository->findOrFail($id);
 
-        $service->execute($currencies, $deletedCurrencies);
+        $account->confirmed_at = now();
+        $this->accountRepository->createOrUpdate($account);
+
+        $this->guard()->login($account);
 
         return $response
-            ->setNextUrl(route('real-estate.settings'))
-            ->setMessage(trans('core/base::notices.update_success_message'));
+            ->setNextUrl(route('public.account.dashboard'))
+            ->setMessage(__('You successfully confirmed your email address.'));
+    }
+
+    /**
+     * Get the guard to be used during registration.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
+     */
+    protected function guard()
+    {
+        return auth('account');
+    }
+
+    /**
+     * Resend a confirmation code to a user.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param AccountInterface $accountRepository
+     * @param BaseHttpResponse $response
+     * @return BaseHttpResponse
+     */
+    public function resendConfirmation(
+        Request $request,
+        AccountInterface $accountRepository,
+        BaseHttpResponse $response
+    ) {
+        if (!RealEstateHelper::isRegisterEnabled()) {
+            abort(404);
+        }
+
+        $account = $accountRepository->getFirstBy(['email' => $request->input('email')]);
+        if (!$account) {
+            return $response
+                ->setError()
+                ->setMessage(__('Cannot find this account!'));
+        }
+
+        $this->sendConfirmationToUser($account);
+
+        return $response
+            ->setMessage(__('We sent you another confirmation email. You should receive it shortly.'));
+    }
+
+    /**
+     * Send the confirmation code to a user.
+     *
+     * @param Account $account
+     */
+    protected function sendConfirmationToUser($account)
+    {
+        // Notify the user
+        $notificationConfig = config('plugins.real-estate.real-estate.notification');
+        if ($notificationConfig) {
+            $notification = app($notificationConfig);
+            $account->notify($notification);
+        }
+    }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param BaseHttpResponse $response
+     * @return BaseHttpResponse
+     */
+    public function register(Request $request, BaseHttpResponse $response)
+    {
+        if (!RealEstateHelper::isRegisterEnabled()) {
+            abort(404);
+        }
+
+        $this->validator($request->input())->validate();
+
+        event(new Registered($account = $this->create($request->input())));
+
+        EmailHandler::setModule(REAL_ESTATE_MODULE_SCREEN_NAME)
+            ->setVariableValues([
+                'account_name'  => $account->name,
+                'account_email' => $account->email,
+            ])
+            ->sendUsingTemplate('account-registered');
+
+        if (setting('verify_account_email', config('plugins.real-estate.real-estate.verify_email'))) {
+            $this->sendConfirmationToUser($account);
+            return $this->registered($request, $account)
+                ?: $response->setNextUrl($this->redirectPath())
+                    ->setMessage(__('Please confirm your email address.'));
+        }
+
+        $account->confirmed_at = now();
+        $this->accountRepository->createOrUpdate($account);
+        $this->guard()->login($account);
+
+        return $response->setNextUrl($this->redirectPath())->setMessage(__('Registered successfully!'));
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param array $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        $rules = [
+            'first_name' => 'required|max:120',
+            'last_name'  => 'required|max:120',
+            'username'   => 'required|max:60|min:2|unique:re_accounts,username',
+            'email'      => 'required|email|max:255|unique:re_accounts',
+            'password'   => 'required|min:6|confirmed',
+        ];
+
+        if (setting('enable_captcha') && is_plugin_active('captcha')) {
+            $rules['g-recaptcha-response'] = 'required|captcha';
+        }
+
+        return Validator::make($data, $rules, [
+            'g-recaptcha-response.required' => __('Captcha is required')
+        ]);
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param array $data
+     * @return Account
+     */
+    protected function create(array $data)
+    {
+        return $this->accountRepository->create([
+            'first_name' => $data['first_name'],
+            'last_name'  => $data['last_name'],
+            'username'   => $data['username'],
+            'email'      => $data['email'],
+            'password'   => bcrypt($data['password']),
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getVerify()
+    {
+        if (!RealEstateHelper::isRegisterEnabled()) {
+            abort(404);
+        }
+
+        return view('plugins/real-estate::account.auth.verify');
     }
 }
