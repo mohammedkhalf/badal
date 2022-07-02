@@ -27,7 +27,7 @@ if (auth('account')->user()) {
         <div class="container">
             <div class="row">  
                 <div class="col-lg-3 col-md-4">
-                    <div class="footer-widget"><!--
+                    <div class="footer-widget">
                         @if (theme_option('logo_white'))
                             <img src="{{ RvMedia::getImageUrl(theme_option('logo_white')) }}" class="img-footer"
                                  style="max-height: 38px" alt="{{ theme_option('site_name') }}">
@@ -79,7 +79,7 @@ if (auth('account')->user()) {
                             @endforeach
                         </ul>
                     @endif
-    -->
+    
     
 
         </div>
@@ -91,7 +91,7 @@ if (auth('account')->user()) {
 </footer>
 <!-- ============================ Footer End ================================== -->
 <!-- bottom navbar -->
-    <div class="row fixed-nav" style="">
+    <div class="row fixed-nav">
         
         <ul class="nav d-flex justify-content-around" style="position:relative;flex-direction:initial!important;padding-left:0; padding-right:0">
             <div style="position: absolute; top: -30px;right: 42%;">

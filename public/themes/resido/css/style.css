@@ -10891,7 +10891,8 @@ footer {
 }
 
 footer.dark-footer {
-    background: #252c41
+    background: #252c41;
+    border-top: 1px solid #c5c5c5;
 }
 
 .footer-logo {
@@ -10981,7 +10982,7 @@ h4.widget-title {
     display: block;
     list-style: none;
     margin-top: 15px;
-    width: 24%;
+    width: 100%;
 }
 
 .footer-widget ul li a {
@@ -10989,20 +10990,20 @@ h4.widget-title {
 }
 
 footer.skin-dark-footer h4 {
-    color: #fff
+    color: #626a70
 }
 
 footer.skin-dark-footer,
 footer.skin-dark-footer .footer-widget ul li a,
 footer.skin-dark-footer a {
-    color: #858b9f;
+    color: #626a70;
     font-size: 14px;
     transition: all .4s ease
 }
 
 footer.skin-dark-footer .footer-widget ul li a:focus,
 footer.skin-dark-footer .footer-widget ul li a:hover {
-    color: #fff
+    color: #626a70;
 }
 
 .widget_media_image {
@@ -11011,11 +11012,12 @@ footer.skin-dark-footer .footer-widget ul li a:hover {
 
 .footer-bottom {
     border-top: 1px solid #e9edf3;
-    padding: 20px 0
+    padding: 20px 0;
+    color: #fff;
 }
 
 .skin-dark-footer .footer-bottom {
-    background: #1b2132;
+    background: #1266e3;
     border-top: none
 }
 
@@ -11045,7 +11047,7 @@ ul.footer-bottom-social li i {
 }
 
 footer.skin-dark-footer ul.footer-bottom-social li a {
-    color: #858b9f;
+    color: #fff;
     font-size: 14px
 }
 
@@ -11110,7 +11112,7 @@ footer.skin-dark-footer ul.footer-bottom-social li a:hover {
     align-items: center;
     border: 1px solid #353d56;
     border-radius: 4px;
-    color: #fff;
+    color: #858b9f;
     display: flex;
     flex-wrap: wrap;
     height: 70px;
@@ -15473,7 +15475,8 @@ input {
 body{
 overflow-y:visible!important;
 }
-.table-wrapper tbody tr td:first-child{color:#fff;}
+.table-wrapper tbody tr td:first-child{}
+
 .listing-card-info-price{font-size:14px;}
 .modal {
     top: 40px;
@@ -15542,12 +15545,17 @@ li a.nav-link.active-nav{color:#1266e3 !important}
     display: none !important;
   }
 
+
   }
 
 
 
   /* hide from mobile */
 @media screen and (max-width: 900px) {
+    .py-5,.footer-bottom  {
+        display: none !important;
+      }
+    
     .d-bar-navigation  {
         display: none !important;
       }
