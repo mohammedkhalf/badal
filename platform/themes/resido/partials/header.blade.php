@@ -121,28 +121,52 @@
                     <div class="nav-toggle"></div>
                 </div>
                 <div class="nav-menus-wrapper" style="transition-property: none;">
-                <div class="nav-bar-desktop">
-                <a class="nav-brand" href="{{ route('public.index') }}"><img class="logo" src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" alt="{{ setting('site_title') }}"></a>
-                    {!! Menu::renderMenuLocation('main-menu', [
+                <div class="nav-bar-desktop">                  
+                    @if (is_plugin_active('real-estate'))
+                    <nav class="navbar navbar-expand-md navbar-light bg-white">
+  <div class="container">
+
+  @if (theme_option('logo'))
+        <a class="nav-brand" href="{{ route('public.index') }}"><img class="logo" src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" alt="{{ setting('site_title') }}"></a>
+        @else
+          <div class="brand-container tc mr2 br2">
+            <a class="navbar-brand b white ma0 pa0 dib w-100" href="{{ url('/') }}" title="{{ theme_option('site_title') }}">{{ ucfirst(mb_substr(theme_option('site_title'), 0, 1, 'utf-8')) }}</a>
+          </div>
+        @endif   
+        
+        
+        {!! Menu::renderMenuLocation('main-menu', [
                         'view'    => 'menu',
                         'options' => ['class' => 'nav-menu'],
                     ]) !!}
-
-                    @if (is_plugin_active('real-estate'))
-                    <ul class="nav-menu nav-menu-social align-to-right">
+        <ul class="navbar-nav ml-auto my-2">
+                            @if (auth('account')->check())
                             <li>
                                 <a href="{{ route('public.account.properties.create') }}" class="text-success"><img src="{{ Theme::asset()->url('') }}/img/submit.svg" width="20" alt="" class="mr-2" /> {{ __('Add Property') }}</a>
                             </li>
-                            @if (auth('account')->check())
-                                <li class="login-item"><a href="{{ route('public.account.dashboard') }}" rel="nofollow"><i class="fas fa-user"></i> <span>{{ auth('account')->user()->name }}</span></a></li>
-                                <li class="login-item"><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" rel="nofollow"><i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}</a></li>
+                            <li>
+            <a class="no-underline mr2 black-50 hover-black-70 pv1 ph2 db mr2" style="text-decoration: none; line-height: 32px;" href="{{ route('public.account.dashboard') }}" title="{{ trans('plugins/real-estate::dashboard.header_profile_link') }}">
+              <span>
+                <img src="{{ auth('account')->user()->avatar->url ? RvMedia::getImageUrl(auth('account')->user()->avatar->url, 'thumb') : auth('account')->user()->avatar_url }}" class="br-100 v-mid mr1" alt="{{ auth('account')->user()->name }}" style="width: 30px;">
+                <span>{{ auth('account')->user()->name }}</span>
+              </span>
+            </a>
+          </li>                        
+          <li class="login-item"><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" rel="nofollow"><i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}</a></li>
                             @else
-                                <li class="add-listing">
-                                    <a href="{{ route('public.account.login') }}"><img src="{{ Theme::asset()->url('') }}/img/user-light.svg" width="12" alt="" class="mr-2" />{{ __('Sign In') }}</a>
-                                </li>
+                            <li>
+            <a class="no-underline mr2 black-50 hover-black-70 pv1 ph2 db" style="text-decoration: none; line-height: 32px;" href="{{ route('public.account.login') }}">
+                <i class="fas fa-sign-in-alt"></i> {{ trans('plugins/real-estate::dashboard.login-cta') }}
+            </a>
+          </li>
+          <li>
+            <a class="no-underline mr2 black-50 hover-black-70 pv1 ph2 db" style="text-decoration: none; line-height: 32px;" href="{{ route('public.account.register') }}">
+                <i class="fas fa-user-plus"></i> {{ trans('plugins/real-estate::dashboard.register-cta') }}
+            </a>
+          </li>
                             @endif
                         </ul>
-                </div>
+                </div></div>
 
                         <ul class="nav-menu nav-menu-social align-to-right">
                             <div class="d-sm-none mobile-menu">
