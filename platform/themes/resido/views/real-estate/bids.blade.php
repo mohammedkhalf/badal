@@ -9,25 +9,25 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="scontent">
-                            
+                             <!-- implement account Notification -->
     <div class="modal-dialog">
         <div class="modal-content">
-                            <!-- implement account Notification -->
+                           
                             <form action="{{url('/reviews/create')}}" method="POST" id="frmhomesearch">
                              {{csrf_field()}}
                                 <div class="hero-search-content side-form">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <select class="form-control bg-white" name="replacement">
-                                                    <option value="">أختار نوع المزايدة</option>
-                                                    <option value="بيت حكومي">بيت حكومي</option>
-                                                    <option value="كاش + بيت حكومي">كاش + بيت حكومي</option>
-                                                    <option value="قسيمة">قسيمة</option>
-                                                    <option value="كاش + قسيمة">كاش + قسيمة</option>
-                                                    <option value="اسكان">اسكان</option>
-                                                    <option value="كاش + اسكان">كاش + اسكان</option>
-                                                </select>
+                                            <select class="form-control bg-white" name="replacement" required required  id="doc_type"     oninvalid="this.setCustomValidity('برجاء اختيار من القائمة')" oninput="setCustomValidity('')">
+                                        <option value="">أختار نوع المزايدة</option>
+                                        <option value="بيت حكومي">بيت حكومي</option>
+                                        <option value="كاش + بيت حكومي">كاش + بيت حكومي</option>
+                                        <option value="قسيمة">قسيمة</option>
+                                        <option value="كاش + قسيمة">كاش + قسيمة</option>
+                                        <option value="اسكان">اسكان</option>
+                                        <option value="كاش + اسكان">كاش + اسكان</option>
+                                    </select>
                                             </div>
                                         </div>
                                         
@@ -92,6 +92,12 @@
                                 </div> 
             </div></div></div>
                                 </div>
+
+
+
+
+
+                                
                         @endforeach
                         <!-- end bottom sections -->
                         </div>

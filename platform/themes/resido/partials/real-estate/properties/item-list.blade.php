@@ -32,12 +32,13 @@ use Botble\RealEstate\Models\Review;
                 <div class="list-price d-flex align-items-center flex-row">
                     <div class="w-50 d-inline-block">
 
-                    @if($property->review_statu == 1)
+                    <!--
+                    @if( $property->review_status == 'pending')
                     accepted
                     @else
                     done eone
                     @endif
-
+-->
 
                         @if (is_review_enabled() && $property->reviews_count > 0)
                         {!! Theme::partial('real-estate.elements.property-review', compact('property')) !!}
