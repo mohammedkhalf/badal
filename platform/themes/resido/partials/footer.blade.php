@@ -3,14 +3,14 @@
 <?php
 use Botble\RealEstate\Models\Notification;
 if (auth('account')->user()) {
-      $bidd = Notification::where('account_id','=',auth('account')->user()->id)
+      $bidd  = Notification::where('account_id','=',auth('account')->user()->id)
           ->where('reciever_id','<>',auth('account')->user()->id)
         ->first();
 
-    if($bidd) {
+    if($bidd ) {
         $reviews = Notification::where('account_id', '=', auth('account')->user()->id)
-            ->where('notification_type','=','bidd')
-            ->where('created_at' ,'>' , Carbon\Carbon::parse($bidd->created_at)->format('H:i:s'))
+          //  ->where('notification_type','=','bidd')
+            ->where('created_at' ,'>' , Carbon\Carbon::parse($bidd ->created_at)->format('H:i:s'))
             ->get();
     } else {
         $reviews = [];

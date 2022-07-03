@@ -130,14 +130,14 @@ class ReviewController extends BaseController
     }
 
     public function getNotiBidds() {
-        $bidd = Notification::where('account_id','=',auth('account')->user()->id)
+        $bidd  = Notification::where('account_id','=',auth('account')->user()->id)
           //  ->where('notification_type','=','bidd')
         ->first();
 
-    if($bidd) {
+    if($bidd ) {
         $reviews = Notification::where('account_id', '=', auth('account')->user()->id) //<>
          //   ->where('notification_type','=','bidd')
-        ->where('created_at' ,'>' , Carbon\Carbon::parse($bidd->created_at)->format('H:i:s'))
+        ->where('created_at' ,'>' , Carbon\Carbon::parse($bidd ->created_at)->format('H:i:s'))
         ->latest()
         ->get();
 

@@ -163,7 +163,8 @@ class AccountPropertyController extends Controller
                 'reciever_id'       => auth('account')->user()->id,   // who want make Bid
                // 'property_id'       => $property->id,
                 'reviewable_type'   => 'Botble\RealEstate\Models\Property',
-                'message'           => "تهانينا - تم أختيار المزايدة الخاصة بك من قبل صاحب البدل وبأنتظار تأكيدك للمزايدة"
+                'message'           => "تهانينا - تم أختيار المزايدة الخاصة بك من قبل صاحب البدل وبأنتظار تأكيدك للمزايدة",
+            'notification_type' => 'info'
             ]);
     
             return $response->setMessage(__('تم أختيار شخص للمزاد سيتم ارسال اشعار بخصم 125 دينار منه لتاكيد المزاد'));
@@ -175,7 +176,8 @@ class AccountPropertyController extends Controller
                     'reciever_id'       => auth('account')->user()->id,   // who want make Bid
                    // 'property_id'       => $property->id,
                     'reviewable_type'   => 'Botble\RealEstate\Models\Property',
-                    'message'           => "تم تأكيد المزاد بنجاح وخصم 125 دينار من حسابك"
+                    'message'           => "تم تأكيد المزاد بنجاح وخصم 125 دينار من حسابك",
+                    'notification_type' => 'info'
                 ]);
               
             return $response->setMessage(__('تم تأكيد المزاد بنجاح وخصم 125 دينار من حسابك'));
