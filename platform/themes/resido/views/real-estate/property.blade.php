@@ -276,9 +276,9 @@
                                     </div>
                                 </div> 
             </div></div></div>
-          
+           
 
-@if(auth('account')->user() && $property->approveBidd !== auth('account')->user()->id)
+@if(auth('account')->user() && $bid->account_id == auth('account')->user()->id)
 <!-- start add confirm bid -->  @if(auth('account')->user() && $property->author_id !== auth('account')->user()->id)
 
 
@@ -356,7 +356,13 @@
 <!-- start add auction -->
 <!-- Button trigger modal -->
 
+@if($bid->status == "accepted")
 
+<button target="_blank" class="green-color bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
+ تم أنتهاء المزاد
+</button>
+
+@else
 @if(auth('account')->user() && $property->author_id !== auth('account')->user()->id)
 <div class="px-7 ">
     <button type="button" data-bs-toggle="modal" data-bs-target="#creditModal"  class="mb-4 rounded-pill bg-blue row w-100 mx-auto d-block border-0 btn btn-primary">
@@ -364,7 +370,8 @@
     </button>
 </div>
 @endif
-
+                  
+                    @endif
 <!-- start add auction modal -->
 <div class="modal fade" id="AddAcutionModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

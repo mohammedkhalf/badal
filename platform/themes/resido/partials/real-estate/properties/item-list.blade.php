@@ -32,7 +32,7 @@ use Botble\RealEstate\Models\Review;
                 <div class="list-price d-flex align-items-center flex-row">
                     <div class="w-50 d-inline-block">
 
-                    @if($property->review_statu == 'pending')
+                    @if($property->review_statu == 1)
                     accepted
                     @else
                     done eone
