@@ -1,24 +1,28 @@
 @if (!empty($property->features))
     <!-- Single Block Wrap -->
-    <div class="property_block_wrap style-2">
+    @if($property->features4()->exists())
 
-        <div class="property_block_wrap_header">
-            <a data-bs-toggle="collapse" data-parent="#amen" data-bs-target="#clThree" aria-controls="clThree"
-                href="javascript:void(0);" aria-expanded="true">
-                <h4 class="property_block_title">{{ trans('plugins/real-estate::feature4.name') }}</h4>
-            </a>
-        </div>
-        <div id="clThree" class="panel-collapse collapse show">
-            <div class="block-body">
-                <ul class="avl-features third color">
-                    @foreach ($property->features4 as $feature4)
-                        <li>
-                            <i class="icon @if ($feature4->icon) {{ $feature4->icon }} @else fas fa-check @endif"></i>
-                            <span>{{ $feature4->name }}</span>
-                        </li>
-                    @endforeach
-                </ul>
+        <div class="property_block_wrap style-2">
+
+            <div class="property_block_wrap_header">
+                <a data-bs-toggle="collapse" data-parent="#amen" data-bs-target="#clThree" aria-controls="clThree"
+                    href="javascript:void(0);" aria-expanded="true">
+                    <h4 class="property_block_title">{{ trans('plugins/real-estate::feature4.name') }}</h4>
+                </a>
+            </div>
+            <div id="clThree" class="panel-collapse collapse show">
+                <div class="block-body">
+                    <ul class="avl-features third color">
+                        @foreach ($property->features4 as $feature4)
+                            <li>
+                                <i class="icon @if ($feature4->icon) {{ $feature4->icon }} @else fas fa-check @endif"></i>
+                                <span>{{ $feature4->name }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
+
 @endif

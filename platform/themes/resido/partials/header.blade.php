@@ -61,7 +61,7 @@
  -->
 
 <div class="loader-wrap">
-        <div class="preloader">
+        <div class="preloader"  style="display: none">
             <div id="handle-preloader" class="handle-preloader">
                 <div class="animation-preloader">
                     <div class="spinner"></div>
