@@ -27,6 +27,7 @@ class Notification extends BaseModel
         'property_id',
         'account_id',
         'status',
+        'notification_type'
     ];
 
     /**

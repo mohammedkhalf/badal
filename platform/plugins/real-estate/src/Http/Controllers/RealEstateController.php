@@ -93,10 +93,11 @@ class RealEstateController extends BaseController
                 'ref_from'=>null,
                 'submit'=>'save'
             ]);
-            // dd($request->all());
             $notinterface =  \App::make('Botble\RealEstate\Repositories\Interfaces\NotificationInterface');
             $not = new NotificationController($notinterface);
             // NotificationController::save($request,$response);
+
+            //dd($request->all());
             $not->save($request,$response);
             // $notification = new Notification();
             // $notification->message=$request->notification;
